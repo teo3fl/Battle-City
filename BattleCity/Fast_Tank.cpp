@@ -1,26 +1,26 @@
 #include "Fast_Tank.h"
 
-std::string Fast_Tank::GetName() const
+std::string FastTank::GetName() const
 {
 	return m_name;
 }
 
-uint16_t Fast_Tank::GetPoints() const
+uint16_t FastTank::GetPoints() const
 {
 	return m_points;
 }
 
-uint8_t Fast_Tank::GetHealth() const
+uint8_t FastTank::GetHealth() const
 {
 	return m_health;
 }
 
-uint8_t Fast_Tank::GetMovement() const
+uint8_t FastTank::GetMovement() const
 {
 	return m_movement;
 }
 
-uint8_t Fast_Tank::GetBullet() const
+uint8_t FastTank::GetBullet() const
 {
 	return m_bullet;
 }

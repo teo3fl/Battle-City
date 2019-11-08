@@ -1,26 +1,26 @@
 #include "Armor_Tank.h"
 
-std::string Armor_Tank::GetName() const
+std::string ArmorTank::GetName() const
 {
 	return m_name;
 }
 
-uint16_t Armor_Tank::GetPoints() const
+uint16_t ArmorTank::GetPoints() const
 {
 	return m_points;
 }
 
-uint8_t Armor_Tank::GetHealth() const
+uint8_t ArmorTank::GetHealth() const
 {
 	return m_health;
 }
 
-uint8_t Armor_Tank::GetMovement() const
+uint8_t ArmorTank::GetMovement() const
 {
 	return m_movement;
 }
 
-uint8_t Armor_Tank::GetBullet() const
+uint8_t ArmorTank::GetBullet() const
 {
 	return m_bullet;
 }

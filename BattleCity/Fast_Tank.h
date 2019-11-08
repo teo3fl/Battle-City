@@ -1,7 +1,7 @@
 #pragma once
 #include "Tank.h"
 
-class Fast_Tank : public Tank
+class FastTank : public Tank
 {
 public:
 	std::string GetName() const override;
