@@ -1,5 +1,8 @@
 ﻿#pragma once
+
 #include "GraphicsSettings.h"
+
+#include "State.h"
 
 class Game
 { 
