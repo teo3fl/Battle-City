@@ -1,4 +1,4 @@
-#include "Basic_Tank.h"
+#include "BasicTank.h"
 
 std::string BasicTank::GetName() const
 {

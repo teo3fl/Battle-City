@@ -1,4 +1,4 @@
-#include "Fast_Tank.h"
+#include "FastTank.h"
 
 std::string FastTank::GetName() const
 {

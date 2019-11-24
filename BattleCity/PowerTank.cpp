@@ -1,4 +1,4 @@
-#include "Power_Tank.h"
+#include "PowerTank.h"
 
 std::string PowerTank::GetName() const
 {

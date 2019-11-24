@@ -1,4 +1,4 @@
-#include "Armor_Tank.h"
+#include "ArmorTank.h"
 
 std::string ArmorTank::GetName() const
 {
