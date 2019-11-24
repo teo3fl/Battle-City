@@ -10,10 +10,11 @@ public:
 	Game operator=(Game& game);
 	~Game();
 
+
 	void InitializeGraphics();
 	void InitializeWindow();
 
 public:
 	GraphicsSettings m_gfxSettings;
-	 sf::RenderWindow m_window;
+	 sf::RenderWindow* m_window;
 };
