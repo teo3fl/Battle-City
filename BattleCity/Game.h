@@ -24,6 +24,8 @@ public:
 	void Update();
 	void UpdateSFMLEvents();
 
+	void Run();
+
 public:
 	GraphicsSettings m_gfxSettings;
 	sf::RenderWindow* m_window;

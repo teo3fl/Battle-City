@@ -98,3 +98,13 @@ void Game::UpdateSFMLEvents()
 	}
 }
 
+void Game::Run()
+{
+	while (m_window->isOpen())
+	{
+		UpdateDt();
+		Update();
+		Render();
+	}
+}
+
