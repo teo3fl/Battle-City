@@ -8,7 +8,6 @@ Game::Game()
 	InitializeStates();
 }
 
-
 Game::~Game()
 {
 	delete m_window;
@@ -52,5 +51,24 @@ void Game::UpdateDt()
 {
 	// Updates the dt variable with the time it takes to update and render one frame.
 	m_dt = m_clock.restart().asSeconds();
+}
+
+void Game::Render()
+{
+	m_window->clear();
+
+	if (!m_states.empty())
+		m_states.top()->render();
+
+	m_window->display();
+}
+
+void Game::UpdateSFMLEvents()
+{
+	while (m_window->pollEvent(m_event))
+	{
+		if (m_event.type == sf::Event::Closed)
+			m_window->close();
+	}
 }
 
