@@ -21,6 +21,7 @@ public:
 	void UpdateDt();
 
 	void Render();
+	void Update();
 	void UpdateSFMLEvents();
 
 public:

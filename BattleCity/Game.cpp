@@ -63,6 +63,32 @@ void Game::Render()
 	m_window->display();
 }
 
+void Game::Update()
+{
+	UpdateSFMLEvents();
+
+	if (!m_states.empty())
+	{
+		if (m_window->hasFocus())
+		{
+			m_states.top()->update(m_dt);
+
+			if (m_states.top()->getQuit())
+			{
+				m_states.top()->endState();
+				delete m_states.top();
+				m_states.pop();
+			}
+		}
+	}
+	else
+	{
+		// end application
+
+		m_window->close();
+	}
+}
+
 void Game::UpdateSFMLEvents()
 {
 	while (m_window->pollEvent(m_event))
