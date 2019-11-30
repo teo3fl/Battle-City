@@ -5,12 +5,13 @@ Game::Game()
 	InitializeVariables();
 	InitializeGraphics();
 	InitializeWindow();
+	InitializeStates();
 }
 
 
 Game::~Game()
 {
-	
+	delete m_window;
 }
 
 void Game::InitializeVariables()
@@ -40,6 +41,11 @@ void Game::InitializeWindow()
 			m_gfxSettings.m_contextSettings);
 	m_window->setFramerateLimit(m_gfxSettings.m_frameRateLimit);
 	m_window->setVerticalSyncEnabled(m_gfxSettings.m_verticalSync);
+}
+
+void Game::InitializeStates()
+{
+	//m_states.push(new MainMenuState);
 }
 
 void Game::UpdateDt()

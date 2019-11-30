@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include "GraphicsSettings.h"
-
 #include "GameState.h"
+
+#include <stack>
 
 class Game
 { 
@@ -15,6 +16,7 @@ public:
 	void InitializeVariables();
 	void InitializeGraphics();
 	void InitializeWindow();
+	void InitializeStates();
 
 	void UpdateDt();
 
@@ -24,4 +26,6 @@ public:
 
 	sf::Clock m_clock;
 	float m_dt;
+
+	std::stack<State*> m_states;
 };
