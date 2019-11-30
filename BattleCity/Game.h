@@ -2,7 +2,7 @@
 
 #include "GraphicsSettings.h"
 
-#include "State.h"
+#include "GameState.h"
 
 class Game
 { 
