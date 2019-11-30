@@ -12,6 +12,7 @@ GameState::~GameState()
 
 void GameState::endState()
 {
+	
 }
 
 void GameState::update(const float& dt)
