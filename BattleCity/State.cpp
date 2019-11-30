@@ -6,6 +6,10 @@ State::State(sf::RenderWindow* window)
 	m_quit = false;
 }
 
+State::~State()
+{
+}
+
 void State::checkForQuit()
 {
 	if (sf::Keyboard::isKeyPressed((sf::Keyboard::Escape)))
