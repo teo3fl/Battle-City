@@ -8,6 +8,7 @@ class GameState :
    public State
 {
 private:
+	Entity m_player;
 	
 public:
 	GameState(sf::RenderWindow* window);

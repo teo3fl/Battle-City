@@ -13,6 +13,8 @@ public:
 	void CreateEnemy();
 	void DestroyEnemy();
 	void SetEnemyType();
+	uint16_t getID();
+	uint32_t getNumberOfEnemies();
 
 private:
 	uint32_t m_numberOfEnemies;

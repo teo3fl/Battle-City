@@ -3,6 +3,7 @@
 Entity::Entity()
 {
 	this->shape.setSize(sf::Vector2f(50.f, 50.f));
+	this->shape.setFillColor(sf::Color::White);
 	this->movementSpeed = 100.f;
 
 }
@@ -28,6 +29,11 @@ void Entity::update(const float& dt)
 		this->move(dt, 0.f, 1.f);
 }
 
-void Entity::render(sf::RenderTarget& target)
+void Entity::render(sf::RenderTarget* target)
+{
+	target->draw(this->shape);
+}
+
+void Entity::render(const sf::RenderTarget& target)
 {
 }

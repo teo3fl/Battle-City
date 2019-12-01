@@ -25,13 +25,11 @@ void GameState::updateKeybinds(const float& dt)
 void GameState::update(const float& dt)
 {
 	updateKeybinds(dt);
-	
-	if(sf::Keyboard::isKeyPressed((sf::Keyboard::A)))
-	{
-		std::cout << "A" << "\n";
-	}
+
+	m_player.update(dt);
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
+	m_player.render(*target);
 }

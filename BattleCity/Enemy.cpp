@@ -22,7 +22,7 @@ void Enemy::SetEnemyType()
 	
 }
 
-uint16_t Enemy::getId()
+uint16_t Enemy::getID()
 {
 	return m_id;
 }
