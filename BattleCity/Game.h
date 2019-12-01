@@ -17,6 +17,7 @@ public:
 	void InitializeGraphics();
 	void InitializeWindow();
 	void InitializeStates();
+	void InitializeKeys();
 
 	void UpdateDt();
 
@@ -35,4 +36,6 @@ public:
 	float m_dt;
 
 	std::stack<State*> m_states;
+
+	std::map<char*, int> m_supportedKeys;
 };
