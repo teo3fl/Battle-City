@@ -1,8 +1,8 @@
 #include "GameState.h"
 
 
-GameState::GameState(sf::RenderWindow* window)
-	: State(window)
+GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
+	: State(window, supportedKeys)
 {
 }
 
