@@ -15,6 +15,7 @@ public:
 	virtual ~GameState();
 	
 	//Functions
+	void initializeKeybinds();
 	void endState() override;
 	
 	void updateInput(const float& dt) override;
