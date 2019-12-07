@@ -5,8 +5,8 @@ Game::Game()
 	InitializeVariables();
 	InitializeGraphics();
 	InitializeWindow();
-	InitializeStates();
 	InitializeKeys();
+	InitializeStates();
 }
 
 Game::~Game()
@@ -43,19 +43,17 @@ void Game::InitializeWindow()
 	m_window->setVerticalSyncEnabled(m_gfxSettings.m_verticalSync);
 }
 
-void Game::InitializeStates()
-{
-	m_states.push(new GameState(this->window));
-}
-
 void Game::InitializeKeys()
 {
-	m_supportedKeys.emplace("A", sf::Keyboard::Key::A);
+	m_supportedKeys.emplace("Escape", sf::Keyboard::Key::Escape);
 	m_supportedKeys.emplace("D", sf::Keyboard::Key::D);
 	m_supportedKeys.emplace("W", sf::Keyboard::Key::W);
 	m_supportedKeys.emplace("S", sf::Keyboard::Key::S);
+}
 
-	std::cout << m_supportedKeys.at("A")<< "\n";
+void Game::InitializeStates()
+{
+	m_states.push(new GameState(this->window, this->m_supportedKeys));
 }
 
 void Game::UpdateDt()

@@ -16,8 +16,8 @@ public:
 	void InitializeVariables();
 	void InitializeGraphics();
 	void InitializeWindow();
-	void InitializeStates();
 	void InitializeKeys();
+	void InitializeStates();
 
 	void UpdateDt();
 
