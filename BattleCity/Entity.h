@@ -6,6 +6,7 @@
 #include <map>
 #include <stack>
 #include <vector>
+#include <fstream>
 
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
