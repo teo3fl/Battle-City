@@ -5,7 +5,7 @@
 
 class State
 {
-private:
+protected:
 	sf::RenderWindow* m_window;
 	std::map<std::string, int>* m_supportedKeys;
 	std::map<std::string, int> m_keybinds;
@@ -17,15 +17,15 @@ private:
 public:
 	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~State();
-	virtual void ititializeKeybinds() = 0;
+	virtual void ItitializeKeybinds() = 0;
 
-	const bool& getQuit() const;
+	const bool& GetQuit() const;
 
-	virtual void checkForQuit();
+	virtual void CheckForQuit();
 	
-	virtual void endState() = 0;
-	virtual void updateInput(const float& dt) =0;
-	virtual void update(const float& dt) =0;
-	virtual void render(sf::RenderTarget* target = nullptr) =0;
+	virtual void EndState() = 0;
+	virtual void UpdateInput(const float& dt) =0;
+	virtual void Update(const float& dt) =0;
+	virtual void Render(sf::RenderTarget* target = nullptr) =0;
 };
 #endif

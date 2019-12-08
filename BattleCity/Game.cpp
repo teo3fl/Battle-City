@@ -53,7 +53,10 @@ void Game::InitializeKeys()
 
 void Game::InitializeStates()
 {
-	m_states.push(new GameState(this->window, &this->m_supportedKeys));
+	// the game will begin in main menu, which we don't have for now
+
+
+	//m_states.push(new MainMenuState(m_window, &this->m_supportedKeys));
 }
 
 void Game::UpdateDt()
@@ -67,7 +70,7 @@ void Game::Render()
 	m_window->clear();
 
 	if (!m_states.empty())
-		m_states.top()->render();
+		m_states.top()->Render();
 
 	m_window->display();
 }
@@ -80,11 +83,11 @@ void Game::Update()
 	{
 		if (m_window->hasFocus())
 		{
-			m_states.top()->update(m_dt);
+			m_states.top()->Update(m_dt);
 
-			if (m_states.top()->getQuit())
+			if (m_states.top()->GetQuit())
 			{
-				m_states.top()->endState();
+				m_states.top()->EndState();
 				delete m_states.top();
 				m_states.pop();
 			}
