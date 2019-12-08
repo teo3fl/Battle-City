@@ -37,5 +37,5 @@ public:
 
 	std::stack<State*> m_states;
 
-	std::map<char*, int> m_supportedKeys;
+	std::map<std::string, int> m_supportedKeys;
 };

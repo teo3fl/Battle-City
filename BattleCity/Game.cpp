@@ -1,4 +1,5 @@
 ﻿#include "Game.h"
+#include <fstream>
 
 Game::Game()
 {
@@ -45,10 +46,20 @@ void Game::InitializeWindow()
 
 void Game::InitializeKeys()
 {
-	m_supportedKeys.emplace("Escape", sf::Keyboard::Key::Escape);
-	m_supportedKeys.emplace("D", sf::Keyboard::Key::D);
-	m_supportedKeys.emplace("W", sf::Keyboard::Key::W);
-	m_supportedKeys.emplace("S", sf::Keyboard::Key::S);
+	std::ifstream in("Config/supported_keys.ini");
+
+	if (in.is_open())
+	{
+		std::string key = "";
+		int key_value = 0;
+
+		while (in >> key >> key_value)
+		{
+			this->m_supportedKeys[key] = key_value;
+		}
+	}
+
+	in.close();
 }
 
 void Game::InitializeStates()
