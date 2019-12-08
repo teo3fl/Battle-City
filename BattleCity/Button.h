@@ -26,8 +26,12 @@ private:
 	
 	
 public:
-	Button();
+	Button(float x, float y, float width, float height,sf::Font* font, std::string text, sf::Color idleColor, sf::Color m_hoverColor, sf::Color m_activeColor);
 	virtual ~Button();
+
+	//Functions
+	void update(const sf::Vector2f& mousePos);
+	void render(sf::RenderTarget* target);
 };
 
 #endif
