@@ -28,6 +28,5 @@ class Entity{
 		virtual void move(const float& dt,const float dir_x, const float dir_y);
 		virtual void update(const float& dt);
 		virtual void render(sf::RenderTarget* target);
-		void render(const sf::RenderTarget& target);
 };
 
