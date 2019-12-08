@@ -14,17 +14,6 @@
 
 class Button
 {
-private:
-	sf::RectangleShape m_shape;
-	sf::Font* m_font;
-	sf::Text m_text;
-
-	sf::Color m_idleColor;
-	sf::Color m_hoverColor;
-	sf::Color m_activeColor;
-
-	
-	
 public:
 	Button(float x, float y, float width, float height,sf::Font* font, std::string text, sf::Color idleColor, sf::Color m_hoverColor, sf::Color m_activeColor);
 	virtual ~Button();
@@ -32,6 +21,20 @@ public:
 	//Functions
 	void update(const sf::Vector2f& mousePos);
 	void render(sf::RenderTarget* target);
+
+private:
+	bool press
+
+		sf::RectangleShape m_shape;
+	sf::Font* m_font;
+	sf::Text m_text;
+
+	sf::Color m_idleColor;
+	sf::Color m_hoverColor;
+	sf::Color m_activeColor;
+
+
+
 };
 
 #endif

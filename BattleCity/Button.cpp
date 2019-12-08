@@ -12,8 +12,8 @@ Button::Button(float x, float y, float width, float height,
 	m_text.setFillColor(sf::Color::White);
 	m_text.setCharacterSize(12);
 	m_text.setPosition(
-		m_shape.getPosition().x / 2.f;
-	    m_shape.getPosition().y / 2.f;
+		m_shape.getPosition().x / 2.f - m_text.getGlobalBounds().width / 2.f,
+	    m_shape.getPosition().y / 2.f - m_text.getGlobalBounds().height / 2.f
 	);
 	
 	m_idleColor = idleColor;
@@ -28,6 +28,18 @@ Button::~Button()
 	
 }
 
+void Button::update(const sf::Vector2f& mousePos)
+{
+	/*Update the booleans for hover and pressed*/
+
+	//Hover
+	if(m_shape.getGlobalBounds().contains(mousePos))
+	{
+		
+	}
+}
+
 void Button::render(sf::RenderTarget* target)
 {
+	target->draw(m_shape);
 }
