@@ -11,21 +11,35 @@
 #include "SFMl/Graphics.hpp"
 #include "SFMl/Audio.hpp"
 
+enum Button_States
+{
+	BTN_IDLE = 0,
+	BTN_HOVER,
+	BTN_ACTIVE
+
+};
 
 class Button
 {
 public:
-	Button(float x, float y, float width, float height,sf::Font* font, std::string text, sf::Color idleColor, sf::Color m_hoverColor, sf::Color m_activeColor);
+	Button(float x, float y, float width, float height,
+		sf::Font* font, std::string text, 
+		sf::Color idleColor, sf::Color m_hoverColor, sf::Color m_activeColor);
 	virtual ~Button();
+
+	//Accessors
+	const bool isPressed() const;
 
 	//Functions
 	void update(const sf::Vector2f& mousePos);
 	void render(sf::RenderTarget* target);
 
 private:
-	bool press
+	bool m_pressed;
+	bool m_hover;
+	short unsigned m_buttonState; 
 
-		sf::RectangleShape m_shape;
+    sf::RectangleShape m_shape;
 	sf::Font* m_font;
 	sf::Text m_text;
 
