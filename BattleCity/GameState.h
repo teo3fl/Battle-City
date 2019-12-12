@@ -3,6 +3,7 @@
 #define GAMESTATE_H
 
 #include "State.h"
+#include "Player.h"
 
 class GameState :
    public State
@@ -13,14 +14,16 @@ public:
 	virtual ~GameState();
 	
 	//Functions
-	void InitializeKeybinds();
+	void InitializeKeybinds() override;
+	void InitializeTextures();
+	void InitializePlayer();
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
 	void Update(const float& dt) override;
 	void Render(sf::RenderTarget* target = nullptr) override;
 private:
-	Entity m_player;
+	Player* m_player;
 
 };
 #endif
