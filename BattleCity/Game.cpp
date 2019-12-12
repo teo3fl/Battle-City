@@ -45,7 +45,7 @@ void Game::InitializeWindow()
 
 void Game::InitializeKeys()
 {
-	std::ifstream in("Config/supported_keys.ini");
+	std::ifstream in("../External/Resources/Config/supported_keys.ini");
 
 	if (in.is_open())
 	{
@@ -66,7 +66,7 @@ void Game::InitializeStates()
 	// the game will begin in main menu, which we don't have for now
 
 
-	//m_states.push(new MainMenuState(m_window, &this->m_supportedKeys));
+	m_states.push(new GameState(m_window, &this->m_supportedKeys));
 }
 
 void Game::UpdateDt()
@@ -80,7 +80,10 @@ void Game::Render()
 	m_window->clear();
 
 	if (!m_states.empty())
+	{
+		m_states.top()->Update(m_dt);
 		m_states.top()->Render();
+	}
 
 	m_window->display();
 }

@@ -4,16 +4,20 @@
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
 	: State(window, supportedKeys)
 {
-	this->InitializeKeybinds();
+	InitializeKeybinds();
+	InitializeTextures();
+	InitializePlayer();
 }
 
 GameState::~GameState()
 {
+	EndState();
+	delete m_player;
 }
 
 void GameState::InitializeKeybinds()
 {
-	std::ifstream in("Config/gamestate_keybinds.ini");
+	std::ifstream in("../External/Resources/Config/gamestate_keybinds.ini");
 
 	if (in.is_open())
 	{
@@ -25,8 +29,23 @@ void GameState::InitializeKeybinds()
 			m_keybinds[key] = m_supportedKeys->at(key2);
 		}
 	}
+	else
+		throw "ERROR::GAME_STATE::KEYBINDS_NOT_FOUND";
 
 	in.close();
+}
+
+void GameState::InitializeTextures()
+{
+	if (!m_textures["PLAYER"].loadFromFile("../External/Resources/Textures/tank1R.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
+	}
+}
+
+void GameState::InitializePlayer()
+{
+	m_player = new Player(500, 500, m_textures["PLAYER"]);
 }
 
 
@@ -40,13 +59,13 @@ void GameState::UpdateInput(const float& dt)
 	CheckForQuit();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_LEFT"))))
-		this->m_player.move(dt, -1.f, 0.f);
+		m_player->move(dt, -1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_RIGHT"))))
-		this->m_player.move(dt, 1.f, 0.f);
+		m_player->move(dt, 1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_UP"))))
-		this->m_player.move(dt, 0.f, -1.f);
+		m_player->move(dt, 0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_DOWN"))))
-		this->m_player.move(dt, 0.f, 1.f);
+		m_player->move(dt, 0.f, 1.f);
 	
 }
 
@@ -55,7 +74,7 @@ void GameState::Update(const float& dt)
 {
 	UpdateInput(dt);
 
-	m_player.update(dt);
+	m_player->update(dt);
 }
 
 void GameState::Render(sf::RenderTarget* target)
@@ -63,5 +82,5 @@ void GameState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = m_window;
 
-	this->m_player.render(target);
+	m_player->render(target);
 }
