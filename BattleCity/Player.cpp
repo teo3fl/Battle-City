@@ -1,5 +1,12 @@
 #include "Player.h"
 
+Player::Player(float x, float y, sf::Texture& texture)
+{
+	// create hitbox
+	SetTexture(texture);
+	SetPosition(x, y);
+}
+
 const std::string Player::GetName()
 {
 	return m_name;

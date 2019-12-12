@@ -9,7 +9,7 @@ class State
 public:
 	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~State();
-	virtual void ItitializeKeybinds() = 0;
+	virtual void InitializeKeybinds() = 0;
 
 	const bool& GetQuit() const;
 
@@ -27,7 +27,7 @@ protected:
 	bool m_quit;
 
 	//Resources
-	std::vector<sf::Texture> m_textures;
+	std::map<std::string, sf::Texture> m_textures;
 
 };
 #endif

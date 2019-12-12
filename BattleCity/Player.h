@@ -1,11 +1,12 @@
 #pragma once
 #include "Tank.h"
+#include "Entity.h"
 #include <cstdint>
 
-class Player : Tank
+class Player :  public Entity
 {
 public:
-	Player();
+	Player(float x, float y, sf::Texture& texture);
 
 	const std::string GetName();
 	const uint16_t GetLives();
