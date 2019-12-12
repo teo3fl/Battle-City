@@ -16,18 +16,18 @@
 
 
 class Entity{
-
-	private:
-
 	public:
 		Entity();
 		virtual ~Entity();
+
+		void SetTexture(sf::Texture& texture);
+		virtual void SetPosition(const float x, const float y);
 
 		virtual void move(const float& dt,const float dir_x, const float dir_y);
 		virtual void update(const float& dt);
 		virtual void render(sf::RenderTarget* target);
 protected:
-	sf::RectangleShape m_shape;
+	sf::Sprite m_sprite;
 	float m_movementSpeed;
 };
 
