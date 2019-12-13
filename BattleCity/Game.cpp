@@ -63,10 +63,8 @@ void Game::InitializeKeys()
 
 void Game::InitializeStates()
 {
-	// the game will begin in main menu, which we don't have for now
 
-
-	m_states.push(new GameState(m_window, &this->m_supportedKeys));
+	m_states.push(new MainMenuState(m_window, &this->m_supportedKeys));
 }
 
 void Game::UpdateDt()

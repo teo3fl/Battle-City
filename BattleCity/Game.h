@@ -2,6 +2,7 @@
 
 #include "GraphicsSettings.h"
 #include "GameState.h"
+#include  "MainMenuState.h"
 
 #include <stack>
 
