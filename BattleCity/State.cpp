@@ -1,14 +1,18 @@
 ﻿#include "State.h"
 
-State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
+State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*> m_states)
 {
 	m_window = window;
 	m_supportedKeys = supportedKeys;
 	m_quit = false;
+	this->m_states = m_states;
 }
 
 State::~State()
 {
+
+	for (auto it = this->m_buttons.begin(); it != m_buttons.end(); ++it)
+		delete it->second;
 }
 
 void State::CheckForQuit()
