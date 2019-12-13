@@ -14,9 +14,14 @@ public:
 	void EndState() override;
 
 	void InitializeBackground();
+	void InitializeButtons();
 
 	void UpdateInput(const float& dt) override;
+	void UpdateButtons();
 	void Update(const float& dt) override;
+
+
+	void RenderButtons(sf::RenderTarget* target = nullptr);
 	void Render(sf::RenderTarget* target = nullptr) override;
 
 private:
