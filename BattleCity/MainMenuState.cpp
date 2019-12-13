@@ -5,8 +5,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	: State(window, supportedKeys)
 {
 	InitializeKeybinds();
-	m_background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	m_background.setFillColor(sf::Color::Magenta);
+	InitializeBackground();
 }
 
 MainMenuState::~MainMenuState()
@@ -37,6 +36,18 @@ void MainMenuState::InitializeKeybinds()
 void MainMenuState::EndState()
 {
 	std::cout << "Ending GameState!" << "\n";
+}
+
+void MainMenuState::InitializeBackground()
+{
+	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
+
+	if (!m_backgroundTexture.loadFromFile("../External/Resources/Textures/cover.png"))
+	{
+		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+
+	m_background.setTexture(&m_backgroundTexture);
 }
 
 void MainMenuState::UpdateInput(const float& dt)
