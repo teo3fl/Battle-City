@@ -5,6 +5,8 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	: State(window, supportedKeys)
 {
 	InitializeKeybinds();
+	m_background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	m_background.setFillColor(sf::Color::Magenta);
 }
 
 MainMenuState::~MainMenuState()
@@ -14,7 +16,7 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::InitializeKeybinds()
 {
-	/*std::ifstream in("../External/Resources/Config/gamestate_keybinds.ini");
+	std::ifstream in("../External/Resources/Config/gamestate_keybinds.ini");
 
 	if (in.is_open())
 	{
@@ -29,7 +31,7 @@ void MainMenuState::InitializeKeybinds()
 	else
 		throw "ERROR::GAME_STATE::KEYBINDS_NOT_FOUND";
 
-	in.close();*/
+	in.close();
 }
 
 void MainMenuState::EndState()
@@ -52,4 +54,6 @@ void MainMenuState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = m_window;
+
+	target->draw(this->m_background);
 }

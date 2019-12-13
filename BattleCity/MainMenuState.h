@@ -7,7 +7,11 @@ class MainMenuState :
 	public State
 {
 private:
+
+	sf :: RectangleShape m_background;
+
 	void InitializeKeybinds() override;
+;
 public:
 	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~MainMenuState();
