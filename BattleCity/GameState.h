@@ -3,11 +3,8 @@
 #define GAMESTATE_H
 
 #include "State.h"
-<<<<<<< Updated upstream
 #include "Player.h"
-=======
 #include "Button.h"
->>>>>>> Stashed changes
 
 class GameState :
    public State
@@ -18,15 +15,11 @@ public:
 	virtual ~GameState();
 	
 	//Functions
-<<<<<<< Updated upstream
 	void InitializeKeybinds() override;
 	void InitializeTextures();
 	void InitializePlayer();
-=======
-	void InitializeKeybinds();
 	void InitializeButtons();
 	void InitializeFonts();
->>>>>>> Stashed changes
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
@@ -37,12 +30,8 @@ public:
 
 	
 private:
-<<<<<<< Updated upstream
 	Player* m_player;
-=======
-	Entity m_player;
-	std::map<std::string, Button*> buttons;
->>>>>>> Stashed changes
+	std::map<std::string, Button*> m_buttons;
 
 };
 #endif

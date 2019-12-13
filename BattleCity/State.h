@@ -3,11 +3,13 @@
 
 #include "Entity.h"
 
+#include "Button.h"
+
 class State
 {
 
 public:
-	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*> m_states);
+	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~State();
 	virtual void InitializeKeybinds() = 0;
 
@@ -28,7 +30,6 @@ protected:
 
 	//Resources
 	std::map<std::string, sf::Texture> m_textures;
-	std::stack<State*> m_states;
 	std::map<std::string, Button*> m_buttons;
 
 };
