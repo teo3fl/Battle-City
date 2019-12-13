@@ -7,7 +7,6 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 	InitializeKeybinds();
 	InitializeTextures();
 	InitializePlayer();
-	InitializeButtons();
 }
 
 GameState::~GameState()
@@ -54,11 +53,6 @@ void GameState::InitializePlayer()
 	m_player = new Player(500, 500, m_textures["PLAYER"]);
 }
 
-void GameState::InitializeButtons()
-{
-}
-
-
 void GameState::EndState()
 {
 	std::cout << "Ending GameState!" << "\n";
@@ -86,27 +80,6 @@ void GameState::Update(const float& dt)
 
 	m_player->update(dt);
 }
-
-void GameState::UpdateButtons()
-{
-	for (auto& it : this->m_buttons)
-	{
-		//it.second->update(this->m_mousePosView);
-	}
-
-
-	/*if (this->m_button[GAMESTATE_H]->isPressed())
-		m_states.push(new GameState(m_window, &this->m_supportedKeys));*/
-}
-
-void GameState::RenderButtons(sf::RenderTarget* target)
-{
-	for (auto& it : m_buttons)
-	{
-		it.second->render(target);
-	}
-}
-
 
 void GameState::Render(sf::RenderTarget* target)
 {

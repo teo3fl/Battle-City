@@ -4,7 +4,6 @@
 
 #include "State.h"
 #include "Player.h"
-#include "Button.h"
 
 class GameState :
    public State
@@ -18,15 +17,12 @@ public:
 	void InitializeKeybinds() override;
 	void InitializeTextures();
 	void InitializePlayer();
-	void InitializeButtons();
 	void InitializeFonts();
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
 	void Update(const float& dt) override;
 	void Render(sf::RenderTarget* target = nullptr) override;
-	void UpdateButtons();
-	void RenderButtons(sf::RenderTarget* target = nullptr);
 
 	
 private:
