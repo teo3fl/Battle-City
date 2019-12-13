@@ -6,7 +6,7 @@
 #include <stack>
 
 class Game
-{ 
+{
 public:
 	Game();
 	Game(const Game& game);
@@ -27,7 +27,7 @@ public:
 
 	void Run();
 
-public:
+private:
 	GraphicsSettings m_gfxSettings;
 	sf::RenderWindow* m_window;
 	sf::Event m_event;
@@ -38,4 +38,5 @@ public:
 	std::stack<State*> m_states;
 
 	std::map<std::string, int> m_supportedKeys;
+	std::stack<State*> m_states;
 };
