@@ -2,6 +2,7 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
+#include "Button.h"
 
 class MainMenuState :
 	public State
@@ -28,6 +29,7 @@ private:
 
 	sf::Texture m_backgroundTexture;
 	sf::RectangleShape m_background;
+	sf::Font m_font;
 
 	void InitializeKeybinds() override;
 };

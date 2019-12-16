@@ -50,6 +50,17 @@ void MainMenuState::InitializeBackground()
 	m_background.setTexture(&m_backgroundTexture);
 }
 
+void MainMenuState::InitializeButtons()
+{
+	this->m_buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
+		&this->m_font, "New Game",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	this->m_buttons["EXIT_STATE"] = new Button(100, 300, 150, 50,
+		&this->m_font, "Quit",
+		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+}
+
 void MainMenuState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
