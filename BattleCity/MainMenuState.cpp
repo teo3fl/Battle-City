@@ -64,12 +64,22 @@ void MainMenuState::InitializeButtons()
 void MainMenuState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
+	
 }
 
 
 void MainMenuState::Update(const float& dt)
 {
 	UpdateInput(dt);
+	//UpdateButtons();
+}
+
+void MainMenuState::RenderButtons(sf::RenderTarget* target)
+{
+	for (auto& it : this->m_buttons)
+	{
+		it.second->render(target);
+	}
 }
 
 void MainMenuState::Render(sf::RenderTarget* target)
@@ -78,4 +88,6 @@ void MainMenuState::Render(sf::RenderTarget* target)
 		target = m_window;
 
 	target->draw(this->m_background);
+
+	RenderButtons(target);
 }
