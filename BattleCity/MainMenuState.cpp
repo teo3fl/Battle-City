@@ -67,11 +67,21 @@ void MainMenuState::UpdateInput(const float& dt)
 	
 }
 
+void MainMenuState::UpdateButtons(const sf::Vector2f& mousePos)
+{
+	for (auto& it : m_buttons)
+	{
+		it.second->update(mousePos);
+		
+	}
+}
+
 
 void MainMenuState::Update(const float& dt)
 {
 	UpdateInput(dt);
-	//UpdateButtons();
+	UpdateButtons(mousePos);
+	
 }
 
 void MainMenuState::RenderButtons(sf::RenderTarget* target)
