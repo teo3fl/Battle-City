@@ -10,7 +10,11 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 
 MainMenuState::~MainMenuState()
 {
-	
+	auto it = m_buttons.begin();
+	for (it = m_buttons.begin(); it != m_buttons.end(); ++it)
+	{
+		delete it->second;
+	}
 }
 
 void MainMenuState::InitializeKeybinds()
