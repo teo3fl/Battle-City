@@ -134,6 +134,12 @@ void GameState::InitializePlayer()
 	m_player1->SetTexture("UP");
 }
 
+void GameState::InitializeBackground()
+{
+	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
+	m_background.setTexture(&m_textures["BACKGROUND"]);
+}
+
 void GameState::EndState()
 {
 	std::cout << "Ending GameState!" << "\n";
