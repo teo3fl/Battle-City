@@ -3,6 +3,7 @@
 #define GAMESTATE_H
 
 #include "State.h"
+#include "TileMap.h"
 #include "Player.h"
 
 class GameState :
@@ -19,6 +20,8 @@ public:
 	void InitializePlayer();
 	void InitializeFonts();
 	void InitializeBackground();
+	void InitializeMap();
+
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
@@ -31,5 +34,6 @@ private:
 	Player* m_player1;
 	sf::RectangleShape m_background;
 
+	TileMap* m_map;
 };
 #endif

@@ -125,7 +125,7 @@ void GameState::InitializeTextures()
 
 void GameState::InitializePlayer()
 {
-	m_player1 = new Player(500, 500);
+	m_player1 = new Player("Player1",500, 500);
 	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
 	m_player1->AddTexture(m_textures["PLAYER1_LEFT"], "LEFT");
 	m_player1->AddTexture(m_textures["PLAYER1_UP"], "UP");
@@ -138,6 +138,11 @@ void GameState::InitializeBackground()
 {
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_background.setTexture(&m_textures["BACKGROUND"]);
+}
+
+void GameState::InitializeMap()
+{
+	m_map = new TileMap(50, 50);
 }
 
 void GameState::EndState()
