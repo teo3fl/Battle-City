@@ -108,28 +108,35 @@ void GameState::EndState()
 void GameState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
+	UpdatePlayerMovement(dt);
+}
 
+void GameState::UpdatePlayerMovement(const float& dt)
+{
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_LEFT"))))
 	{
 		m_player1->Move(dt, -1.f, 0.f);
 		m_player1->SetTexture("LEFT");
+		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_RIGHT"))))
 	{
 		m_player1->Move(dt, 1.f, 0.f);
 		m_player1->SetTexture("RIGHT");
+		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_UP"))))
 	{
 		m_player1->Move(dt, 0.f, -1.f);
 		m_player1->SetTexture("UP");
+		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_DOWN"))))
 	{
 		m_player1->Move(dt, 0.f, 1.f);
 		m_player1->SetTexture("DOWN");
+		return;
 	}
-
 }
 
 

@@ -2,7 +2,8 @@
 
 Entity::Entity()
 {
-	this->m_movementSpeed = 100.f;
+	m_movementSpeed = 100.f;
+	m_sprite.scale(sf::Vector2f(0.5f, 0.5f));
 }
 
 Entity::~Entity()

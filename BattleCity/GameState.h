@@ -21,6 +21,7 @@ public:
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
+	void UpdatePlayerMovement(const float& dt);
 	void Update(const float& dt) override;
 	void Render(sf::RenderTarget* target = nullptr) override;
 
