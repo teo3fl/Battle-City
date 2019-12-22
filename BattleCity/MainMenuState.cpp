@@ -84,7 +84,7 @@ void MainMenuState::UpdateButtons(const sf::Vector2f& mousePos)
 void MainMenuState::Update(const float& dt)
 {
 	UpdateInput(dt);
-	UpdateButtons(mousePos);
+	//UpdateButtons(mousePos);
 	
 }
 

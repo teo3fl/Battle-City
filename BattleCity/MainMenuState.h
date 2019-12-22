@@ -18,7 +18,7 @@ public:
 	void InitializeButtons();
 
 	void UpdateInput(const float& dt) override;
-	void UpdateButtons();
+	void UpdateButtons(const sf::Vector2f& mousePos);
 	void Update(const float& dt) override;
 
 
