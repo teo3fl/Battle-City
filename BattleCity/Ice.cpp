@@ -1,5 +1,9 @@
 #include "Ice.h"
 
+Ice::Ice(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+{
+}
+
 const std::string Ice::GetType() const
 {
 	return m_type;

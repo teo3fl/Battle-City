@@ -3,6 +3,8 @@
 class Steel : public Tile
 {
 public:
+	Steel(const float x, const float y, const sf::Texture& texture);
+
 	const std::string GetType() const override;
 	bool IsPassable() const override;
 	bool IsBreakable()const override;

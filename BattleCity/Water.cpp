@@ -1,5 +1,9 @@
 #include "Water.h"
 
+Water::Water(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+{
+}
+
 const std::string Water::GetType() const
 {
 	return m_type;
