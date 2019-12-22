@@ -9,9 +9,14 @@ Entity::~Entity()
 {
 }
 
-void Entity::SetTexture(sf::Texture& texture)
+void Entity::AddTexture(const sf::Texture& texture, const std::string& textureName)
 {
-	m_sprite.setTexture(texture);
+	m_textures[textureName] = texture;
+}
+
+void Entity::SetTexture(const std::string& texture)
+{
+	m_sprite.setTexture(m_textures[texture]);
 }
 
 void Entity::SetPosition(const float x, const float y)
@@ -19,17 +24,17 @@ void Entity::SetPosition(const float x, const float y)
 	m_sprite.setPosition(x, y);
 }
 
-void Entity::move(const float& dt, const float dir_x, const float dir_y)
+void Entity::Move(const float& dt, const float dir_x, const float dir_y)
 {
 	this->m_sprite.move(dir_x * this->m_movementSpeed * dt, dir_y * this->m_movementSpeed * dt);
 }
 
-void Entity::update(const float& dt)
+void Entity::Update(const float& dt)
 {
 	
 }
 
-void Entity::render(sf::RenderTarget* target)
+void Entity::Render(sf::RenderTarget* target)
 {
 	target->draw(m_sprite);
 }
