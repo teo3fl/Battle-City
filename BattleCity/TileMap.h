@@ -16,6 +16,7 @@ class TileMap
 public:
 	TileMap(float width,float height);
 	void LoadFromFile(const std::string& fileName);
+	void AddTexture(const std::string& textureName, const sf::Texture& texture);
 
 private:
 	uint16_t m_width;

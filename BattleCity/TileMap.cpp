@@ -4,6 +4,8 @@
 TileMap::TileMap(float width, float height) :
 	m_width(width), m_height(height)
 {
+	m_border = 50;
+
 	m_map.resize(m_height);
 	for (int x = 0; x < m_height; x++)
 		m_map[x].resize(m_width);
@@ -74,4 +76,9 @@ void TileMap::LoadFromFile(const std::string& fileName)
 	}
 
 	in.close();
+}
+
+void TileMap::AddTexture(const std::string& textureName,const sf::Texture& texture)
+{
+	m_textures[textureName] = texture;
 }
