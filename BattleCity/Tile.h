@@ -9,7 +9,7 @@ public:
 	Tile(const float x, const float y, const sf::Texture& texture);
 	void SetTexture(const sf::Texture& texture);
 	void SetPosition(const float x, const float y);
-	virtual void Update(const float& dt);
+	//virtual void Update(const float& dt);
 	void Render(sf::RenderTarget* target);
 
 	virtual const std::string GetType() const = 0;
