@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(float x, float y)
+Player::Player(const std::string& name, float x, float y) : m_name(name)
 {
 	// create hitbox
 	SetPosition(x, y);

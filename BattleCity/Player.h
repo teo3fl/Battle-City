@@ -6,7 +6,7 @@
 class Player :  public Entity
 {
 public:
-	Player(float x, float y);
+	Player(const std::string& name, float x, float y);
 
 	const std::string GetName();
 	const uint16_t GetLives();
@@ -18,7 +18,7 @@ public:
 	
 
 private:
-	const std::string m_name = "Player";
+	std::string m_name;
 	uint16_t m_lives : 9;
 	uint32_t m_score : 24;
 	uint8_t m_health : 1;
