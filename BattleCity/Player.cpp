@@ -1,9 +1,8 @@
 #include "Player.h"
 
-Player::Player(float x, float y, sf::Texture& texture)
+Player::Player(float x, float y)
 {
 	// create hitbox
-	SetTexture(texture);
 	SetPosition(x, y);
 }
 
