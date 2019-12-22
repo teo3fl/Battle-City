@@ -18,6 +18,7 @@ public:
 	void InitializeTextures();
 	void InitializePlayer();
 	void InitializeFonts();
+	void InitializeBackground();
 	void EndState() override;
 	
 	void UpdateInput(const float& dt) override;
@@ -28,7 +29,7 @@ public:
 	
 private:
 	Player* m_player1;
-	std::map<std::string, Button*> m_buttons;
+	sf::RectangleShape m_background;
 
 };
 #endif

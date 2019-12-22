@@ -6,6 +6,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 {
 	InitializeKeybinds();
 	InitializeTextures();
+	InitializeBackground();
 	InitializePlayer();
 }
 
@@ -87,6 +88,39 @@ void GameState::InitializeTextures()
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_D";
 	}
+
+
+	// tile textures
+
+	if (!m_textures["BRICK"].loadFromFile("../External/Resources/Textures/brick.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BRICK_TEXTURE";
+	}
+
+	if (!m_textures["STEEL"].loadFromFile("../External/Resources/Textures/steel.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_STEEL_TEXTURE";
+	}
+
+	if (!m_textures["ICE"].loadFromFile("../External/Resources/Textures/ice.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_ICE_TEXTURE";
+	}
+
+	if (!m_textures["WATER"].loadFromFile("../External/Resources/Textures/water.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_WATER_TEXTURE";
+	}
+
+	if (!m_textures["TREES"].loadFromFile("../External/Resources/Textures/grass.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_TREES_TEXTURE";
+	}
+
+	if (!m_textures["BACKGROUND"].loadFromFile("../External/Resources/Textures/gameBackground.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_TREES_GAME_BACKGROUND";
+	}
 }
 
 void GameState::InitializePlayer()
@@ -152,5 +186,6 @@ void GameState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = m_window;
 
+	target->draw(m_background);
 	m_player1->Render(target);
 }
