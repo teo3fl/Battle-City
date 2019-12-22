@@ -1,6 +1,6 @@
 #include "Water.h"
 
-Water::Water(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+Water::Water(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 }
 

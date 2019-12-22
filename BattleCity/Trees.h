@@ -3,7 +3,7 @@
 class Trees : public Tile
 {
 public:
-	Trees(const float x, const float y, const sf::Texture& texture);
+	Trees(int x, int y, const sf::Texture& texture);
 
 	const std::string GetType() const override;
 	bool IsPassable() const override;

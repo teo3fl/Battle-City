@@ -1,6 +1,6 @@
 #include "Trees.h"
 
-Trees::Trees(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+Trees::Trees(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 }
 

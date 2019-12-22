@@ -4,7 +4,7 @@ class Water : public Tile
 {
 
 public:
-	Water(const float x, const float y, const sf::Texture& texture);
+	Water(int x, int y, const sf::Texture& texture);
 
 	const std::string m_type = "Water";
 	const bool m_isPassable = false;

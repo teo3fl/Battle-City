@@ -1,6 +1,6 @@
 #include "Steel.h"
 
-Steel::Steel(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+Steel::Steel(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 }
 

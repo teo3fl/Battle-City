@@ -1,6 +1,6 @@
 #include "Ice.h"
 
-Ice::Ice(const float x, const float y, const sf::Texture& texture) : Tile(x, y, texture)
+Ice::Ice(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 }
 

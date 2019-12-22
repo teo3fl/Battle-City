@@ -14,15 +14,19 @@
 class TileMap
 {
 public:
-	TileMap(float width,float height);
+	TileMap(uint16_t width, uint16_t height);
+	~TileMap();
+
 	void LoadFromFile(const std::string& fileName);
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
+
+	void Render(sf::RenderTarget* target = nullptr);
 
 private:
 	uint16_t m_width;
 	uint16_t m_height;
 	uint16_t m_border;
-	std::vector<std::vector<std::vector<Tile*>>> m_map;
+	std::vector<std::vector<Tile*>> m_map;
 	std::map<std::string, sf::Texture> m_textures;
 };
 

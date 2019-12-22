@@ -8,6 +8,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 	InitializeTextures();
 	InitializeBackground();
 	InitializePlayer();
+	InitializeMap();
 }
 
 GameState::~GameState()
@@ -142,12 +143,14 @@ void GameState::InitializeBackground()
 
 void GameState::InitializeMap()
 {
-	m_map = new TileMap(50, 50);
+	m_map = new TileMap(10, 2);
 	m_map->AddTexture("BRICK", m_textures["BRICK"]);
 	m_map->AddTexture("STEEL", m_textures["STEEL"]);
 	m_map->AddTexture("ICE", m_textures["ICE"]);
 	m_map->AddTexture("WATER", m_textures["WATER"]);
 	m_map->AddTexture("TREES", m_textures["TREES"]);
+
+	m_map->LoadFromFile("../External/Resources/Config/map_stage1.ini");
 }
 
 void GameState::EndState()
@@ -204,4 +207,5 @@ void GameState::Render(sf::RenderTarget* target)
 
 	target->draw(m_background);
 	m_player1->Render(target);
+	m_map->Render(target);
 }

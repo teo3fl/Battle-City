@@ -3,7 +3,7 @@
 class Brick : public Tile
 {
 public:
-	Brick(const float x, const float y, const sf::Texture& texture);
+	Brick(int x, int y, const sf::Texture& texture);
 
 	const std::string GetType() const override;
 	bool IsPassable() const override ;
