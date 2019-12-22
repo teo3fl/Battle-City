@@ -26,7 +26,7 @@ public:
 
 	
 private:
-	Player* m_player;
+	Player* m_player1;
 	std::map<std::string, Button*> m_buttons;
 
 };

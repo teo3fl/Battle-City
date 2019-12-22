@@ -12,7 +12,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 GameState::~GameState()
 {
 	EndState();
-	delete m_player;
+	delete m_player1;
 	auto it = m_buttons.begin();
 	for (auto it = m_buttons.begin(); it != m_buttons.end(); ++it)
 	{
@@ -42,15 +42,62 @@ void GameState::InitializeKeybinds()
 
 void GameState::InitializeTextures()
 {
-	if (!m_textures["PLAYER"].loadFromFile("../External/Resources/Textures/tank1R.png"))
+	// player1 textures
+
+	if (!m_textures["PLAYER1_RIGHT"].loadFromFile("../External/Resources/Textures/tank1R.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_TEXTURE";
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_R";
+	}
+
+	if (!m_textures["PLAYER1_LEFT"].loadFromFile("../External/Resources/Textures/tank1L.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_L";
+	}
+
+	if (!m_textures["PLAYER1_UP"].loadFromFile("../External/Resources/Textures/tank1U.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_U";
+	}
+
+	if (!m_textures["PLAYER1_DOWN"].loadFromFile("../External/Resources/Textures/tank1D.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_D";
+	}
+
+	
+	// player2 textures
+
+
+	if (!m_textures["PLAYER2_RIGHT"].loadFromFile("../External/Resources/Textures/tank2R.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_R";
+	}
+
+	if (!m_textures["PLAYER2_LEFT"].loadFromFile("../External/Resources/Textures/tank2L.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_L";
+	}
+
+	if (!m_textures["PLAYER2_UP"].loadFromFile("../External/Resources/Textures/tank2U.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_U";
+	}
+
+	if (!m_textures["PLAYER2_DOWN"].loadFromFile("../External/Resources/Textures/tank2D.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_D";
 	}
 }
 
 void GameState::InitializePlayer()
 {
-	m_player = new Player(500, 500, m_textures["PLAYER"]);
+	m_player1 = new Player(500, 500);
+	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
+	m_player1->AddTexture(m_textures["PLAYER1_LEFT"], "LEFT");
+	m_player1->AddTexture(m_textures["PLAYER1_UP"], "UP");
+	m_player1->AddTexture(m_textures["PLAYER1_DOWN"], "DOWN");
+
+	m_player1->SetTexture("UP");
 }
 
 void GameState::EndState()
@@ -63,13 +110,25 @@ void GameState::UpdateInput(const float& dt)
 	CheckForQuit();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_LEFT"))))
-		m_player->move(dt, -1.f, 0.f);
+	{
+		m_player1->Move(dt, -1.f, 0.f);
+		m_player1->SetTexture("LEFT");
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_RIGHT"))))
-		m_player->move(dt, 1.f, 0.f);
+	{
+		m_player1->Move(dt, 1.f, 0.f);
+		m_player1->SetTexture("RIGHT");
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_UP"))))
-		m_player->move(dt, 0.f, -1.f);
+	{
+		m_player1->Move(dt, 0.f, -1.f);
+		m_player1->SetTexture("UP");
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_DOWN"))))
-		m_player->move(dt, 0.f, 1.f);
+	{
+		m_player1->Move(dt, 0.f, 1.f);
+		m_player1->SetTexture("DOWN");
+	}
 
 }
 
@@ -78,7 +137,7 @@ void GameState::Update(const float& dt)
 {
 	UpdateInput(dt);
 
-	m_player->update(dt);
+	m_player1->Update(dt);
 }
 
 void GameState::Render(sf::RenderTarget* target)
@@ -86,5 +145,5 @@ void GameState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = m_window;
 
-	m_player->render(target);
+	m_player1->Render(target);
 }
