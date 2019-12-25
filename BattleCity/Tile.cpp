@@ -8,6 +8,7 @@ Tile::Tile(int x, int y, const sf::Texture& texture)
 
 void Tile::SetTexture(const sf::Texture& texture)
 {
+	m_sprite.scale(sf::Vector2f(0.5f, 0.5f));
 	m_sprite.setTexture(texture);
 }
 

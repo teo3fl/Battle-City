@@ -143,7 +143,7 @@ void GameState::InitializeBackground()
 
 void GameState::InitializeMap()
 {
-	m_map = new TileMap(10, 2);
+	m_map = new TileMap(2, 26);
 	m_map->AddTexture("BRICK", m_textures["BRICK"]);
 	m_map->AddTexture("STEEL", m_textures["STEEL"]);
 	m_map->AddTexture("ICE", m_textures["ICE"]);

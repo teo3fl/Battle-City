@@ -4,7 +4,7 @@
 TileMap::TileMap(uint16_t width, uint16_t height) :
 	m_width(width), m_height(height)
 {
-	m_border = 50;
+	m_border = 80;
 
 	m_map.resize(m_height);
 	for (int x = 0; x < m_height; x++)
@@ -25,9 +25,10 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 	if (in.is_open())
 	{
-		for (int x = 0; x < m_height; x++)
+		uint8_t tileSize = 32;
+		for (uint16_t y = 0; y < m_height; y++)
 		{
-			for (int y = 0; y < m_width; y++)
+			for (uint16_t x = 0; x < m_width; x++)
 
 			{
 				int tileType;
@@ -39,27 +40,27 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 				case 1:
 				{
-					m_map[x][y] = new Brick(x * 64 + m_border, y * 64 + m_border, m_textures["BRICK"]);
+					m_map[y][x] = new Brick(x * tileSize + m_border, y * tileSize + m_border, m_textures["BRICK"]);
 					break;
 				}
 				case 2:
 				{
-					m_map[x][y] = new Steel(x * 64 + m_border, y * 64 + m_border, m_textures["STEEL"]);
+					m_map[y][x] = new Steel(x * tileSize + m_border, y * tileSize + m_border, m_textures["STEEL"]);
 					break;
 				}
 				case 3:
 				{
-					m_map[x][y] = new Water(x * 64 + m_border, y * 64 + m_border, m_textures["WATER"]);
+					m_map[y][x] = new Water(x * tileSize + m_border, y * tileSize + m_border, m_textures["WATER"]);
 					break;
 				}
 				case 4:
 				{
-					m_map[x][y] = new Ice(x * 64 + m_border, y * 64 + m_border, m_textures["ICE"]);
+					m_map[y][x] = new Ice(x * tileSize + m_border, y * tileSize + m_border, m_textures["ICE"]);
 					break;
 				}
 				case 5:
 				{
-					m_map[x][y] = new Trees(x * 64 + m_border, y * 64 + m_border, m_textures["TREES"]);
+					m_map[y][x] = new Trees(x * tileSize + m_border, y * tileSize + m_border, m_textures["TREES"]);
 					break;
 				}
 				default:

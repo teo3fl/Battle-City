@@ -4,6 +4,7 @@ Player::Player(const std::string& name, float x, float y) : m_name(name)
 {
 	// create hitbox
 	SetPosition(x, y);
+	m_sprite.scale(sf::Vector2f(0.6f, 0.6f));
 }
 
 const std::string Player::GetName()
