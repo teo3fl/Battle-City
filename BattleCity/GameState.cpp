@@ -126,7 +126,7 @@ void GameState::InitializeTextures()
 
 void GameState::InitializePlayer()
 {
-	m_player1 = new Player("Player1",500, 500);
+	m_player1 = new Player("Player1",340, 855);
 	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
 	m_player1->AddTexture(m_textures["PLAYER1_LEFT"], "LEFT");
 	m_player1->AddTexture(m_textures["PLAYER1_UP"], "UP");
@@ -143,7 +143,9 @@ void GameState::InitializeBackground()
 
 void GameState::InitializeMap()
 {
-	m_map = new TileMap(2, 26);
+	m_mapHeight = 26;
+	m_mapWidth = 26;
+	m_map = new TileMap(m_mapHeight, m_mapWidth);
 	m_map->AddTexture("BRICK", m_textures["BRICK"]);
 	m_map->AddTexture("STEEL", m_textures["STEEL"]);
 	m_map->AddTexture("ICE", m_textures["ICE"]);

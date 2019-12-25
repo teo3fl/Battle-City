@@ -35,5 +35,7 @@ private:
 	sf::RectangleShape m_background;
 
 	TileMap* m_map;
+	uint16_t m_mapHeight;
+	uint16_t m_mapWidth;
 };
 #endif
