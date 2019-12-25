@@ -40,27 +40,27 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 				case 1:
 				{
-					m_map[y][x] = new Brick(x * tileSize + m_border, y * tileSize + m_border, m_textures["BRICK"]);
+					m_map[x][y] = new Brick(x * tileSize + m_border, y * tileSize + m_border, m_textures["BRICK"]);
 					break;
 				}
 				case 2:
 				{
-					m_map[y][x] = new Steel(x * tileSize + m_border, y * tileSize + m_border, m_textures["STEEL"]);
+					m_map[x][y] = new Steel(x * tileSize + m_border, y * tileSize + m_border, m_textures["STEEL"]);
 					break;
 				}
 				case 3:
 				{
-					m_map[y][x] = new Water(x * tileSize + m_border, y * tileSize + m_border, m_textures["WATER"]);
+					m_map[x][y] = new Water(x * tileSize + m_border, y * tileSize + m_border, m_textures["WATER"]);
 					break;
 				}
 				case 4:
 				{
-					m_map[y][x] = new Ice(x * tileSize + m_border, y * tileSize + m_border, m_textures["ICE"]);
+					m_map[x][y] = new Ice(x * tileSize + m_border, y * tileSize + m_border, m_textures["ICE"]);
 					break;
 				}
 				case 5:
 				{
-					m_map[y][x] = new Trees(x * tileSize + m_border, y * tileSize + m_border, m_textures["TREES"]);
+					m_map[x][y] = new Trees(x * tileSize + m_border, y * tileSize + m_border, m_textures["TREES"]);
 					break;
 				}
 				default:
