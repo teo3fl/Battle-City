@@ -15,11 +15,6 @@ GameState::~GameState()
 {
 	EndState();
 	delete m_player1;
-	auto it = m_buttons.begin();
-	for (auto it = m_buttons.begin(); it != m_buttons.end(); ++it)
-	{
-		delete it->second;
-	}
 }
 
 void GameState::InitializeKeybinds()

@@ -63,7 +63,7 @@ void Game::InitializeKeys()
 
 void Game::InitializeStates()
 {
-	m_states.push(new MainMenuState(m_window, &this->m_supportedKeys));
+	m_states.push(new MainMenuState(m_window, &m_supportedKeys, m_states));
 }
 
 void Game::UpdateDt()

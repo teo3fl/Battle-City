@@ -9,8 +9,7 @@ State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys
 
 State::~State()
 {
-	for (auto it = this->m_buttons.begin(); it != m_buttons.end(); ++it)
-		delete it->second;
+
 }
 
 void State::CheckForQuit()

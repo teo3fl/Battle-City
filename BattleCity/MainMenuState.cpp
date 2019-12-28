@@ -1,11 +1,13 @@
 #include "MainMenuState.h"
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
-	: State(window, supportedKeys)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*> states)
+	: State(window, supportedKeys), m_states(states)
 {
 	InitializeKeybinds();
 	InitializeBackground();
+	InitializeFont();
+	InitializeButtons();
 }
 
 MainMenuState::~MainMenuState()
@@ -19,7 +21,7 @@ MainMenuState::~MainMenuState()
 
 void MainMenuState::InitializeKeybinds()
 {
-	std::ifstream in("../External/Resources/Config/gamestate_keybinds.ini");
+	std::ifstream in("../External/Resources/Config/mainmenustate_keybinds.ini");
 
 	if (in.is_open())
 	{
@@ -35,6 +37,14 @@ void MainMenuState::InitializeKeybinds()
 		throw "ERROR::GAME_STATE::KEYBINDS_NOT_FOUND";
 
 	in.close();
+}
+
+void MainMenuState::InitializeFont()
+{
+	if (!m_font.loadFromFile("../External/Resources/Fonts/Arial.ttf"))
+	{
+		throw "ERROR::MAIN_MENU_STATE::COULD_NOT_LOAD_FONT_FROM_FILE";
+	}
 }
 
 void MainMenuState::EndState()
@@ -56,35 +66,76 @@ void MainMenuState::InitializeBackground()
 
 void MainMenuState::InitializeButtons()
 {
-	this->m_buttons["GAME_STATE"] = new Button(100, 100, 150, 50,
-		&this->m_font, "New Game",
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	m_buttons["GAME_STATE_1"] = new Button(475, 600, 150, 50,
+		&m_font, "1 Player", 30,
+		sf::Color::White, sf::Color::Black);
 
-	this->m_buttons["EXIT_STATE"] = new Button(100, 300, 150, 50,
-		&this->m_font, "Quit",
-		sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	m_buttons["GAME_STATE_2"] = new Button(475, 650, 150, 50,
+		&m_font, "2 Players", 30,
+		sf::Color::White, sf::Color::Black);
+
+	m_buttons["KEYBINDS"] = new Button(475, 700, 150, 50,
+		&m_font, "Keybinds", 30,
+		sf::Color::White, sf::Color::Black);
+
+	m_buttons["EXIT_STATE"] = new Button(475, 750, 150, 50,
+		&m_font, "Quit", 30,
+		sf::Color::White, sf::Color::Black);
 }
 
 void MainMenuState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
-	
 }
 
-void MainMenuState::UpdateButtons(const sf::Vector2f& mousePos)
+void MainMenuState::UpdateMousePosition()
+{
+	m_mousePosScreen = sf::Mouse::getPosition();
+	m_mousePosWindow = sf::Mouse::getPosition(*m_window);
+
+	/*m_mousePosGrid =
+		sf::Vector2i(
+			static_cast<int>(m_mousePosView.x),
+			static_cast<int>(m_mousePosView.y)
+		);*/
+
+	//m_window->setView(m_window->getDefaultView());
+}
+
+void MainMenuState::UpdateButtons()
 {
 	for (auto& it : m_buttons)
 	{
-		it.second->update(mousePos);
+		it.second->update(m_mousePosWindow);
+	}
+
+	if (m_buttons["GAME_STATE_1"]->isPressed())
+	{
+		m_states.push(new GameState(m_window, m_supportedKeys));
+	}
+
+	if (m_buttons["GAME_STATE_2"]->isPressed())
+	{
+		m_states.push(new GameState(m_window, m_supportedKeys));
+	}
+
+	if (m_buttons["KEYBINDS"]->isPressed())
+	{
 		
+	}
+
+	if (m_buttons["EXIT_STATE"]->isPressed())
+	{
+		m_quit = true;
 	}
 }
 
 
 void MainMenuState::Update(const float& dt)
 {
+	UpdateMousePosition();
 	UpdateInput(dt);
-	//UpdateButtons(mousePos);
+	UpdateButtons();
 	
 }
 

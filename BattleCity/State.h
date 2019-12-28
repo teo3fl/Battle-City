@@ -26,11 +26,10 @@ protected:
 	sf::RenderWindow* m_window;
 	std::map<std::string, int>* m_supportedKeys;
 	std::map<std::string, int> m_keybinds;
-	bool m_quit;
+	bool m_quit : 1;
 
 	//Resources
 	std::map<std::string, sf::Texture> m_textures;
-	std::map<std::string, Button*> m_buttons;
 
 };
 #endif
