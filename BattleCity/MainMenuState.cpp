@@ -1,7 +1,7 @@
 #include "MainMenuState.h"
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*> states)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys), m_states(states)
 {
 	InitializeKeybinds();
@@ -111,12 +111,12 @@ void MainMenuState::UpdateButtons()
 
 	if (m_buttons["GAME_STATE_1"]->isPressed())
 	{
-		m_states.push(new GameState(m_window, m_supportedKeys));
+		m_states->push(new GameState(m_window, m_supportedKeys));
 	}
 
 	if (m_buttons["GAME_STATE_2"]->isPressed())
 	{
-		m_states.push(new GameState(m_window, m_supportedKeys));
+		m_states->push(new GameState(m_window, m_supportedKeys));
 	}
 
 	if (m_buttons["KEYBINDS"]->isPressed())

@@ -63,7 +63,8 @@ void Game::InitializeKeys()
 
 void Game::InitializeStates()
 {
-	m_states.push(new MainMenuState(m_window, &m_supportedKeys, m_states));
+	m_states = new std::stack<State*>();
+	m_states->push(new MainMenuState(m_window, &m_supportedKeys, m_states));
 }
 
 void Game::UpdateDt()
@@ -76,10 +77,10 @@ void Game::Render()
 {
 	m_window->clear();
 
-	if (!m_states.empty())
+	if (!m_states->empty())
 	{
-		m_states.top()->Update(m_dt);
-		m_states.top()->Render();
+		m_states->top()->Update(m_dt);
+		m_states->top()->Render();
 	}
 
 	m_window->display();
@@ -89,17 +90,17 @@ void Game::Update()
 {
 	UpdateSFMLEvents();
 
-	if (!m_states.empty())
+	if (!m_states->empty())
 	{
 		if (m_window->hasFocus())
 		{
-			m_states.top()->Update(m_dt);
+			m_states->top()->Update(m_dt);
 
-			if (m_states.top()->GetQuit())
+			if (m_states->top()->GetQuit())
 			{
-				m_states.top()->EndState();
-				delete m_states.top();
-				m_states.pop();
+				m_states->top()->EndState();
+				delete m_states->top();
+				m_states->pop();
 			}
 		}
 	}

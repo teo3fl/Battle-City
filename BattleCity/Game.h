@@ -35,7 +35,7 @@ private:
 	sf::Clock m_clock;
 	float m_dt;
 
-	std::stack<State*> m_states;
+	std::stack<State*>* m_states;
 
 	std::map<std::string, int> m_supportedKeys;
 };

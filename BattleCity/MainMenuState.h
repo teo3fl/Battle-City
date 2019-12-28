@@ -8,7 +8,7 @@ class MainMenuState :
 	public State
 {
 public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*> states);
+	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~MainMenuState();
 
 	//Functions
@@ -33,7 +33,7 @@ private:
 	sf::Texture m_backgroundTexture;
 	sf::RectangleShape m_background;
 	sf::Font m_font;
-	std::stack<State*> m_states;
+	std::stack<State*>* m_states;
 	std::map<std::string, Button*> m_buttons;
 
 	sf::Vector2i m_mousePosScreen;
