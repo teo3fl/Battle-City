@@ -186,6 +186,7 @@ void GameState::UpdatePlayerMovement(const float& dt)
 
 void GameState::Update(const float& dt)
 {
+	UpdateKeytime(dt);
 	UpdateInput(dt);
 
 	m_player1->Update(dt);

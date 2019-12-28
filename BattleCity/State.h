@@ -14,9 +14,11 @@ public:
 	virtual void InitializeKeybinds() = 0;
 
 	const bool& GetQuit() const;
+	const bool GetKeytime();
 
 	virtual void CheckForQuit();
 
+	virtual void UpdateKeytime(const float& dt);
 	virtual void UpdateInput(const float& dt) = 0;
 	virtual void Update(const float& dt) = 0;
 	virtual void Render(sf::RenderTarget* target = nullptr) = 0;
@@ -26,6 +28,9 @@ protected:
 	std::map<std::string, int>* m_supportedKeys;
 	std::map<std::string, int> m_keybinds;
 	bool m_quit : 1;
+
+	float m_keytime;
+	float m_keytimeMax;
 
 	//Resources
 	std::map<std::string, sf::Texture> m_textures;

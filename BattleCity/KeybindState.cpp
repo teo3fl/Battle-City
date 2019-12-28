@@ -59,6 +59,7 @@ void KeybindState::UpdateInput(const float& dt)
 
 void KeybindState::Update(const float& dt)
 {
+	UpdateKeytime(dt);
 	UpdateInput(dt);
 }
 
