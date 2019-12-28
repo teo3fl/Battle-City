@@ -47,11 +47,6 @@ void MainMenuState::InitializeFont()
 	}
 }
 
-void MainMenuState::EndState()
-{
-	std::cout << "Ending GameState!" << "\n";
-}
-
 void MainMenuState::InitializeBackground()
 {
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
@@ -121,7 +116,7 @@ void MainMenuState::UpdateButtons()
 
 	if (m_buttons["KEYBINDS"]->isPressed())
 	{
-		
+		m_states->push(new KeybindState(m_window, m_supportedKeys,&m_font,sf::Color::White,30));
 	}
 
 	if (m_buttons["EXIT_STATE"]->isPressed())

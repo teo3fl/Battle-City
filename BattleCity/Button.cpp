@@ -16,7 +16,6 @@ Button::Button (float x, float y, float width, float height,
 	m_text.setString(text);
 	m_text.setFillColor(textColor);
 	m_text.setCharacterSize(characterSize);
-	std::cout << m_text.getGlobalBounds().width << "\n";
 	m_text.setPosition(
 		m_shape.getPosition().x + (m_shape.getGlobalBounds().width / 2.f) - m_text.getGlobalBounds().width / 2.f,
 		m_shape.getPosition().y

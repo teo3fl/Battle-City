@@ -17,7 +17,6 @@ public:
 
 	virtual void CheckForQuit();
 
-	virtual void EndState() = 0;
 	virtual void UpdateInput(const float& dt) = 0;
 	virtual void Update(const float& dt) = 0;
 	virtual void Render(sf::RenderTarget* target = nullptr) = 0;

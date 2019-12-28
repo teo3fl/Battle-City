@@ -11,6 +11,7 @@ Game::Game()
 
 Game::~Game()
 {
+	delete m_states;
 	delete m_window;
 }
 
@@ -98,7 +99,6 @@ void Game::Update()
 
 			if (m_states->top()->GetQuit())
 			{
-				m_states->top()->EndState();
 				delete m_states->top();
 				m_states->pop();
 			}

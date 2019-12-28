@@ -13,7 +13,6 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 
 GameState::~GameState()
 {
-	EndState();
 	delete m_player1;
 }
 
@@ -148,11 +147,6 @@ void GameState::InitializeMap()
 	m_map->AddTexture("TREES", m_textures["TREES"]);
 
 	m_map->LoadFromFile("../External/Resources/Config/map_stage1.ini");
-}
-
-void GameState::EndState()
-{
-	std::cout << "Ending GameState!" << "\n";
 }
 
 void GameState::UpdateInput(const float& dt)

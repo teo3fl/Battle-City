@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include "Button.h"
+#include "KeybindState.h"
 
 class MainMenuState :
 	public State
@@ -12,8 +13,6 @@ public:
 	virtual ~MainMenuState();
 
 	//Functions
-	void EndState() override;
-
 	void InitializeBackground();
 	void InitializeButtons();
 	void InitializeKeybinds() override;
