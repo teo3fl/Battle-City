@@ -117,14 +117,14 @@
     <ClCompile Include="KeybindState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Hitboxes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hitbox.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,14 +212,14 @@
     <ClInclude Include="KeybindState.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Hitboxes.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hitbox.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
