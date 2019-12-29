@@ -6,6 +6,8 @@ Player::Player(const std::string& name, float x, float y) : m_name(name)
 	// create hitbox
 	SetPosition(x, y);
 	m_sprite.scale(sf::Vector2f(0.6f, 0.6f));
+
+	CreateHitbox(m_sprite, 53, 53);
 }
 
 const std::string Player::GetName()
@@ -41,4 +43,16 @@ const uint8_t Player::GetBullet()
 const uint8_t Player::GetOffensivePower()
 {
 	return m_offensivePower;
+}
+
+void Player::Update(const float& dt)
+{
+	m_hitbox->Update();
+}
+
+void Player::Render(sf::RenderTarget* target)
+{
+	target->draw(m_sprite);
+
+	m_hitbox->Render(target);
 }

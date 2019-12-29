@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Hitbox.h"
 
-Hitbox::Hitbox(sf::Sprite& sprite, float x, float y, float width, float height) : 
-	m_sprite(sprite), m_x(x), m_y(y)
+Hitbox::Hitbox(sf::Sprite& sprite, float width, float height) : 
+	m_sprite(sprite)
 {
 	m_hitbox.setPosition(m_sprite.getPosition().x , m_sprite.getPosition().y);
 	m_hitbox.setSize(sf::Vector2f(width, height));
@@ -35,7 +35,7 @@ void Hitbox::Update()
 	m_hitbox.setPosition(m_sprite.getPosition().x, m_sprite.getPosition().y);
 }
 
-void Hitbox::Render(sf::RenderTarget& target)
+void Hitbox::Render(sf::RenderTarget* target)
 {
-	target.draw(m_hitbox);
+	target->draw(m_hitbox);
 }

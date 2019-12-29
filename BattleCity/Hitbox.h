@@ -3,9 +3,7 @@
 class Hitbox
 {
 public:
-	Hitbox(sf::Sprite& sprite,
-		float x, float y,
-		float width, float height);
+	Hitbox(sf::Sprite& sprite, float width, float height);
 
 	~Hitbox();
 
@@ -16,12 +14,10 @@ public:
 	const sf::FloatRect GetGlobalBounds() const;
 
 	void Update();
-	void Render(sf::RenderTarget& target);
+	void Render(sf::RenderTarget* target = nullptr);
 
 private:
 	sf::Sprite& m_sprite;
 	sf::RectangleShape m_hitbox;
-	float m_x;
-	float m_y;
 };
 
