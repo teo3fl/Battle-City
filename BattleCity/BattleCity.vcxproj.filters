@@ -114,9 +114,6 @@
     <ClCompile Include="GraphicsSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KeybindState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Stage.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -125,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Hitbox.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeybindState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +209,6 @@
     <ClInclude Include="GraphicsSettings.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="KeybindState.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>States</Filter>
     </ClInclude>
@@ -220,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Hitbox.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeybindState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

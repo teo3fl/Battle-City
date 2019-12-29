@@ -1,5 +1,7 @@
 #pragma once
+
 #include "State.h"
+
 class KeybindState :
 	public State
 {

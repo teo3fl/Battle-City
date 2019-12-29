@@ -6,8 +6,6 @@
 #include "Trees.h"
 #include "Water.h"
 
-#include "Tile.h"
-
 class TileMap
 {
 public:

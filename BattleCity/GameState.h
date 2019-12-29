@@ -1,6 +1,4 @@
 #pragma once
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
 
 #include "State.h"
 #include "TileMap.h"
@@ -36,4 +34,3 @@ private:
 	uint16_t m_mapHeight;
 	uint16_t m_mapWidth;
 };
-#endif

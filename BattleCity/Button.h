@@ -1,5 +1,4 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#pragma once
 
 enum Button_States
 {
@@ -32,5 +31,3 @@ private:
 
 	sf::Color m_color;
 };
-
-#endif

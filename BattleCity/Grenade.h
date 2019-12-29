@@ -1,6 +1,6 @@
 #pragma once
+
 #include "PowerUp.h"
-#include <string>
 
 class Grenade : public PowerUp
 {

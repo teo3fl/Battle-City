@@ -1,5 +1,4 @@
-﻿#ifndef STATE_H
-#define STATE_H
+﻿#pragma once
 
 class State
 {
@@ -32,4 +31,3 @@ protected:
 	std::map<std::string, sf::Texture> m_textures;
 
 };
-#endif

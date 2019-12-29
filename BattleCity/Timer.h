@@ -1,7 +1,6 @@
 #pragma once
 
 #include "PowerUp.h"
-#include <string>
 
 class Timer : public PowerUp
 {

@@ -1,5 +1,4 @@
-#ifndef MAINMENUSTATE_H
-#define MAINMENUSTATE_H
+#pragma once
 
 #include "GameState.h"
 #include "Button.h"
@@ -38,4 +37,3 @@ private:
 	sf::Vector2i m_mousePosScreen;
 	sf::Vector2i m_mousePosWindow;
 };
-#endif
