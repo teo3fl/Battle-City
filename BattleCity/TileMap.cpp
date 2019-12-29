@@ -9,6 +9,8 @@ TileMap::TileMap(uint16_t width, uint16_t height) :
 	m_map.resize(m_height);
 	for (int x = 0; x < m_height; x++)
 		m_map[x].resize(m_width);
+
+	InitializeBorders();
 }
 
 TileMap::~TileMap()
@@ -17,6 +19,27 @@ TileMap::~TileMap()
 		for (int y = 0; y < m_width; y++)
 			if (m_map[x][y])
 				delete m_map[x][y];
+}
+
+void TileMap::InitializeBorders()
+{
+	m_numberOfBorders = 4;
+	uint16_t width = 832;
+	uint8_t height = 5;
+
+	m_borders.resize(m_numberOfBorders);
+
+	m_upperBorder.setPosition(sf::Vector2f(m_border, m_border - height));
+	m_borders[0] = new Hitbox(m_upperBorder, width, height);
+
+	m_lowerBorder.setPosition(sf::Vector2f(m_border, m_border + width));
+	m_borders[1] = new Hitbox(m_lowerBorder, width, height);
+
+	m_leftBorder.setPosition(sf::Vector2f(m_border - height, m_border));
+	m_borders[2] = new Hitbox(m_leftBorder, height, width);
+
+	m_rightBorder.setPosition(sf::Vector2f(m_border + width, m_border));
+	m_borders[3] = new Hitbox(m_rightBorder, height, width);
 }
 
 void TileMap::LoadFromFile(const std::string& fileName)
@@ -91,4 +114,7 @@ void TileMap::Render(sf::RenderTarget* target)
 		for (uint16_t y = 0; y < m_width; ++y)
 			if(m_map[x][y]!=NULL)
 				m_map[x][y]->Render(target);
+
+	for (uint16_t i = 0; i < m_numberOfBorders; ++i)
+		m_borders[i]->Render(target);
 }
