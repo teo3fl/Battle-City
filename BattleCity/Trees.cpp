@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Trees.h"
 
 Trees::Trees(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)

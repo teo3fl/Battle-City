@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Water.h"
 
 Water::Water(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)

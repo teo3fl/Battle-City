@@ -2,7 +2,6 @@
 #define STATE_H
 
 #include "Entity.h"
-
 #include "Button.h"
 
 class State

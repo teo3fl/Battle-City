@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ArmorTank.h"
 
 std::string ArmorTank::GetName() const

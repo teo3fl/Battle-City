@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BasicTank.h"
 
 std::string BasicTank::GetName() const

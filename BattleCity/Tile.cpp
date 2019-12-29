@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Tile.h"
 
 Tile::Tile(int x, int y, const sf::Texture& texture)

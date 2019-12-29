@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PowerTank.h"
 
 std::string PowerTank::GetName() const

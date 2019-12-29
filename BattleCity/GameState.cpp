@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "GameState.h"
-#include <fstream>
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
 	: State(window, supportedKeys)

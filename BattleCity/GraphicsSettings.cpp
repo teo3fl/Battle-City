@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "GraphicsSettings.h"
-#include <fstream>
 
 GraphicsSettings::GraphicsSettings()
 {

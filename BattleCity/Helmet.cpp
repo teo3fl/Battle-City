@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Helmet.h"
 
 Helmet::Helmet(std::string name) : m_name(name)

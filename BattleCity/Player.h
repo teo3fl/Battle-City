@@ -1,7 +1,6 @@
 #pragma once
 #include "Tank.h"
 #include "Entity.h"
-#include <cstdint>
 
 class Player :  public Entity
 {

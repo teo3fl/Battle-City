@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Grenade.h"
 
 Grenade::Grenade(std::string name) : m_name(name)

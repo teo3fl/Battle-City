@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TankP.h"
 
 TankP::TankP(std::string name) : m_name(name)

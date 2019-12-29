@@ -13,84 +13,239 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{323e65da-a3cc-456f-8ec7-7538be898869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{bfe91d7c-2009-4e60-8daf-788825b43e43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map\Tiles">
+      <UniqueIdentifier>{ee27d532-2454-45b0-a491-1b88c2229c68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tanks">
+      <UniqueIdentifier>{66fd6682-5a2a-43b4-b55b-34c08ace53cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Power-Ups">
+      <UniqueIdentifier>{0124a3c2-fac1-4da9-8757-febef4a5a454}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Armor_Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Basic_Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fast_Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Power_Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Steel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Trees.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Water.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Ice.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Steel.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Trees.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>Map\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmorTank.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTank.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="FastTank.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerTank.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="Grenade.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="Helmet.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="Shovel.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="Star.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="TankP.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KeybindState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hitboxes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Armor_Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Basic_Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fast_Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Power_Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Steel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Trees.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Water.h">
-      <Filter>Header Files</Filter>
+      <Filter>Map\Tiles</Filter>
     </ClInclude>
     <ClInclude Include="Ice.h">
+      <Filter>Map\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Steel.h">
+      <Filter>Map\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Map\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Trees.h">
+      <Filter>Map\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
+      <Filter>Map\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorTank.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTank.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="FastTank.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerTank.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="TankP.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="Grenade.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="Helmet.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="Shovel.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="Star.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeybindState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hitboxes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\External\Resources\Config\gamestate_keybinds.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\graphics.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\mainmenustate_keybinds.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\map_stage1.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\map_stage2.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\map_stage3.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\map_stage4.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\supported_keys.ini">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

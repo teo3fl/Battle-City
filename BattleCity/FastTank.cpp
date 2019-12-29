@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "FastTank.h"
 
 std::string FastTank::GetName() const

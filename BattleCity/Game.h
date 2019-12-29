@@ -3,8 +3,6 @@
 #include "GraphicsSettings.h"
 #include  "MainMenuState.h"
 
-#include <stack>
-
 class Game
 {
 public:

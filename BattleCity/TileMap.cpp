@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "TileMap.h"
-#include <fstream>
 
 TileMap::TileMap(uint16_t width, uint16_t height) :
 	m_width(width), m_height(height)

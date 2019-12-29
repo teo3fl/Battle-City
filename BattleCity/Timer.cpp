@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Timer.h"
 
 Timer::Timer(std::string name) : m_name(name)

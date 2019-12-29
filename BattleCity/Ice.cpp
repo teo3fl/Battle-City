@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Ice.h"
 
 Ice::Ice(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)

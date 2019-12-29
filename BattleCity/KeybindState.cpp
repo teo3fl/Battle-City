@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "KeybindState.h"
 
 KeybindState::KeybindState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, sf::Font* font, sf::Color color, uint8_t size)
