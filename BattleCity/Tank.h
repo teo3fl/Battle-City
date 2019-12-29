@@ -1,13 +1,17 @@
 #pragma once
 
-class Tank
+#include "Entity.h" 
+
+class Tank : public Entity
 {
 public :
-	virtual std::string GetName() const = 0;
-	virtual uint16_t GetPoints() const = 0;
-	virtual uint8_t GetHealth() const = 0;
-	virtual uint8_t GetMovement() const = 0; // returns the movement speed of the tank;
-	virtual uint8_t GetBullet() const = 0;  // returns the velocity of the projectile
-	
+	virtual uint16_t GetPoints() const;
+	virtual uint8_t GetHealth() const;
+	virtual float GetMovement() const; // returns the movement speed of the tank;
+	virtual float GetBullet() const;  // returns the velocity of the projectile
+protected:
+	uint16_t m_points;
+	uint8_t m_health;
+	float m_bulletVelocity;
 };
 

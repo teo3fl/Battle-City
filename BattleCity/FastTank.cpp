@@ -1,27 +1,10 @@
 #include "stdafx.h"
 #include "FastTank.h"
 
-std::string FastTank::GetName() const
+FastTank::FastTank()
 {
-	return m_name;
-}
-
-uint16_t FastTank::GetPoints() const
-{
-	return m_points;
-}
-
-uint8_t FastTank::GetHealth() const
-{
-	return m_health;
-}
-
-uint8_t FastTank::GetMovement() const
-{
-	return m_movement;
-}
-
-uint8_t FastTank::GetBullet() const
-{
-	return m_bullet;
+	m_movementSpeed = 100.f; 
+	m_points = 200;
+	m_health = 1;
+	m_bulletVelocity = 75.f;
 }

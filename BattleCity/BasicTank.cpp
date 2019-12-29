@@ -1,27 +1,10 @@
 #include "stdafx.h"
 #include "BasicTank.h"
 
-std::string BasicTank::GetName() const
+BasicTank::BasicTank()
 {
-	return m_name;
-}
-
-uint16_t BasicTank::GetPoints() const
-{
-	return m_points;
-}
-
-uint8_t BasicTank::GetHealth() const
-{
-	return m_health;
-}
-
-uint8_t BasicTank::GetMovement() const
-{
-	return m_movement;
-}
-
-uint8_t BasicTank::GetBullet() const
-{
-	return m_bullet;
+	m_movementSpeed = 50.f; 
+	m_points = 100;
+	m_health = 1;
+	m_bulletVelocity = 50.f;
 }

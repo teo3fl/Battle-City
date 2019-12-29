@@ -3,7 +3,6 @@
 
 Entity::Entity()
 {
-	m_movementSpeed = 100.f;
 }
 
 Entity::~Entity()
