@@ -1,13 +1,17 @@
 #pragma once
-#include "Entity.h"
+
+#include "Hitbox.h"
 
 class Tile
 {
 public:
 	Tile(int x, int y, const sf::Texture& texture);
+
 	void SetTexture(const sf::Texture& texture);
 	void SetPosition(int x, int y);
-	//virtual void Update(const float& dt);
+	void CreateHitbox(sf::Sprite& sprite);
+
+	virtual void Update(const float& dt);
 	void Render(sf::RenderTarget* target);
 
 	virtual const std::string GetType() const = 0;
@@ -16,4 +20,8 @@ public:
 
 protected:
 	sf::Sprite m_sprite;
+	Hitbox* m_hitbox;
+
+	uint8_t m_width;
+	uint8_t m_height;
 };

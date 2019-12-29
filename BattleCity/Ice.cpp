@@ -3,6 +3,7 @@
 
 Ice::Ice(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
+	CreateHitbox(m_sprite);
 }
 
 const std::string Ice::GetType() const

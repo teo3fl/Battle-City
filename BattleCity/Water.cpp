@@ -3,6 +3,7 @@
 
 Water::Water(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
+	CreateHitbox(m_sprite);
 }
 
 const std::string Water::GetType() const
