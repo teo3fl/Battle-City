@@ -23,7 +23,7 @@ public:
 	void Update(const float& dt) override;
 
 
-	void RenderButtons(sf::RenderTarget* target = nullptr);
+	void RenderButtons(sf::RenderTarget& target);
 	void Render(sf::RenderTarget* target = nullptr) override;
 
 private:

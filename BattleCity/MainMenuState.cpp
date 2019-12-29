@@ -125,11 +125,11 @@ void MainMenuState::Update(const float& dt)
 	UpdateButtons();
 }
 
-void MainMenuState::RenderButtons(sf::RenderTarget* target)
+void MainMenuState::RenderButtons(sf::RenderTarget& target)
 {
 	for (auto& it : this->m_buttons)
 	{
-		it.second->render(target);
+		it.second->render(&target);
 	}
 }
 
@@ -140,5 +140,5 @@ void MainMenuState::Render(sf::RenderTarget* target)
 
 	target->draw(m_background);
 
-	RenderButtons(target);
+	RenderButtons(*target);
 }
