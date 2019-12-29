@@ -37,6 +37,5 @@ private:
 
 	sf::Vector2i m_mousePosScreen;
 	sf::Vector2i m_mousePosWindow;
-	//sf::Vector2i m_mousePosGrid;
 };
 #endif

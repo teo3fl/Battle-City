@@ -44,8 +44,6 @@ void Button::update(const sf::Vector2i& mousePos)
 	//Idle
 	m_buttonState = BTN_IDLE;
 	
-	//Hover
-	
 	if(m_shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
 	{
 		//Active

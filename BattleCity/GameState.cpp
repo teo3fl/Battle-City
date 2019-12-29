@@ -63,7 +63,6 @@ void GameState::InitializeTextures()
 	
 	// player2 textures
 
-
 	if (!m_textures["PLAYER2_RIGHT"].loadFromFile("../External/Resources/Textures/tank2R.png"))
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_R";

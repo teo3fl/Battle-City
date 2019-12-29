@@ -5,7 +5,6 @@ enum Button_States
 {
 	BTN_IDLE = 0,
 	BTN_ACTIVE
-
 };
 
 class Button
@@ -25,7 +24,7 @@ public:
 
 private:
 	bool m_pressed : 1;
-	uint8_t m_buttonState : 1; 
+	bool m_buttonState : 1; 
 
     sf::RectangleShape m_shape;
 	sf::Font* m_font;

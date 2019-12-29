@@ -87,14 +87,6 @@ void MainMenuState::UpdateMousePosition()
 {
 	m_mousePosScreen = sf::Mouse::getPosition();
 	m_mousePosWindow = sf::Mouse::getPosition(*m_window);
-
-	/*m_mousePosGrid =
-		sf::Vector2i(
-			static_cast<int>(m_mousePosView.x),
-			static_cast<int>(m_mousePosView.y)
-		);*/
-
-	//m_window->setView(m_window->getDefaultView());
 }
 
 void MainMenuState::UpdateButtons()
@@ -131,7 +123,6 @@ void MainMenuState::Update(const float& dt)
 	UpdateMousePosition();
 	UpdateInput(dt);
 	UpdateButtons();
-	
 }
 
 void MainMenuState::RenderButtons(sf::RenderTarget* target)
