@@ -11,6 +11,9 @@ public:
 	void SetPosition(int x, int y);
 	void CreateHitbox(sf::Sprite& sprite);
 
+	virtual const sf::FloatRect GetGlobalBounds() const;
+	virtual const bool Intersects(const sf::FloatRect bounds) const;
+
 	virtual void Update(const float& dt);
 	void Render(sf::RenderTarget* target);
 

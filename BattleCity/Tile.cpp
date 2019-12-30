@@ -25,6 +25,16 @@ void Tile::CreateHitbox(sf::Sprite& sprite)
 	m_hitbox = new Hitbox(m_sprite, m_width, m_height);
 }
 
+const sf::FloatRect Tile::GetGlobalBounds() const
+{
+	return m_sprite.getGlobalBounds();
+}
+
+const bool Tile::Intersects(const sf::FloatRect bounds) const
+{
+	return m_sprite.getGlobalBounds().intersects(bounds);
+}
+
 void Tile::Update(const float& dt)
 {
 	m_hitbox->Update();

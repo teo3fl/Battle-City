@@ -120,7 +120,61 @@ void TileMap::UpdateBorderCollision(Entity* entity, const float& dt)
 
 void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 {
+	for (uint16_t y = 0; y < m_width; ++y)
+		for (uint16_t x = 0; x < m_height; ++x)
+			if (m_map[x][y])
+			{
+				sf::FloatRect entityBounds = entity->GetGlobalBounds();
+				sf::FloatRect nextPositionBounds = entity->GetNextPositionBounds(dt);
+				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
+				if (m_map[x][y]->Intersects(nextPositionBounds))
+				{
+					//Bottom collision
+					if (entityBounds.top < wallBounds.top
+						&& entityBounds.top + entityBounds.height < wallBounds.top + wallBounds.height
+						&& entityBounds.left < wallBounds.left + wallBounds.width
+						&& entityBounds.left + entityBounds.width > wallBounds.left
+						)
+					{
+						entity->StopVelocityY();
+						entity->SetPosition(entityBounds.left, wallBounds.top - entityBounds.height);
+					}
+
+					//Top collision
+					else if (entityBounds.top > wallBounds.top
+						&& entityBounds.top + entityBounds.height > wallBounds.top + wallBounds.height
+						&& entityBounds.left < wallBounds.left + wallBounds.width
+						&& entityBounds.left + entityBounds.width > wallBounds.left
+						)
+					{
+						entity->StopVelocityY();
+						entity->SetPosition(entityBounds.left, wallBounds.top + wallBounds.height);
+					}
+
+					//Right collision
+					if (entityBounds.left < wallBounds.left
+						&& entityBounds.left + entityBounds.width < wallBounds.left + wallBounds.width
+						&& entityBounds.top < wallBounds.top + wallBounds.height
+						&& entityBounds.top + entityBounds.height > wallBounds.top
+						)
+					{
+						entity->StopVelocityX();
+						entity->SetPosition(wallBounds.left - entityBounds.width, entityBounds.top);
+					}
+
+					//Left collision
+					else if (entityBounds.left > wallBounds.left
+						&& entityBounds.left + entityBounds.width > wallBounds.left + wallBounds.width
+						&& entityBounds.top < wallBounds.top + wallBounds.height
+						&& entityBounds.top + entityBounds.height > wallBounds.top
+						)
+					{
+						entity->StopVelocityX();
+						entity->SetPosition(wallBounds.left + wallBounds.width, entityBounds.top);
+					}
+				}
+			}
 }
 
 void TileMap::Update(Entity* entity, const float& dt)

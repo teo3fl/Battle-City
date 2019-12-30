@@ -34,7 +34,8 @@ const sf::FloatRect& Hitbox::GetNextPosition(const sf::Vector2f& velocity)
 {
 	m_nextPosition.left = m_hitbox.getPosition().x + velocity.x;
 	m_nextPosition.top = m_hitbox.getPosition().y + velocity.y;
-
+	m_nextPosition.height = m_hitbox.getGlobalBounds().height;
+	m_nextPosition.width = m_hitbox.getGlobalBounds().width;
 	return m_nextPosition;
 }
 
