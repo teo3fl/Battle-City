@@ -145,7 +145,7 @@ void GameState::InitializeMap()
 	m_map->AddTexture("WATER", m_textures["WATER"]);
 	m_map->AddTexture("TREES", m_textures["TREES"]);
 
-	m_map->LoadFromFile("../External/Resources/Config/map_stage1.ini");
+	m_map->LoadFromFile("../External/Resources/Config/map_stage3.ini");
 }
 
 void GameState::UpdateInput(const float& dt)
@@ -203,6 +203,7 @@ void GameState::Render(sf::RenderTarget* target)
 		target = m_window;
 
 	target->draw(m_background);
+	m_map->RenderTilesBelow(target);
 	m_player1->Render(target);
-	m_map->Render(target);
+	m_map->RenderTilesAbove(target);
 }

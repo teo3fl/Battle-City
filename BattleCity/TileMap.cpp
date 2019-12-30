@@ -128,7 +128,7 @@ void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 				sf::FloatRect nextPositionBounds = entity->GetNextPositionBounds(dt);
 				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
-				if (m_map[x][y]->Intersects(nextPositionBounds))
+				if (m_map[x][y]->GetTankCollision() &&  wallBounds.intersects(nextPositionBounds))
 				{
 					//Bottom collision
 					if (entityBounds.top < wallBounds.top
@@ -183,10 +183,18 @@ void TileMap::Update(Entity* entity, const float& dt)
 	UpdateTileCollision(entity, dt);
 }
 
-void TileMap::Render(sf::RenderTarget* target)
+void TileMap::RenderTilesAbove(sf::RenderTarget* target)
 {
 	for (uint16_t x = 0; x < m_height; ++x)
 		for (uint16_t y = 0; y < m_width; ++y)
-			if(m_map[x][y]!=NULL)
+			if(m_map[x][y]!=NULL && m_map[x][y]->GetType() == "Trees")
+				m_map[x][y]->Render(target);
+}
+
+void TileMap::RenderTilesBelow(sf::RenderTarget* target)
+{
+	for (uint16_t x = 0; x < m_height; ++x)
+		for (uint16_t y = 0; y < m_width; ++y)
+			if (m_map[x][y] != NULL && m_map[x][y]->GetType() != "Trees")
 				m_map[x][y]->Render(target);
 }

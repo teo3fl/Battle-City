@@ -4,19 +4,7 @@
 Steel::Steel(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 	CreateHitbox(m_sprite);
-}
-
-const std::string Steel::GetType() const
-{
-	return m_type;
-}
-
-bool Steel::IsPassable() const
-{
-	return m_isPassable;
-}
-
-bool Steel::IsBreakable() const
-{
-	return m_isBreakable;
+	m_bulletCollision = true;
+	m_tankCollision = true; 
+	m_type = "Steel";
 }

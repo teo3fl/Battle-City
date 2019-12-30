@@ -21,7 +21,8 @@ public:
 	void UpdateTileCollision(Entity* entity, const float& dt);
 
 	void Update (Entity* entity, const float& dt);
-	void Render(sf::RenderTarget* target = nullptr);
+	void RenderTilesAbove(sf::RenderTarget* target = nullptr);
+	void RenderTilesBelow(sf::RenderTarget* target = nullptr);
 
 private:
 	uint16_t m_width;

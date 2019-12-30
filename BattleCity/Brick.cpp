@@ -4,19 +4,8 @@
 Brick::Brick(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 {
 	CreateHitbox(m_sprite);
+	m_bulletCollision = true;
+	m_tankCollision = true;
+	m_type = "Brick";
 }
 
-const std::string Brick::GetType() const
-{
-	return m_type;
-}
-
-bool Brick::IsPassable() const
-{
-	return m_isPassable;
-}
-
-bool Brick::IsBreakable() const
-{
-	return m_isBreakable;
-}

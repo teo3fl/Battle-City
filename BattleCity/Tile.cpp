@@ -25,6 +25,11 @@ void Tile::CreateHitbox(sf::Sprite& sprite)
 	m_hitbox = new Hitbox(m_sprite, m_width, m_height);
 }
 
+std::string& Tile::GetType()
+{
+	return m_type;
+}
+
 const sf::FloatRect Tile::GetGlobalBounds() const
 {
 	return m_sprite.getGlobalBounds();
@@ -43,5 +48,16 @@ void Tile::Update(const float& dt)
 void Tile::Render(sf::RenderTarget* target)
 {
 	target->draw(m_sprite);
-	m_hitbox->Render(target);
+	if(m_hitbox)
+		m_hitbox->Render(target);
+}
+
+bool Tile::GetTankCollision()
+{
+	return m_tankCollision;
+}
+
+bool Tile::GetBulletCollision()
+{
+	return m_bulletCollision;
 }
