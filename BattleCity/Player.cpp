@@ -3,7 +3,7 @@
 
 Player::Player(const std::string& name, float x, float y) : m_name(name)
 {
-	m_movementSpeed = 50.f; 
+	m_movementSpeed = 60.f; 
 	m_health = 1;
 	m_lives = 3;
 	m_bulletVelocity = 100.f;
@@ -13,6 +13,7 @@ Player::Player(const std::string& name, float x, float y) : m_name(name)
 	m_sprite.scale(sf::Vector2f(0.6f, 0.6f));
 
 	CreateHitbox(m_sprite, 53, 53);
+	CreateMovementComponent(m_movementSpeed,500.f,300.f);
 }
 
 const std::string Player::GetName()
@@ -37,6 +38,7 @@ const uint8_t Player::GetOffensivePower()
 
 void Player::Update(const float& dt)
 {
+	m_movementComponent->Update(dt);
 	m_hitbox->Update();
 }
 

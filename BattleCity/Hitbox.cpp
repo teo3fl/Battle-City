@@ -30,6 +30,14 @@ const sf::FloatRect Hitbox::GetGlobalBounds() const
 	return m_hitbox.getGlobalBounds();
 }
 
+const sf::FloatRect& Hitbox::GetNextPosition(const sf::Vector2f& velocity)
+{
+	m_nextPosition.left = m_hitbox.getPosition().x + velocity.x;
+	m_nextPosition.top = m_hitbox.getPosition().y + velocity.y;
+
+	return m_nextPosition;
+}
+
 void Hitbox::Update()
 {
 	m_hitbox.setPosition(m_sprite.getPosition().x, m_sprite.getPosition().y);
