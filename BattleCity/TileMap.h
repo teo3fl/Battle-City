@@ -14,6 +14,8 @@ public:
 	TileMap(uint16_t width, uint16_t height);
 	~TileMap();
 
+	void Clear();
+
 	void LoadFromFile(const std::string& fileName);
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
 

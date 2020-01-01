@@ -7,13 +7,28 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializeKeybinds();
 	InitializeTextures();
 	InitializeBackground();
-	InitializePlayer();
+	InitializePlayer1();
 	InitializeMap();
+	InitializeFonts();
+	InitializeVariables();
 }
 
 SinglePlayerState::~SinglePlayerState()
 {
 	delete m_player1;
+}
+
+void SinglePlayerState::InitializeVariables()
+{
+	m_gameStatus = GameStatus::NextStage;
+	m_stageNumber = 1;
+
+	m_text.setFillColor(sf::Color::Black);
+	m_text.setFont(m_font);
+	m_text.setCharacterSize(200);
+	m_text.setOutlineThickness(4.f);
+
+	UpdateStageBackground();
 }
 
 void SinglePlayerState::InitializeKeybinds()
@@ -31,7 +46,7 @@ void SinglePlayerState::InitializeKeybinds()
 		}
 	}
 	else
-		throw "ERROR::GAME_STATE::KEYBINDS_NOT_FOUND";
+		throw "ERROR::SINGLE_PLAYER_STATE::KEYBINDS_NOT_FOUND";
 
 	in.close();
 }
@@ -42,22 +57,22 @@ void SinglePlayerState::InitializeTextures()
 
 	if (!m_textures["PLAYER1_RIGHT"].loadFromFile("../External/Resources/Textures/tank1R.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_R";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_R";
 	}
 
 	if (!m_textures["PLAYER1_LEFT"].loadFromFile("../External/Resources/Textures/tank1L.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_L";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_L";
 	}
 
 	if (!m_textures["PLAYER1_UP"].loadFromFile("../External/Resources/Textures/tank1U.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_U";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_U";
 	}
 
 	if (!m_textures["PLAYER1_DOWN"].loadFromFile("../External/Resources/Textures/tank1D.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_D";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_D";
 	}
 
 	
@@ -65,22 +80,22 @@ void SinglePlayerState::InitializeTextures()
 
 	if (!m_textures["PLAYER2_RIGHT"].loadFromFile("../External/Resources/Textures/tank2R.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_R";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_R";
 	}
 
 	if (!m_textures["PLAYER2_LEFT"].loadFromFile("../External/Resources/Textures/tank2L.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_L";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_L";
 	}
 
 	if (!m_textures["PLAYER2_UP"].loadFromFile("../External/Resources/Textures/tank2U.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_U";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_U";
 	}
 
 	if (!m_textures["PLAYER2_DOWN"].loadFromFile("../External/Resources/Textures/tank2D.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_D";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER2_TEXTURE_D";
 	}
 
 
@@ -88,36 +103,43 @@ void SinglePlayerState::InitializeTextures()
 
 	if (!m_textures["BRICK"].loadFromFile("../External/Resources/Textures/brick.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BRICK_TEXTURE";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BRICK_TEXTURE";
 	}
 
 	if (!m_textures["STEEL"].loadFromFile("../External/Resources/Textures/steel.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_STEEL_TEXTURE";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_STEEL_TEXTURE";
 	}
 
 	if (!m_textures["ICE"].loadFromFile("../External/Resources/Textures/ice.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_ICE_TEXTURE";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ICE_TEXTURE";
 	}
 
 	if (!m_textures["WATER"].loadFromFile("../External/Resources/Textures/water.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_WATER_TEXTURE";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_WATER_TEXTURE";
 	}
 
 	if (!m_textures["TREES"].loadFromFile("../External/Resources/Textures/grass.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_TREES_TEXTURE";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TREES_TEXTURE";
 	}
 
 	if (!m_textures["BACKGROUND"].loadFromFile("../External/Resources/Textures/gameBackground.png"))
 	{
-		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_TREES_GAME_BACKGROUND";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TREES_GAME_BACKGROUND";
+	}
+
+	// stage screens
+
+	if (!m_textures["GAME_OVER"].loadFromFile("../External/Resources/Textures/gameBackground.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GAME_OVER_TEXTURE";
 	}
 }
 
-void SinglePlayerState::InitializePlayer()
+void SinglePlayerState::InitializePlayer1()
 {
 	m_player1 = new Player("Player1",340, 855);
 	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
@@ -128,10 +150,21 @@ void SinglePlayerState::InitializePlayer()
 	m_player1->SetTexture("UP");
 }
 
+void SinglePlayerState::InitializeFonts()
+{
+	if (!m_font.loadFromFile("../External/Resources/Fonts/Arial.ttf"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_FONT_FROM_FILE";
+	}
+}
+
 void SinglePlayerState::InitializeBackground()
 {
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_background.setTexture(&m_textures["BACKGROUND"]);
+
+	m_transitionBackground.setSize(sf::Vector2f(1100.f, 1000.f));
+	m_transitionBackground.setFillColor(sf::Color(225, 225, 225, 200));
 }
 
 void SinglePlayerState::InitializeMap()
@@ -145,36 +178,57 @@ void SinglePlayerState::InitializeMap()
 	m_map->AddTexture("WATER", m_textures["WATER"]);
 	m_map->AddTexture("TREES", m_textures["TREES"]);
 
-	m_map->LoadFromFile("../External/Resources/Config/map_stage3.ini");
+	m_mapStages.resize(4);
+	m_mapStages[0] = "../External/Resources/Config/map_stage1.ini";
+	m_mapStages[1] = "../External/Resources/Config/map_stage2.ini";
+	m_mapStages[2] = "../External/Resources/Config/map_stage3.ini";
+	m_mapStages[3] = "../External/Resources/Config/map_stage4.ini";
+}
+
+void SinglePlayerState::LoadMap(uint8_t stage)
+{
+	if (m_map)
+	{
+		m_map->Clear();
+	}
+	m_map->LoadFromFile(m_mapStages[stage-1]);
+}
+
+void SinglePlayerState::InitializeCurrentStage()
+{
+	m_gameStatus = GameStatus::CurrentStage;
+	LoadMap(m_stageNumber);
+	++m_stageNumber;
+	UpdateStageBackground();
 }
 
 void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
-	UpdatePlayerMovement(dt);
+	UpdatePlayer1Movement(dt);
 }
 
-void SinglePlayerState::UpdatePlayerMovement(const float& dt)
+void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_LEFT"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_LEFT"))))
 	{
 		m_player1->Move(dt, -1.f, 0.f);
 		m_player1->SetTexture("LEFT");
 		return;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_RIGHT"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_RIGHT"))))
 	{
 		m_player1->Move(dt, 1.f, 0.f);
 		m_player1->SetTexture("RIGHT");
 		return;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_UP"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_UP"))))
 	{
 		m_player1->Move(dt, 0.f, -1.f);
 		m_player1->SetTexture("UP");
 		return;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_DOWN"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_DOWN"))))
 	{
 		m_player1->Move(dt, 0.f, 1.f);
 		m_player1->SetTexture("DOWN");
@@ -187,6 +241,19 @@ void SinglePlayerState::UpdateMap(const float& dt)
 	m_map->Update(m_player1,dt);
 }
 
+void SinglePlayerState::UpdateStageBackground()
+{
+	std::stringstream ss;
+	ss << "Stage " << std::to_string(m_stageNumber);
+
+	m_text.setString(ss.str());
+
+	m_text.setPosition(
+		m_transitionBackground.getGlobalBounds().width / 2.f - m_text.getGlobalBounds().width / 2.f,
+		m_transitionBackground.getGlobalBounds().height / 2.f - m_text.getGlobalBounds().height / 2.f
+	);
+}
+
 
 void SinglePlayerState::Update(const float& dt)
 {
@@ -197,13 +264,56 @@ void SinglePlayerState::Update(const float& dt)
 	UpdateMap(dt);
 }
 
+void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
+{
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
+	{
+		target->draw(m_transitionBackground);
+		target->draw(m_text);
+	}
+	else
+		InitializeCurrentStage();
+}
+
+void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
+{
+	target->draw(m_background);
+	m_map->RenderTilesBelow(target);
+	m_player1->Render(target);
+	m_map->RenderTilesAbove(target);
+}
+
+void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
+{
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("EXIT_STATE"))))
+		target->draw(m_transitionBackground);
+	else
+		m_quit = true;
+}
+
 void SinglePlayerState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = m_window;
 
-	target->draw(m_background);
-	m_map->RenderTilesBelow(target);
-	m_player1->Render(target);
-	m_map->RenderTilesAbove(target);
+	switch (m_gameStatus)
+	{
+	case GameStatus::NextStage:
+	{
+		RenderNextStateScreen(m_window);
+		break;
+	}
+
+	case GameStatus::GameOver:
+	{
+		RenderGameOverScreen(m_window);
+		break;
+	}
+
+	case GameStatus::CurrentStage:
+	{
+		RenderCurrentStage(m_window);
+		break;
+	}
+	}
 }

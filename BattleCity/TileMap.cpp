@@ -19,6 +19,11 @@ TileMap::TileMap(uint16_t width, uint16_t height) :
 
 TileMap::~TileMap()
 {
+	Clear();
+}
+
+void TileMap::Clear()
+{
 	for (int x = 0; x < m_height; x++)
 		for (int y = 0; y < m_width; y++)
 			if (m_map[x][y])

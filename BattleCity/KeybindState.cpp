@@ -41,29 +41,11 @@ void KeybindState::InitializeText(sf::Color color, uint8_t size)
 
 	in.close();
 
-
-	//ss_actions <<
-	//	"Move up\n" <<
-	//	"Move down\n" <<
-	//	"Move left\n" <<
-	//	"Move Right\n" <<
-	//	"Shoot\n" <<
-	//	"Back to Main Meniu\n";
-
 	m_actions.setFont(*m_font);
 	m_actions.setString(ss_actions.str());
 	m_actions.setFillColor(color);
 	m_actions.setCharacterSize(size);
 	m_actions.setPosition(20, 20);
-
-
-	//ss_keys <<
-	//	"W\n" <<
-	//	"S\n" <<
-	//	"A\n" <<
-	//	"D\n" <<
-	//	"???\n" <<
-	//	"Escape\n";
 
 	m_keybinds.setFont(*m_font);
 	m_keybinds.setString(ss_keys.str());
