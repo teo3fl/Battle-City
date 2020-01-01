@@ -26,6 +26,7 @@ public:
 	void InitializeFonts();
 	void InitializeBackground();
 	void InitializeMap();
+	void InitializeBase();
 
 	void LoadMap(uint8_t stage);
 	void InitializeCurrentStage();

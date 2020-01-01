@@ -5,6 +5,7 @@
 #include "Steel.h"
 #include "Trees.h"
 #include "Water.h"
+#include "Base.h"
 
 #include "Entity.h"
 

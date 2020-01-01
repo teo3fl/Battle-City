@@ -131,11 +131,18 @@ void SinglePlayerState::InitializeTextures()
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TREES_GAME_BACKGROUND";
 	}
 
-	// stage screens
+	// game over screen texture
 
 	if (!m_textures["GAME_OVER"].loadFromFile("../External/Resources/Textures/gameover.png"))
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GAME_OVER_TEXTURE";
+	}
+
+	// base texture
+
+	if (!m_textures["BASE"].loadFromFile("../External/Resources/Textures/eagle.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_EAGLE_TEXTURE";
 	}
 }
 
@@ -180,12 +187,18 @@ void SinglePlayerState::InitializeMap()
 	m_map->AddTexture("ICE", m_textures["ICE"]);
 	m_map->AddTexture("WATER", m_textures["WATER"]);
 	m_map->AddTexture("TREES", m_textures["TREES"]);
+	m_map->AddTexture("BASE", m_textures["BASE"]);
 
 	m_mapStages.resize(4);
 	m_mapStages[0] = "../External/Resources/Config/map_stage1.ini";
 	m_mapStages[1] = "../External/Resources/Config/map_stage2.ini";
 	m_mapStages[2] = "../External/Resources/Config/map_stage3.ini";
 	m_mapStages[3] = "../External/Resources/Config/map_stage4.ini";
+}
+
+void SinglePlayerState::InitializeBase()
+{
+
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)

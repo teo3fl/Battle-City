@@ -76,6 +76,11 @@ void TileMap::LoadFromFile(const std::string& fileName)
 					m_map[x][y] = new Trees(x * tileSize + border, y * tileSize + border, m_textures["TREES"]);
 					break;
 				}
+				case 6:
+				{
+					m_map[x][y] = new Base(x * tileSize + border, y * tileSize + border, m_textures["BASE"]);
+					break;
+				}
 				default:
 				{
 					throw "ERROR::TILE_MAP::INVALID_TILE_TYPE";
