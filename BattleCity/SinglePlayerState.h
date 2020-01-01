@@ -29,6 +29,7 @@ public:
 
 	void LoadMap(uint8_t stage);
 	void InitializeCurrentStage();
+	void ResetPlayerPosition();
 		
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
@@ -44,7 +45,8 @@ public:
 private:
 	Player* m_player1;
 	sf::RectangleShape m_background;
-	sf::RectangleShape m_transitionBackground;
+	sf::RectangleShape m_transitionScreen;
+	sf::RectangleShape m_gameOverScreen;
 
 	GameStatus m_gameStatus;
 

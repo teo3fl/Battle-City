@@ -133,7 +133,7 @@ void SinglePlayerState::InitializeTextures()
 
 	// stage screens
 
-	if (!m_textures["GAME_OVER"].loadFromFile("../External/Resources/Textures/gameBackground.png"))
+	if (!m_textures["GAME_OVER"].loadFromFile("../External/Resources/Textures/gameover.png"))
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GAME_OVER_TEXTURE";
 	}
@@ -163,8 +163,11 @@ void SinglePlayerState::InitializeBackground()
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_background.setTexture(&m_textures["BACKGROUND"]);
 
-	m_transitionBackground.setSize(sf::Vector2f(1100.f, 1000.f));
-	m_transitionBackground.setFillColor(sf::Color(225, 225, 225, 200));
+	m_transitionScreen.setSize(sf::Vector2f(1100.f, 1000.f));
+	m_transitionScreen.setFillColor(sf::Color(225, 225, 225, 200));
+
+	m_gameOverScreen.setSize(sf::Vector2f(1100.f, 1000.f));
+	m_gameOverScreen.setTexture(&m_textures["GAME_OVER"]);
 }
 
 void SinglePlayerState::InitializeMap()
@@ -200,6 +203,12 @@ void SinglePlayerState::InitializeCurrentStage()
 	LoadMap(m_stageNumber);
 	++m_stageNumber;
 	UpdateStageBackground();
+	ResetPlayerPosition();
+}
+
+void SinglePlayerState::ResetPlayerPosition()
+{
+	m_player1->SetPosition(340, 855);
 }
 
 void SinglePlayerState::UpdateInput(const float& dt)
@@ -249,8 +258,8 @@ void SinglePlayerState::UpdateStageBackground()
 	m_text.setString(ss.str());
 
 	m_text.setPosition(
-		m_transitionBackground.getGlobalBounds().width / 2.f - m_text.getGlobalBounds().width / 2.f,
-		m_transitionBackground.getGlobalBounds().height / 2.f - m_text.getGlobalBounds().height / 2.f
+		m_transitionScreen.getGlobalBounds().width / 2.f - m_text.getGlobalBounds().width / 2.f,
+		m_transitionScreen.getGlobalBounds().height / 2.f - m_text.getGlobalBounds().height / 2.f
 	);
 }
 
@@ -268,7 +277,7 @@ void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 {
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
 	{
-		target->draw(m_transitionBackground);
+		target->draw(m_transitionScreen);
 		target->draw(m_text);
 	}
 	else
@@ -285,8 +294,8 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
 {
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("EXIT_STATE"))))
-		target->draw(m_transitionBackground);
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CLOSE"))))
+		target->draw(m_gameOverScreen);
 	else
 		m_quit = true;
 }
