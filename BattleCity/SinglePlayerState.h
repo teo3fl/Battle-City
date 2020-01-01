@@ -4,13 +4,13 @@
 #include "TileMap.h"
 #include "Player.h"
 
-class GameState :
+class SinglePlayerState :
    public State
 {
 
 public:
-	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
-	virtual ~GameState();
+	SinglePlayerState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
+	virtual ~SinglePlayerState();
 	
 	//Functions
 	void InitializeKeybinds() override;

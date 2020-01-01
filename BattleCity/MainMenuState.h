@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameState.h"
+#include "SinglePlayerState.h"
 #include "Button.h"
 #include "KeybindState.h"
 

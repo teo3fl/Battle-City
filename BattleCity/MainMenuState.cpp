@@ -34,7 +34,7 @@ void MainMenuState::InitializeKeybinds()
 		}
 	}
 	else
-		throw "ERROR::GAME_STATE::KEYBINDS_NOT_FOUND";
+		throw "ERROR::SINGLE_PLAYER_STATE::KEYBINDS_NOT_FOUND";
 
 	in.close();
 }
@@ -61,11 +61,11 @@ void MainMenuState::InitializeBackground()
 
 void MainMenuState::InitializeButtons()
 {
-	m_buttons["GAME_STATE_1"] = new Button(475, 600, 150, 50,
+	m_buttons["SINGLE_PLAYER"] = new Button(475, 600, 150, 50,
 		&m_font, "1 Player", 30,
 		sf::Color::White, sf::Color::Black);
 
-	m_buttons["GAME_STATE_2"] = new Button(475, 650, 150, 50,
+	m_buttons["MULTIPLAYER"] = new Button(475, 650, 150, 50,
 		&m_font, "2 Players", 30,
 		sf::Color::White, sf::Color::Black);
 
@@ -96,14 +96,14 @@ void MainMenuState::UpdateButtons()
 		it.second->update(m_mousePosWindow);
 	}
 
-	if (m_buttons["GAME_STATE_1"]->isPressed())
+	if (m_buttons["SINGLE_PLAYER"]->isPressed())
 	{
-		m_states->push(new GameState(m_window, m_supportedKeys));
+		m_states->push(new SinglePlayerState(m_window, m_supportedKeys));
 	}
 
-	if (m_buttons["GAME_STATE_2"]->isPressed())
+	if (m_buttons["MULTIPLAYER"]->isPressed())
 	{
-		m_states->push(new GameState(m_window, m_supportedKeys));
+		//m_states->push(new MultyplayerState(m_window, m_supportedKeys));
 	}
 
 	if (m_buttons["KEYBINDS"]->isPressed())

@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "GameState.h"
+#include "SinglePlayerState.h"
 
-GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
+SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
 	: State(window, supportedKeys)
 {
 	InitializeKeybinds();
@@ -11,12 +11,12 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 	InitializeMap();
 }
 
-GameState::~GameState()
+SinglePlayerState::~SinglePlayerState()
 {
 	delete m_player1;
 }
 
-void GameState::InitializeKeybinds()
+void SinglePlayerState::InitializeKeybinds()
 {
 	std::ifstream in("../External/Resources/Config/gamestate_keybinds.ini");
 
@@ -36,7 +36,7 @@ void GameState::InitializeKeybinds()
 	in.close();
 }
 
-void GameState::InitializeTextures()
+void SinglePlayerState::InitializeTextures()
 {
 	// player1 textures
 
@@ -117,7 +117,7 @@ void GameState::InitializeTextures()
 	}
 }
 
-void GameState::InitializePlayer()
+void SinglePlayerState::InitializePlayer()
 {
 	m_player1 = new Player("Player1",340, 855);
 	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
@@ -128,13 +128,13 @@ void GameState::InitializePlayer()
 	m_player1->SetTexture("UP");
 }
 
-void GameState::InitializeBackground()
+void SinglePlayerState::InitializeBackground()
 {
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_background.setTexture(&m_textures["BACKGROUND"]);
 }
 
-void GameState::InitializeMap()
+void SinglePlayerState::InitializeMap()
 {
 	m_mapHeight = 26;
 	m_mapWidth = 26;
@@ -148,13 +148,13 @@ void GameState::InitializeMap()
 	m_map->LoadFromFile("../External/Resources/Config/map_stage3.ini");
 }
 
-void GameState::UpdateInput(const float& dt)
+void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
 	UpdatePlayerMovement(dt);
 }
 
-void GameState::UpdatePlayerMovement(const float& dt)
+void SinglePlayerState::UpdatePlayerMovement(const float& dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->m_keybinds.at("MOVE_LEFT"))))
 	{
@@ -182,13 +182,13 @@ void GameState::UpdatePlayerMovement(const float& dt)
 	}
 }
 
-void GameState::UpdateMap(const float& dt)
+void SinglePlayerState::UpdateMap(const float& dt)
 {
 	m_map->Update(m_player1,dt);
 }
 
 
-void GameState::Update(const float& dt)
+void SinglePlayerState::Update(const float& dt)
 {
 	UpdateKeytime(dt);
 	UpdateInput(dt);
@@ -197,7 +197,7 @@ void GameState::Update(const float& dt)
 	UpdateMap(dt);
 }
 
-void GameState::Render(sf::RenderTarget* target)
+void SinglePlayerState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = m_window;
