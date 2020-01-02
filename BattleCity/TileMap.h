@@ -20,6 +20,8 @@ public:
 
 	void LoadFromFile(const std::string& fileName);
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
+	bool GetBaseStatus();
+	bool IsLoaded();
 
 	void UpdateTankBorderCollision(Tank* tank, const float& dt);
 	void UpdateTankTileCollision(Tank* tank, const float& dt);
@@ -40,5 +42,8 @@ private:
 
 	sf::Vector2f m_upperLeftCorner;
 	sf::Vector2f m_lowerRightCorner;
+
+	sf::Vector2i m_baseCoordinates;
+	bool m_loaded;
 };
 

@@ -252,9 +252,14 @@ void SinglePlayerState::ResetPlayerPosition()
 	m_player1->SetPosition(340, 855);
 }
 
+void SinglePlayerState::CheckForGameOver()
+{
+	if (!m_map->GetBaseStatus())
+		m_gameStatus = GameStatus::GameOver;
+}
+
 void SinglePlayerState::UpdateInput(const float& dt)
 {
-	CheckForQuit();
 	UpdatePlayer1Movement(dt);
 }
 
@@ -315,7 +320,6 @@ void SinglePlayerState::UpdateStageBackground()
 	);
 }
 
-
 void SinglePlayerState::Update(const float& dt)
 {
 	UpdateKeytime(dt);
@@ -328,6 +332,9 @@ void SinglePlayerState::Update(const float& dt)
 
 	UpdatePlayer1Fire(dt);
 	UpdateMap(dt);
+
+	if (m_map->IsLoaded())
+		CheckForGameOver();
 }
 
 void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)

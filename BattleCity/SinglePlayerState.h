@@ -31,6 +31,7 @@ public:
 	void LoadMap(uint8_t stage);
 	void InitializeCurrentStage();
 	void ResetPlayerPosition();
+	void CheckForGameOver();
 		
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);

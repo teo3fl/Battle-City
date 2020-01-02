@@ -79,6 +79,8 @@ void TileMap::LoadFromFile(const std::string& fileName)
 				case 6:
 				{
 					m_map[x][y] = new Base(x * tileSize + border, y * tileSize + border, m_textures["BASE"]);
+					m_baseCoordinates.x = x;
+					m_baseCoordinates.y = y;
 					break;
 				}
 				default:
@@ -96,11 +98,25 @@ void TileMap::LoadFromFile(const std::string& fileName)
 	}
 
 	in.close();
+
+	m_loaded = true;
 }
 
 void TileMap::AddTexture(const std::string& textureName,const sf::Texture& texture)
 {
 	m_textures[textureName] = texture;
+}
+
+bool TileMap::GetBaseStatus()
+{
+	if (m_map[m_baseCoordinates.x][m_baseCoordinates.y])
+		return true;
+	return false;
+}
+
+bool TileMap::IsLoaded()
+{
+	return m_loaded;
 }
 
 void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt)
