@@ -12,12 +12,7 @@ public:
 
 	const std::string GetName();
 	const uint16_t GetLives();
-	const uint32_t GetScore();
-	const uint8_t GetHealth();
-	const uint8_t GetMovement();
-	const uint8_t GetBullet();
-	const uint8_t GetOffensivePower();
-	
+	const uint32_t GetScore();	
 
 private:
 	std::string m_name;

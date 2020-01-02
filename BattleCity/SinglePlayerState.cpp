@@ -144,15 +144,43 @@ void SinglePlayerState::InitializeTextures()
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_EAGLE_TEXTURE";
 	}
+
+	// bullet textures
+
+	if (!m_textures["BULLET_UP"].loadFromFile("../External/Resources/Textures/bullet_U.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BULLET_U_TEXTURE";
+	}
+
+	if (!m_textures["BULLET_DOWN"].loadFromFile("../External/Resources/Textures/bullet_D.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BULLET_D_TEXTURE";
+	}
+
+	if (!m_textures["BULLET_LEFT"].loadFromFile("../External/Resources/Textures/bullet_L.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BULLET_L_TEXTURE";
+	}
+
+	if (!m_textures["BULLET_RIGHT"].loadFromFile("../External/Resources/Textures/bullet_R.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BULLET_R_TEXTURE";
+	}
 }
 
 void SinglePlayerState::InitializePlayer1()
 {
 	m_player1 = new Player("Player1",340, 855);
+
 	m_player1->AddTexture(m_textures["PLAYER1_RIGHT"], "RIGHT");
 	m_player1->AddTexture(m_textures["PLAYER1_LEFT"], "LEFT");
 	m_player1->AddTexture(m_textures["PLAYER1_UP"], "UP");
 	m_player1->AddTexture(m_textures["PLAYER1_DOWN"], "DOWN");
+
+	m_player1->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
+	m_player1->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");
+	m_player1->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
+	m_player1->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
 
 	m_player1->SetTexture("UP");
 }
@@ -228,6 +256,7 @@ void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
 	UpdatePlayer1Movement(dt);
+	UpdatePlayer1Bullet(dt);
 }
 
 void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
@@ -258,9 +287,25 @@ void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
 	}
 }
 
+void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("FIRE"))))
+	{
+		m_player1->Fire();
+	}
+}
+
+void SinglePlayerState::UpdatePlayer1Bullet(const float& dt)
+{
+
+}
+
 void SinglePlayerState::UpdateMap(const float& dt)
 {
 	m_map->Update(m_player1,dt);
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		m_map->Update(bullet,dt);
 }
 
 void SinglePlayerState::UpdateStageBackground()
@@ -283,6 +328,7 @@ void SinglePlayerState::Update(const float& dt)
 	UpdateInput(dt);
 
 	m_player1->Update(dt);
+	UpdatePlayer1Fire(dt);
 	UpdateMap(dt);
 }
 
@@ -303,6 +349,9 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 	m_map->RenderTilesBelow(target);
 	m_player1->Render(target);
 	m_map->RenderTilesAbove(target);
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		bullet->Render(target);
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)

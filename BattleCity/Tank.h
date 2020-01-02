@@ -1,17 +1,23 @@
 #pragma once
 
-#include "Entity.h" 
+#include "Bullet.h"
 
 class Tank : public Entity
 {
 public :
+	Tank();
 	virtual uint16_t GetPoints() const;
 	virtual uint8_t GetHealth() const;
 	virtual float GetMovement() const; // returns the movement speed of the tank;
-	virtual float GetBullet() const;  // returns the velocity of the projectile
+	virtual Bullet* GetBullet() const; 
+	void DestroyBullet();
+
+	void Fire();
 protected:
 	uint16_t m_points;
 	uint8_t m_health;
-	float m_bulletVelocity;
+	float m_bulletSpeed;
+	BulletType m_bulletType;
+	Bullet* m_bullet;
 };
 

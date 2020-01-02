@@ -134,13 +134,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ArmorTank.cpp" />
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="BasicTank.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FastTank.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="SinglePlayerState.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="Grenade.cpp" />
     <ClCompile Include="Helmet.cpp" />
@@ -149,11 +151,11 @@
     <ClCompile Include="KeybindState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PowerTank.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Shovel.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -173,13 +175,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArmorTank.h" />
+    <ClInclude Include="Base.h" />
     <ClInclude Include="BasicTank.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FastTank.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameState.h" />
+    <ClInclude Include="SinglePlayerState.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="Grenade.h" />
     <ClInclude Include="Helmet.h" />
@@ -187,11 +191,11 @@
     <ClInclude Include="Ice.h" />
     <ClInclude Include="KeybindState.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PowerTank.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Shovel.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />

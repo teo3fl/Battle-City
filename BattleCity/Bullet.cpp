@@ -1,13 +1,15 @@
 #include "stdafx.h"
 #include "Bullet.h"
 
-Bullet::Bullet(float x, float y, float direction, const sf::Texture& texture, BulletType type, BulletSource source)
-	: m_type(type), m_source(source)
+Bullet::Bullet(float x, float y, sf::Vector2f direction, const sf::Texture& texture, BulletType type, BulletSource source)
+	: m_type(type), m_source(source), m_direction(direction)
 {
+	m_sprite.setScale(0.4f, 0.4f);
 	SetSpeed();
-	SetTexture(texture);
-	CreateHitbox(m_sprite, 10, 20);
 	SetPosition(x, y);
+	SetTexture(texture);
+	CreateHitbox(m_sprite, 13, 13);
+	CreateMovementComponent(m_movementSpeed, 900.f, 0.f);
 }
 
 void Bullet::SetSpeed()
@@ -44,4 +46,17 @@ BulletSource Bullet::GetSource()
 uint8_t Bullet::GetHealth()
 {
 	return m_health;
+}
+
+void Bullet::Update(const float& dt)
+{
+	m_movementComponent->Move(m_direction.x, m_direction.y, dt);
+	m_movementComponent->Update(dt);
+}
+
+void Bullet::Render(sf::RenderTarget* target)
+{
+	target->draw(m_sprite);
+
+	m_hitbox->Render(target);
 }

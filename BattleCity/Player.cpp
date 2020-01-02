@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include "Player.h"
 
-Player::Player(const std::string& name, float x, float y) : m_name(name)
+Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 {
 	m_movementSpeed = 60.f; 
 	m_health = 1;
 	m_lives = 3;
-	m_bulletVelocity = 100.f;
+	m_bulletSpeed = 100.f;
 	m_offensivePower = 0;
+	m_bulletType = BulletType::Normal;
 
 	SetPosition(x, y);
 	m_sprite.scale(sf::Vector2f(0.6f, 0.6f));
@@ -29,11 +30,6 @@ const uint16_t Player::GetLives()
 const uint32_t Player::GetScore()
 {
 	return m_score;
-}
-
-const uint8_t Player::GetOffensivePower()
-{
-	return m_offensivePower;
 }
 
 void Player::Update(const float& dt)
