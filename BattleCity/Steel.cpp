@@ -8,3 +8,8 @@ Steel::Steel(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 	m_tankCollision = true; 
 	m_type = "Steel";
 }
+
+const uint8_t Steel::GetHealth()
+{
+	return 2;
+}

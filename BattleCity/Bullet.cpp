@@ -13,6 +13,7 @@ Bullet::Bullet(float x, float y, sf::Vector2f direction, const sf::Texture& text
 		m_sprite.getGlobalBounds().height
 	);
 	CreateMovementComponent(m_movementSpeed, 900.f, 0.f);
+	m_health = 1;
 }
 
 Bullet::~Bullet()

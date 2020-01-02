@@ -13,6 +13,7 @@ public:
 
 	virtual std::string& GetType();
 	virtual const sf::FloatRect GetGlobalBounds() const;
+	virtual const uint8_t GetHealth();
 	virtual const bool Intersects(const sf::FloatRect bounds) const;
 
 	virtual void Update(const float& dt);

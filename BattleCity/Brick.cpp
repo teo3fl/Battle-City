@@ -9,3 +9,8 @@ Brick::Brick(int x, int y, const sf::Texture& texture) : Tile(x, y, texture)
 	m_type = "Brick";
 }
 
+const uint8_t Brick::GetHealth()
+{
+	return 1;
+}
+

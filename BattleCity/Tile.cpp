@@ -35,6 +35,11 @@ const sf::FloatRect Tile::GetGlobalBounds() const
 	return m_sprite.getGlobalBounds();
 }
 
+const uint8_t Tile::GetHealth()
+{
+	return NULL;
+}
+
 const bool Tile::Intersects(const sf::FloatRect bounds) const
 {
 	return m_sprite.getGlobalBounds().intersects(bounds);

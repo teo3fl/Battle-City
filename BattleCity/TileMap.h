@@ -25,7 +25,7 @@ public:
 	void UpdateTankTileCollision(Tank* tank, const float& dt);
 	void UpdateTank (Tank* tank, const float& dt);
 
-	void UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt);
+	bool UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt);
 	void UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt);
 	void UpdateBullet(Tank* tank, Bullet* bullet, const float& dt);
 

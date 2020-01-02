@@ -193,40 +193,120 @@ void TileMap::UpdateTank(Tank* tank, const float& dt)
 	UpdateTankTileCollision(tank, dt);
 }
 
-void TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt)
+bool TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt)
 {
 	if (bullet->GetPosition().x < m_upperLeftCorner.x)
 	{
 		tank->DestroyBullet();
-		return;
+		return false;
 	}
 
 	if (bullet->GetPosition().x + bullet->GetGlobalBounds().width > m_lowerRightCorner.x)
 	{
 		tank->DestroyBullet();
-		return;
+		return false;
 	}
 
 	if (bullet->GetPosition().y < m_upperLeftCorner.y)
 	{
 		tank->DestroyBullet();
-		return;
+		return false;
 	}
 
 	if (bullet->GetPosition().y + bullet->GetGlobalBounds().height > m_lowerRightCorner.y)
 	{
 		tank->DestroyBullet();
-		return;
+		return false;
 	}
+	return true;
 }
 
 void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt)
 {
+	for (uint16_t y = 0; y < m_width; ++y)
+		for (uint16_t x = 0; x < m_height; ++x)
+			if (m_map[x][y])
+			{
+				sf::FloatRect bulletBounds = bullet->GetGlobalBounds();
+				sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
+				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
+
+				uint8_t tileHealth = m_map[x][y]->GetHealth();
+				uint8_t bulletHealth = bullet->GetHealth();
+
+				if (m_map[x][y]->GetBulletCollision() && wallBounds.intersects(nextPositionBounds))
+				{
+					//Bottom collision
+					if (bulletBounds.top < wallBounds.top
+						&& bulletBounds.top + bulletBounds.height < wallBounds.top + wallBounds.height
+						&& bulletBounds.left < wallBounds.left + wallBounds.width
+						&& bulletBounds.left + bulletBounds.width > wallBounds.left
+						)
+					{
+						if (tileHealth <= bulletHealth)
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+						}
+						tank->DestroyBullet();
+						return;
+					}
+
+					//Top collision
+					else if (bulletBounds.top > wallBounds.top
+						&& bulletBounds.top + bulletBounds.height > wallBounds.top + wallBounds.height
+						&& bulletBounds.left < wallBounds.left + wallBounds.width
+						&& bulletBounds.left + bulletBounds.width > wallBounds.left
+						)
+					{
+						if (tileHealth <= bulletHealth)
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+						}
+						tank->DestroyBullet();
+						return;
+					}
+
+					//Right collision
+					if (bulletBounds.left < wallBounds.left
+						&& bulletBounds.left + bulletBounds.width < wallBounds.left + wallBounds.width
+						&& bulletBounds.top < wallBounds.top + wallBounds.height
+						&& bulletBounds.top + bulletBounds.height > wallBounds.top
+						)
+					{
+						if (tileHealth <= bulletHealth)
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+						}
+						tank->DestroyBullet();
+						return;
+					}
+
+					//Left collision
+					else if (bulletBounds.left > wallBounds.left
+						&& bulletBounds.left + bulletBounds.width > wallBounds.left + wallBounds.width
+						&& bulletBounds.top < wallBounds.top + wallBounds.height
+						&& bulletBounds.top + bulletBounds.height > wallBounds.top
+						)
+					{
+						if (tileHealth <= bulletHealth)
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+						}
+						tank->DestroyBullet();
+						return;
+					}
+				}
+			}
 }
 
 void TileMap::UpdateBullet(Tank* tank, Bullet* bullet, const float& dt)
 {
-	UpdateBulletBorderCollision(tank, bullet, dt);
+	if (UpdateBulletBorderCollision(tank, bullet, dt))
+		UpdateBulletTileCollision(tank, bullet, dt);
 }
 
 void TileMap::RenderTilesAbove(sf::RenderTarget* target)
