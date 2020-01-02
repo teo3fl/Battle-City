@@ -7,7 +7,8 @@
 #include "Water.h"
 #include "Base.h"
 
-#include "Entity.h"
+#include "Bullet.h"
+#include "Tank.h"
 
 class TileMap
 {
@@ -20,10 +21,14 @@ public:
 	void LoadFromFile(const std::string& fileName);
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
 
-	void UpdateBorderCollision(Entity* entity, const float& dt);
-	void UpdateTileCollision(Entity* entity, const float& dt);
+	void UpdateTankBorderCollision(Tank* tank, const float& dt);
+	void UpdateTankTileCollision(Tank* tank, const float& dt);
+	void UpdateTank (Tank* tank, const float& dt);
 
-	void Update (Entity* entity, const float& dt);
+	void UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt);
+	void UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt);
+	void UpdateBullet(Tank* tank, Bullet* bullet, const float& dt);
+
 	void RenderTilesAbove(sf::RenderTarget* target = nullptr);
 	void RenderTilesBelow(sf::RenderTarget* target = nullptr);
 

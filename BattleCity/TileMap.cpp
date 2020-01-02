@@ -103,39 +103,39 @@ void TileMap::AddTexture(const std::string& textureName,const sf::Texture& textu
 	m_textures[textureName] = texture;
 }
 
-void TileMap::UpdateBorderCollision(Entity* entity, const float& dt)
+void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt)
 {
-	if (entity->GetPosition().x < m_upperLeftCorner.x)
+	if (tank->GetPosition().x < m_upperLeftCorner.x)
 	{
-		entity->SetPosition(m_upperLeftCorner.x, entity->GetPosition().y);
-		entity->StopVelocityX();
+		tank->SetPosition(m_upperLeftCorner.x, tank->GetPosition().y);
+		tank->StopVelocityX();
 	}
-	else if (entity->GetPosition().x + entity->GetGlobalBounds().width > m_lowerRightCorner.x)
+	else if (tank->GetPosition().x + tank->GetGlobalBounds().width > m_lowerRightCorner.x)
 	{
-		entity->SetPosition(m_lowerRightCorner.x - entity->GetGlobalBounds().width, entity->GetPosition().y);
-		entity->StopVelocityX();
+		tank->SetPosition(m_lowerRightCorner.x - tank->GetGlobalBounds().width, tank->GetPosition().y);
+		tank->StopVelocityX();
 	}
 
-	if (entity->GetPosition().y < m_upperLeftCorner.y)
+	if (tank->GetPosition().y < m_upperLeftCorner.y)
 	{
-		entity->SetPosition(entity->GetPosition().x, m_upperLeftCorner.y);
-		entity->StopVelocityY();
+		tank->SetPosition(tank->GetPosition().x, m_upperLeftCorner.y);
+		tank->StopVelocityY();
 	}
-	else if (entity->GetPosition().y + entity->GetGlobalBounds().height > m_lowerRightCorner.y)
+	else if (tank->GetPosition().y + tank->GetGlobalBounds().height > m_lowerRightCorner.y)
 	{
-		entity->SetPosition(entity->GetPosition().x, m_lowerRightCorner.y - entity->GetGlobalBounds().height);
-		entity->StopVelocityY();
+		tank->SetPosition(tank->GetPosition().x, m_lowerRightCorner.y - tank->GetGlobalBounds().height);
+		tank->StopVelocityY();
 	}
 }
 
-void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
+void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 {
 	for (uint16_t y = 0; y < m_width; ++y)
 		for (uint16_t x = 0; x < m_height; ++x)
 			if (m_map[x][y])
 			{
-				sf::FloatRect entityBounds = entity->GetGlobalBounds();
-				sf::FloatRect nextPositionBounds = entity->GetNextPositionBounds(dt);
+				sf::FloatRect entityBounds = tank->GetGlobalBounds();
+				sf::FloatRect nextPositionBounds = tank->GetNextPositionBounds(dt);
 				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
 				if (m_map[x][y]->GetTankCollision() &&  wallBounds.intersects(nextPositionBounds))
@@ -147,8 +147,8 @@ void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 						&& entityBounds.left + entityBounds.width > wallBounds.left
 						)
 					{
-						entity->StopVelocityY();
-						entity->SetPosition(entityBounds.left, wallBounds.top - entityBounds.height);
+						tank->StopVelocityY();
+						tank->SetPosition(entityBounds.left, wallBounds.top - entityBounds.height);
 					}
 
 					//Top collision
@@ -158,8 +158,8 @@ void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 						&& entityBounds.left + entityBounds.width > wallBounds.left
 						)
 					{
-						entity->StopVelocityY();
-						entity->SetPosition(entityBounds.left, wallBounds.top + wallBounds.height);
+						tank->StopVelocityY();
+						tank->SetPosition(entityBounds.left, wallBounds.top + wallBounds.height);
 					}
 
 					//Right collision
@@ -169,8 +169,8 @@ void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 						&& entityBounds.top + entityBounds.height > wallBounds.top
 						)
 					{
-						entity->StopVelocityX();
-						entity->SetPosition(wallBounds.left - entityBounds.width, entityBounds.top);
+						tank->StopVelocityX();
+						tank->SetPosition(wallBounds.left - entityBounds.width, entityBounds.top);
 					}
 
 					//Left collision
@@ -180,17 +180,53 @@ void TileMap::UpdateTileCollision(Entity* entity, const float& dt)
 						&& entityBounds.top + entityBounds.height > wallBounds.top
 						)
 					{
-						entity->StopVelocityX();
-						entity->SetPosition(wallBounds.left + wallBounds.width, entityBounds.top);
+						tank->StopVelocityX();
+						tank->SetPosition(wallBounds.left + wallBounds.width, entityBounds.top);
 					}
 				}
 			}
 }
 
-void TileMap::Update(Entity* entity, const float& dt)
+void TileMap::UpdateTank(Tank* tank, const float& dt)
 {
-	UpdateBorderCollision(entity, dt);
-	UpdateTileCollision(entity, dt);
+	UpdateTankBorderCollision(tank, dt);
+	UpdateTankTileCollision(tank, dt);
+}
+
+void TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt)
+{
+	if (bullet->GetPosition().x < m_upperLeftCorner.x)
+	{
+		tank->DestroyBullet();
+		return;
+	}
+
+	if (bullet->GetPosition().x + bullet->GetGlobalBounds().width > m_lowerRightCorner.x)
+	{
+		tank->DestroyBullet();
+		return;
+	}
+
+	if (bullet->GetPosition().y < m_upperLeftCorner.y)
+	{
+		tank->DestroyBullet();
+		return;
+	}
+
+	if (bullet->GetPosition().y + bullet->GetGlobalBounds().height > m_lowerRightCorner.y)
+	{
+		tank->DestroyBullet();
+		return;
+	}
+}
+
+void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt)
+{
+}
+
+void TileMap::UpdateBullet(Tank* tank, Bullet* bullet, const float& dt)
+{
+	UpdateBulletBorderCollision(tank, bullet, dt);
 }
 
 void TileMap::RenderTilesAbove(sf::RenderTarget* target)

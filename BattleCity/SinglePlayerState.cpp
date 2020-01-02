@@ -256,7 +256,6 @@ void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
 	UpdatePlayer1Movement(dt);
-	UpdatePlayer1Bullet(dt);
 }
 
 void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
@@ -295,17 +294,12 @@ void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
 	}
 }
 
-void SinglePlayerState::UpdatePlayer1Bullet(const float& dt)
-{
-
-}
-
 void SinglePlayerState::UpdateMap(const float& dt)
 {
-	m_map->Update(m_player1,dt);
+	m_map->UpdateTank(m_player1,dt);
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
-		m_map->Update(bullet,dt);
+		m_map->UpdateBullet(m_player1, bullet,dt);
 }
 
 void SinglePlayerState::UpdateStageBackground()

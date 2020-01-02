@@ -35,7 +35,6 @@ public:
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
 	void UpdatePlayer1Fire(const float& dt);
-	void UpdatePlayer1Bullet(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
 	void Update(const float& dt) override;
