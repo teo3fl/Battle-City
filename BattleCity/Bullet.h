@@ -20,7 +20,7 @@ class Bullet :
 {
 public:
 	Bullet(float x, float y, sf::Vector2f direction, const sf::Texture& texture, BulletType type, BulletSource source);
-
+	~Bullet();
 	void SetSpeed();
 
 	BulletSource GetSource();

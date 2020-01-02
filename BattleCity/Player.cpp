@@ -9,6 +9,7 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 	m_bulletSpeed = 100.f;
 	m_offensivePower = 0;
 	m_bulletType = BulletType::Normal;
+	m_facingDirection = "UP";
 
 	SetPosition(x, y);
 	m_sprite.scale(sf::Vector2f(0.6f, 0.6f));

@@ -264,25 +264,25 @@ void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_LEFT"))))
 	{
 		m_player1->Move(dt, -1.f, 0.f);
-		m_player1->SetTexture("LEFT");
+		m_player1->SetFacingDirection("LEFT");
 		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_RIGHT"))))
 	{
 		m_player1->Move(dt, 1.f, 0.f);
-		m_player1->SetTexture("RIGHT");
+		m_player1->SetFacingDirection("RIGHT");
 		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_UP"))))
 	{
 		m_player1->Move(dt, 0.f, -1.f);
-		m_player1->SetTexture("UP");
+		m_player1->SetFacingDirection("UP");
 		return;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("MOVE_DOWN"))))
 	{
 		m_player1->Move(dt, 0.f, 1.f);
-		m_player1->SetTexture("DOWN");
+		m_player1->SetFacingDirection("DOWN");
 		return;
 	}
 }
@@ -328,6 +328,10 @@ void SinglePlayerState::Update(const float& dt)
 	UpdateInput(dt);
 
 	m_player1->Update(dt);
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		bullet->Update(dt);
+
 	UpdatePlayer1Fire(dt);
 	UpdateMap(dt);
 }

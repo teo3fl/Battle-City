@@ -8,8 +8,16 @@ Bullet::Bullet(float x, float y, sf::Vector2f direction, const sf::Texture& text
 	SetSpeed();
 	SetPosition(x, y);
 	SetTexture(texture);
-	CreateHitbox(m_sprite, 13, 13);
+	CreateHitbox(m_sprite, 
+		m_sprite.getGlobalBounds().width,
+		m_sprite.getGlobalBounds().height
+	);
 	CreateMovementComponent(m_movementSpeed, 900.f, 0.f);
+}
+
+Bullet::~Bullet()
+{
+	
 }
 
 void Bullet::SetSpeed()
@@ -52,6 +60,8 @@ void Bullet::Update(const float& dt)
 {
 	m_movementComponent->Move(m_direction.x, m_direction.y, dt);
 	m_movementComponent->Update(dt);
+
+	m_hitbox->Update();
 }
 
 void Bullet::Render(sf::RenderTarget* target)

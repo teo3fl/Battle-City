@@ -25,11 +25,6 @@ const sf::Vector2f& MovementComponent::GetVelocity() const
 	return m_velocity;
 }
 
-std::string& MovementComponent::GetFacingDirection()
-{
-	return m_facingDirection;
-}
-
 void MovementComponent::StopVelocity()
 {
 	/* Resets the velocity to 0.*/
@@ -112,23 +107,7 @@ void MovementComponent::Update(const float& dt)
 		if (m_velocity.y > 0.f)
 			m_velocity.y = 0.f;
 	}
-
-	UpdateFacingDirection();
-
+	
 	//Final move
 	m_sprite.move(m_velocity * dt); //Uses velocity
-}
-
-void MovementComponent::UpdateFacingDirection()
-{
-	if (std::abs(m_velocity.x) > std::abs(m_velocity.y))
-		if (m_velocity.x > 0)
-			m_facingDirection = "RIGHT";
-		else
-			m_facingDirection = "LEFT";
-	else
-		if (m_velocity.y > 0)
-			m_facingDirection = "DOWN";
-		else
-			m_facingDirection = "UP";
 }
