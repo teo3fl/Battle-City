@@ -11,6 +11,7 @@ class Entity{
 		void InitializeVariables();
 
 		void AddTexture(const sf::Texture& texture, const std::string& textureName);
+		void SetTexture(const sf::Texture& texture);
 
 		void SetTexture(const std::string& texture);
 		virtual void SetPosition(const float x, const float y);

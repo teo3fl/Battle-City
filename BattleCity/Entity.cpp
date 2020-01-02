@@ -23,6 +23,11 @@ void Entity::AddTexture(const sf::Texture& texture, const std::string& textureNa
 	m_textures[textureName] = texture;
 }
 
+void Entity::SetTexture(const sf::Texture& texture)
+{
+	m_sprite.setTexture(texture);
+}
+
 void Entity::SetTexture(const std::string& texture)
 {
 	m_sprite.setTexture(m_textures[texture]);
