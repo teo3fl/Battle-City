@@ -207,8 +207,8 @@ void SinglePlayerState::InitializeBackground()
 
 void SinglePlayerState::InitializeMap()
 {
-	m_mapHeight = 26;
-	m_mapWidth = 26;
+	m_mapHeight = 52;
+	m_mapWidth = 52;
 	m_map = new TileMap(m_mapHeight, m_mapWidth);
 	m_map->AddTexture("BRICK", m_textures["BRICK"]);
 	m_map->AddTexture("STEEL", m_textures["STEEL"]);

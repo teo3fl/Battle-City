@@ -38,7 +38,7 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 	if (in.is_open())
 	{
-		uint8_t tileSize = 32;
+		uint8_t tileSize = 16;
 		for (uint16_t y = 0; y < m_height; y++)
 		{
 			for (uint16_t x = 0; x < m_width; x++)
