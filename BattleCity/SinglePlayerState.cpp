@@ -25,13 +25,19 @@ void SinglePlayerState::InitializeVariables()
 {
 	m_gameStatus = GameStatus::NextStage;
 	m_stageNumber = 1;
-
 	m_enemies.reserve(20);
 
-	m_text.setFillColor(sf::Color::Black);
-	m_text.setFont(m_font);
-	m_text.setCharacterSize(200);
-	m_text.setOutlineThickness(4.f);
+	m_stageScreenText.setFillColor(sf::Color::Black);
+	m_stageScreenText.setFont(m_font);
+	m_stageScreenText.setCharacterSize(200);
+	m_stageScreenText.setOutlineThickness(4.f);
+
+	m_stageNumberText.setFillColor(sf::Color::White);
+	m_stageNumberText.setFont(m_font);
+	m_stageNumberText.setCharacterSize(50);
+	m_stageNumberText.setOutlineColor(sf::Color::White);
+	m_stageNumberText.setOutlineThickness(3.f);
+	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 
 	UpdateStageBackground();
 }
@@ -371,13 +377,18 @@ void SinglePlayerState::InitializeCurrentStage()
 {
 	LoadMap(m_stageNumber);
 	LoadSpawner(m_stageNumber);
-	++m_stageNumber;
+
+	m_stageNumberText.setString(std::to_string(m_stageNumber));
+
 	UpdateStageBackground();
+
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
 		m_player1->DestroyBullet();
+
 	ResetPlayerPosition();
 
+	++m_stageNumber;
 	m_gameStatus = GameStatus::CurrentStage;
 }
 
@@ -516,11 +527,11 @@ void SinglePlayerState::UpdateStageBackground()
 	std::stringstream ss;
 	ss << "Stage " << std::to_string(m_stageNumber);
 
-	m_text.setString(ss.str());
+	m_stageScreenText.setString(ss.str());
 
-	m_text.setPosition(
-		m_transitionScreen.getGlobalBounds().width / 2.f - m_text.getGlobalBounds().width / 2.f,
-		m_transitionScreen.getGlobalBounds().height / 2.f - m_text.getGlobalBounds().height / 2.f
+	m_stageScreenText.setPosition(
+		m_transitionScreen.getGlobalBounds().width / 2.f - m_stageScreenText.getGlobalBounds().width / 2.f,
+		m_transitionScreen.getGlobalBounds().height / 2.f - m_stageScreenText.getGlobalBounds().height / 2.f
 	);
 }
 
@@ -583,6 +594,8 @@ void SinglePlayerState::Update(const float& dt)
 {
 	UpdateKeytime(dt);
 	UpdateInput(dt);
+	if (m_gameStatus == GameStatus::NextStage)
+		UpdateStageBackground();
 
 	if (m_gameStatus == GameStatus::CurrentStage)
 	{
@@ -594,7 +607,6 @@ void SinglePlayerState::Update(const float& dt)
 
 		UpdatePlayer1Fire(dt);
 		UpdateMap(dt);
-		//UpdateSpawner(dt);
 
 		if (m_map->IsLoaded())
 			CheckForGameOver();
@@ -609,7 +621,7 @@ void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
 	{
 		target->draw(m_transitionScreen);
-		target->draw(m_text);
+		target->draw(m_stageScreenText);
 	}
 	else
 		InitializeCurrentStage();
@@ -618,6 +630,7 @@ void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 {
 	target->draw(m_background);
+	target->draw(m_stageNumberText);
 
 	m_map->RenderTilesBelow(target);
 

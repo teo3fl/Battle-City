@@ -70,7 +70,8 @@ protected:
 	uint8_t m_stageNumber;
 
 	sf::Font m_font;
-	sf::Text m_text;
+	sf::Text m_stageScreenText;
+	sf::Text m_stageNumberText;
 
 	TileMap* m_map;
 	uint16_t m_mapHeight;
