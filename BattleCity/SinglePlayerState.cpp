@@ -395,7 +395,11 @@ void SinglePlayerState::CheckForGameOver()
 void SinglePlayerState::CheckForNextStage()
 {
 	if (m_spawner->IsEmpty() && m_enemies.empty())
+	{
 		m_gameStatus = GameStatus::NextStage;
+		if (m_stageNumber == 4)
+			m_quit = true;
+	}
 }
 
 bool SinglePlayerState::CheckForCollision(Tank* tank, Bullet* bullet, const float& dt)
