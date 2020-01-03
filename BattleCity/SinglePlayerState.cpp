@@ -388,6 +388,55 @@ void SinglePlayerState::CheckForGameOver()
 		m_gameStatus = GameStatus::GameOver;
 }
 
+void SinglePlayerState::CheckForNextStage()
+{
+	if (m_spawner->IsEmpty() && m_enemies.empty())
+		m_gameStatus = GameStatus::NextStage;
+}
+
+bool SinglePlayerState::CheckForCollision(Tank* tank, Bullet* bullet, const float& dt)
+{
+	sf::FloatRect entityBounds = bullet->GetGlobalBounds();
+	sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
+	sf::FloatRect tankBounds = tank->GetGlobalBounds();
+
+	if (tankBounds.intersects(nextPositionBounds))
+	{
+		//Bottom collision
+		if (entityBounds.top < tankBounds.top
+			&& entityBounds.top + entityBounds.height < tankBounds.top + tankBounds.height
+			&& entityBounds.left < tankBounds.left + tankBounds.width
+			&& entityBounds.left + entityBounds.width > tankBounds.left
+			)
+			return true;
+
+		//Top collision
+		else if (entityBounds.top > tankBounds.top
+			&& entityBounds.top + entityBounds.height > tankBounds.top + tankBounds.height
+			&& entityBounds.left < tankBounds.left + tankBounds.width
+			&& entityBounds.left + entityBounds.width > tankBounds.left
+			)
+			return true;
+
+		//Right collision
+		if (entityBounds.left < tankBounds.left
+			&& entityBounds.left + entityBounds.width < tankBounds.left + tankBounds.width
+			&& entityBounds.top < tankBounds.top + tankBounds.height
+			&& entityBounds.top + entityBounds.height > tankBounds.top
+			)
+			return true;
+
+		//Left collision
+		else if (entityBounds.left > tankBounds.left
+			&& entityBounds.left + entityBounds.width > tankBounds.left + tankBounds.width
+			&& entityBounds.top < tankBounds.top + tankBounds.height
+			&& entityBounds.top + entityBounds.height > tankBounds.top
+			)
+			return true;
+	}
+	return false;
+}
+
 void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
@@ -445,10 +494,13 @@ void SinglePlayerState::UpdateSpawner(const float& dt)
 
 void SinglePlayerState::UpdateMap(const float& dt)
 {
-	m_map->UpdateTank(m_player1,dt);
-	Bullet* bullet = m_player1->GetBullet();
-	if (bullet)
-		m_map->UpdateBullet(m_player1, bullet,dt);
+	if (m_map->IsLoaded())
+	{
+		m_map->UpdateTank(m_player1, dt);
+		Bullet* bullet = m_player1->GetBullet();
+		if (bullet)
+			m_map->UpdateBullet(m_player1, bullet, dt);
+	}
 }
 
 void SinglePlayerState::UpdateStageBackground()
@@ -464,11 +516,40 @@ void SinglePlayerState::UpdateStageBackground()
 	);
 }
 
+void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
+{
+	if (m_player1 && !m_enemies.empty())
+	{
+		Bullet* bullet = m_player1->GetBullet();
+		if (bullet)
+			for (uint8_t i = 0; i<m_enemies.size(); ++i)
+			{
+				Tank* tank = m_enemies[i];
+				if (CheckForCollision(tank, bullet, dt))
+				{
+					uint8_t tankHealth = tank->GetHealth();
+					uint8_t bulletHealth = bullet->GetHealth();
+					if (tankHealth > bulletHealth)
+						tank->DecreaseHealth(bulletHealth);
+					else
+					{
+						m_enemies.erase(m_enemies.begin()+i);
+						delete tank;
+					}
+					m_player1->DestroyBullet();
+				}
+			}
+	}
+}
+
 void SinglePlayerState::RenderBullet(sf::RenderTarget* target, Tank* tank)
 {
-	Bullet* bullet = tank->GetBullet();
-	if (bullet)
-		bullet->Render(target);
+	if (tank)
+	{
+		Bullet* bullet = tank->GetBullet();
+		if (bullet)
+			bullet->Render(target);
+	}
 }
 
 void SinglePlayerState::RenderPlayers(sf::RenderTarget* target)
@@ -507,6 +588,9 @@ void SinglePlayerState::Update(const float& dt)
 
 	if (m_map->IsLoaded())
 		CheckForGameOver();
+	UpdateTankBulletCollision(dt);
+	UpdateSpawner(dt);
+	CheckForNextStage();
 }
 
 void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)

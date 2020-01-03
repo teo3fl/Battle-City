@@ -36,7 +36,9 @@ protected:
 	void LoadMap(uint8_t stage);
 	void LoadSpawner(uint8_t stage);
 	virtual void ResetPlayerPosition();
-	void CheckForGameOver();
+	void CheckForGameOver(); 
+	void CheckForNextStage();
+	bool CheckForCollision(Tank* tank, Bullet* bullet, const float& dt);
 		
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
@@ -45,6 +47,7 @@ protected:
 	void UpdateSpawner(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
+	void UpdateTankBulletCollision(const float& dt);
 
 	void RenderBullet(sf::RenderTarget* target, Tank* tank);
 	virtual void RenderPlayers(sf::RenderTarget* target = nullptr);

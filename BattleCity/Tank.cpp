@@ -40,6 +40,11 @@ void Tank::SetFacingDirection(const std::string& direction)
 	SetTexture(direction);
 }
 
+void Tank::DecreaseHealth(uint8_t value)
+{
+	m_health -= value;
+}
+
 void Tank::DestroyBullet()
 {
 	if (m_bullet)

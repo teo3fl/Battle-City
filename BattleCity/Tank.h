@@ -13,7 +13,7 @@ public :
 	virtual Bullet* GetBullet() const; 
 
 	void SetFacingDirection(const std::string& direction);
-
+	void DecreaseHealth(uint8_t value);
 	void DestroyBullet();
 
 	void Fire();
