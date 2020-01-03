@@ -18,8 +18,11 @@ class SinglePlayerState :
 public:
 	SinglePlayerState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~SinglePlayerState();
+
+	void Update(const float& dt) override;
+	void Render(sf::RenderTarget* target = nullptr) override;
 	
-	//Functions
+protected:
 	void InitializeVariables();
 	void InitializeKeybinds() override;
 	void InitializeTextures();
@@ -29,10 +32,10 @@ public:
 	void InitializeMap();
 	void InitializeSpawner();
 
+	void InitializeCurrentStage();
 	void LoadMap(uint8_t stage);
 	void LoadSpawner(uint8_t stage);
-	void InitializeCurrentStage();
-	void ResetPlayerPosition();
+	virtual void ResetPlayerPosition();
 	void CheckForGameOver();
 		
 	void UpdateInput(const float& dt) override;
@@ -42,14 +45,15 @@ public:
 	void UpdateSpawner(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
-	void Update(const float& dt) override;
 
+	void RenderBullet(sf::RenderTarget* target, Tank* tank);
+	virtual void RenderPlayers(sf::RenderTarget* target = nullptr);
+	void RenderEnemies(sf::RenderTarget* target = nullptr);
 	void RenderNextStateScreen(sf::RenderTarget* target = nullptr);
 	void RenderCurrentStage(sf::RenderTarget* target = nullptr);
 	void RenderGameOverScreen(sf::RenderTarget* target = nullptr);
-	void Render(sf::RenderTarget* target = nullptr) override;
 
-private:
+protected:
 	Player* m_player1;
 	std::vector<Tank*> m_enemies;
 	Spawner* m_spawner;
