@@ -79,9 +79,9 @@ void Spawner::SetSpawnPoints()
 {
 	m_spawnPoints.resize(3);
 
-	m_spawnPoints[0] = sf::Vector2f(85.f, 85.f);
-	m_spawnPoints[1] = sf::Vector2f(820.f, 85.f);
-	m_spawnPoints[2] = sf::Vector2f(400.f, 85.f);
+	m_spawnPoints[0] = sf::Vector2f(470.f, 85.f);
+	m_spawnPoints[1] = sf::Vector2f(855.f, 85.f);
+	m_spawnPoints[2] = sf::Vector2f(85.f, 85.f);
 
 	m_lastSpawningPoint = m_spawnPoints.size() - 1;
 }
