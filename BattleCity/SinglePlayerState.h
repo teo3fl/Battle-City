@@ -31,6 +31,7 @@ protected:
 	void InitializeBackground();
 	void InitializeMap();
 	void InitializeSpawner();
+	void InitializeEnemyLives();
 
 	void InitializeCurrentStage();
 	void LoadMap(uint8_t stage);
@@ -48,7 +49,9 @@ protected:
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
 	void UpdateTankBulletCollision(const float& dt);
+	void UpdateEnemyLives();
 
+	void RenderBackground(sf::RenderTarget* target);
 	void RenderBullet(sf::RenderTarget* target, Tank* tank);
 	virtual void RenderPlayers(sf::RenderTarget* target = nullptr);
 	void RenderEnemies(sf::RenderTarget* target = nullptr);
@@ -59,7 +62,9 @@ protected:
 protected:
 	Player* m_player1;
 	std::vector<Tank*> m_enemies;
+	uint8_t m_numberOfEnemies;
 	Spawner* m_spawner;
+	std::vector<sf::RectangleShape> m_enemyLives;
 
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_transitionScreen;

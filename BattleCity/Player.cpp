@@ -3,7 +3,7 @@
 
 Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 {
-	m_movementSpeed = 60.f; 
+	m_movementSpeed = 100.f; 
 	m_health = 1;
 	m_lives = 3;
 	m_bulletSpeed = 100.f;

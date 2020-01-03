@@ -12,6 +12,7 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializeFonts();
 	InitializeVariables(); 
 	InitializeSpawner();
+	InitializeEnemyLives();
 }
 
 SinglePlayerState::~SinglePlayerState()
@@ -25,7 +26,8 @@ void SinglePlayerState::InitializeVariables()
 {
 	m_gameStatus = GameStatus::NextStage;
 	m_stageNumber = 1;
-	m_enemies.reserve(20);
+	m_numberOfEnemies = 20;
+	m_enemies.reserve(m_numberOfEnemies);
 
 	m_stageScreenText.setFillColor(sf::Color::Black);
 	m_stageScreenText.setFont(m_font);
@@ -263,6 +265,13 @@ void SinglePlayerState::InitializeTextures()
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_POWER_TANK_TEXTURE_D";
 	}
+
+	// enemy life texture
+
+	if (!m_textures["ENEMY_LIFE"].loadFromFile("../External/Resources/Textures/enemyLife.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ENEMY_LIFE_TEXTURE_D";
+	}
 }
 
 void SinglePlayerState::InitializePlayer1()
@@ -323,7 +332,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(20, 10);
+	m_spawner = new Spawner(m_numberOfEnemies, 10);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -355,6 +364,33 @@ void SinglePlayerState::InitializeSpawner()
 	m_spawnStages[1] = "../External/Resources/Config/spawner_stage2.ini";
 	m_spawnStages[2] = "../External/Resources/Config/spawner_stage3.ini";
 	m_spawnStages[3] = "../External/Resources/Config/spawner_stage4.ini";
+}
+
+void SinglePlayerState::InitializeEnemyLives()
+{
+	uint16_t borderX = 970;
+	uint16_t borderY = 100;
+
+	uint8_t size = 30;
+
+	m_enemyLives.resize(m_numberOfEnemies);
+
+	for (uint8_t x = 0; x < m_numberOfEnemies; ++x)
+	{
+		m_enemyLives[x] = sf::RectangleShape(
+			sf::Vector2f(size, size)
+		);
+		uint16_t coordX = borderX + x * (size + 5);
+		uint16_t coordY = borderX + x * (size + 5);
+
+		if (x % 2)
+			coordX += size + 5;
+		m_enemyLives[x].setTexture(&m_textures["ENEMY_LIFE"]);
+		m_enemyLives[x].setPosition(
+			sf::Vector2f(coordX, coordY)
+		);
+
+	}
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -554,11 +590,26 @@ void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
 					{
 						m_enemies.erase(m_enemies.begin()+i);
 						delete tank;
+						UpdateEnemyLives();
 					}
 					m_player1->DestroyBullet();
 				}
 			}
 	}
+}
+
+void SinglePlayerState::UpdateEnemyLives()
+{
+	
+}
+
+void SinglePlayerState::RenderBackground(sf::RenderTarget* target)
+{
+	/*target->draw(m_background);
+	target->draw(m_stageNumberText);*/
+
+	for (auto& rectangle : m_enemyLives)
+		target->draw(rectangle);
 }
 
 void SinglePlayerState::RenderBullet(sf::RenderTarget* target, Tank* tank)
@@ -629,8 +680,7 @@ void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 
 void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 {
-	target->draw(m_background);
-	target->draw(m_stageNumberText);
+	RenderBackground(target);
 
 	m_map->RenderTilesBelow(target);
 
