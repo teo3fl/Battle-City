@@ -369,12 +369,16 @@ void SinglePlayerState::LoadSpawner(uint8_t stage)
 
 void SinglePlayerState::InitializeCurrentStage()
 {
-	m_gameStatus = GameStatus::CurrentStage;
 	LoadMap(m_stageNumber);
 	LoadSpawner(m_stageNumber);
 	++m_stageNumber;
 	UpdateStageBackground();
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		m_player1->DestroyBullet();
 	ResetPlayerPosition();
+
+	m_gameStatus = GameStatus::CurrentStage;
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -576,21 +580,24 @@ void SinglePlayerState::Update(const float& dt)
 	UpdateKeytime(dt);
 	UpdateInput(dt);
 
-	m_player1->Update(dt);
-	UpdateEnemies(dt);
-	Bullet* bullet = m_player1->GetBullet();
-	if (bullet)
-		bullet->Update(dt);
+	if (m_gameStatus == GameStatus::CurrentStage)
+	{
+		m_player1->Update(dt);
+		UpdateEnemies(dt);
+		Bullet* bullet = m_player1->GetBullet();
+		if (bullet)
+			bullet->Update(dt);
 
-	UpdatePlayer1Fire(dt);
-	UpdateMap(dt);
-	//UpdateSpawner(dt);
+		UpdatePlayer1Fire(dt);
+		UpdateMap(dt);
+		//UpdateSpawner(dt);
 
-	if (m_map->IsLoaded())
-		CheckForGameOver();
-	UpdateTankBulletCollision(dt);
-	UpdateSpawner(dt);
-	CheckForNextStage();
+		if (m_map->IsLoaded())
+			CheckForGameOver();
+		UpdateTankBulletCollision(dt);
+		UpdateSpawner(dt);
+		CheckForNextStage();
+	}
 }
 
 void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)

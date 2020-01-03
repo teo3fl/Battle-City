@@ -49,7 +49,11 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 				switch (tileType)
 				{
-				case 0: break;
+				case 0: 
+				{
+					m_map[x][y] = nullptr;
+					break;
+				}
 
 				case 1:
 				{
