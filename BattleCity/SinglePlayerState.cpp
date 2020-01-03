@@ -26,7 +26,7 @@ void SinglePlayerState::InitializeVariables()
 	m_gameStatus = GameStatus::NextStage;
 	m_stageNumber = 1;
 
-	m_enemies.resize(20);
+	m_enemies.reserve(20);
 
 	m_text.setFillColor(sf::Color::Black);
 	m_text.setFont(m_font);
@@ -171,6 +171,92 @@ void SinglePlayerState::InitializeTextures()
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BULLET_R_TEXTURE";
 	}
+
+
+	// enemy tanks textures
+
+	if (!m_textures["ARMOR_TANK_RIGHT"].loadFromFile("../External/Resources/Textures/enemyTank4R.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ARMOR_TANK_TEXTURE_R";
+	}
+
+	if (!m_textures["ARMOR_TANK_LEFT"].loadFromFile("../External/Resources/Textures/enemyTank4L.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ARMOR_TANK_TEXTURE_L";
+	}
+
+	if (!m_textures["ARMOR_TANK_UP"].loadFromFile("../External/Resources/Textures/enemyTank4U.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ARMOR_TANK_TEXTURE_U";
+	}
+
+	if (!m_textures["ARMOR_TANK_DOWN"].loadFromFile("../External/Resources/Textures/enemyTank4D.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_ARMOR_TANK_TEXTURE_D";
+	}
+
+
+	if (!m_textures["BASIC_TANK_RIGHT"].loadFromFile("../External/Resources/Textures/enemyTank1R.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BASIC_TANK_TEXTURE_R";
+	}
+
+	if (!m_textures["BASIC_TANK_LEFT"].loadFromFile("../External/Resources/Textures/enemyTank1L.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BASIC_TANK_TEXTURE_L";
+	}
+
+	if (!m_textures["BASIC_TANK_UP"].loadFromFile("../External/Resources/Textures/enemyTank1U.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BASIC_TANK_TEXTURE_U";
+	}
+
+	if (!m_textures["BASIC_TANK_DOWN"].loadFromFile("../External/Resources/Textures/enemyTank1D.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_BASIC_TANK_TEXTURE_D";
+	}
+
+
+	if (!m_textures["FAST_TANK_RIGHT"].loadFromFile("../External/Resources/Textures/enemyTank2R.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_FAST_TANK_TEXTURE_R";
+	}
+
+	if (!m_textures["FAST_TANK_LEFT"].loadFromFile("../External/Resources/Textures/enemyTank2L.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_FAST_TANK_TEXTURE_L";
+	}
+
+	if (!m_textures["FAST_TANK_UP"].loadFromFile("../External/Resources/Textures/enemyTank2U.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_FAST_TANK_TEXTURE_U";
+	}
+
+	if (!m_textures["FAST_TANK_DOWN"].loadFromFile("../External/Resources/Textures/enemyTank2D.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_FAST_TANK_TEXTURE_D";
+	}
+
+
+	if (!m_textures["POWER_TANK_RIGHT"].loadFromFile("../External/Resources/Textures/enemyTank3R.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_POWER_TANK_TEXTURE_R";
+	}
+
+	if (!m_textures["POWER_TANK_LEFT"].loadFromFile("../External/Resources/Textures/enemyTank3L.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_POWER_TANK_TEXTURE_L";
+	}
+
+	if (!m_textures["POWER_TANK_UP"].loadFromFile("../External/Resources/Textures/enemyTank3U.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_POWER_TANK_TEXTURE_U";
+	}
+
+	if (!m_textures["POWER_TANK_DOWN"].loadFromFile("../External/Resources/Textures/enemyTank3D.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_POWER_TANK_TEXTURE_D";
+	}
 }
 
 void SinglePlayerState::InitializePlayer1()
@@ -231,7 +317,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(m_enemies.size(), 10);
+	m_spawner = new Spawner(20, 10);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -277,6 +363,8 @@ void SinglePlayerState::LoadMap(uint8_t stage)
 void SinglePlayerState::LoadSpawner(uint8_t stage)
 {
 	m_spawner->LoadFromFile(m_spawnStages[stage - 1]);
+
+	m_enemies.push_back(m_spawner->SpawnNext());
 }
 
 void SinglePlayerState::InitializeCurrentStage()
@@ -287,7 +375,6 @@ void SinglePlayerState::InitializeCurrentStage()
 	++m_stageNumber;
 	UpdateStageBackground();
 	ResetPlayerPosition();
-	m_enemies.push_back(m_spawner->SpawnNext());
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -345,6 +432,9 @@ void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
 
 void SinglePlayerState::UpdateEnemies(const float& dt)
 {
+	if (!m_enemies.empty())
+		for (Tank* tank : m_enemies)
+			tank->Update(dt);
 }
 
 void SinglePlayerState::UpdateSpawner(const float& dt)
@@ -374,18 +464,46 @@ void SinglePlayerState::UpdateStageBackground()
 	);
 }
 
+void SinglePlayerState::RenderBullet(sf::RenderTarget* target, Tank* tank)
+{
+	Bullet* bullet = tank->GetBullet();
+	if (bullet)
+		bullet->Render(target);
+}
+
+void SinglePlayerState::RenderPlayers(sf::RenderTarget* target)
+{
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		bullet->Render(target);
+
+	m_player1->Render(target);
+}
+
+void SinglePlayerState::RenderEnemies(sf::RenderTarget* target)
+{
+	if (!m_enemies.empty())
+		for (Tank* enemy : m_enemies)
+		{
+			RenderBullet(target, enemy);
+			enemy->Render(target);
+		}
+}
+
 void SinglePlayerState::Update(const float& dt)
 {
 	UpdateKeytime(dt);
 	UpdateInput(dt);
 
 	m_player1->Update(dt);
+	UpdateEnemies(dt);
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
 		bullet->Update(dt);
 
 	UpdatePlayer1Fire(dt);
 	UpdateMap(dt);
+	//UpdateSpawner(dt);
 
 	if (m_map->IsLoaded())
 		CheckForGameOver();
@@ -405,12 +523,13 @@ void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 {
 	target->draw(m_background);
+
 	m_map->RenderTilesBelow(target);
-	m_player1->Render(target);
+
+	RenderPlayers(target);
+	RenderEnemies(target);
+
 	m_map->RenderTilesAbove(target);
-	Bullet* bullet = m_player1->GetBullet();
-	if (bullet)
-		bullet->Render(target);
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
