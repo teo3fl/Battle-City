@@ -28,7 +28,7 @@ class Entity{
 		virtual void StopVelocityY();
 
 		virtual void Update(const float& dt) = 0;
-		virtual void Render(sf::RenderTarget* target = nullptr) = 0;
+		virtual void Render(sf::RenderTarget* target = nullptr);
 protected:
 	sf::Sprite m_sprite;
 	Hitbox* m_hitbox;

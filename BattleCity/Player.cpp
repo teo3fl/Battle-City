@@ -39,9 +39,3 @@ void Player::Update(const float& dt)
 	m_hitbox->Update();
 }
 
-void Player::Render(sf::RenderTarget* target)
-{
-	target->draw(m_sprite);
-
-	m_hitbox->Render(target);
-}

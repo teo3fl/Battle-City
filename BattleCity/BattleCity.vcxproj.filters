@@ -132,6 +132,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Tanks</Filter>
     </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -233,6 +236,9 @@
     <ClInclude Include="Bullet.h">
       <Filter>Tanks</Filter>
     </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\External\Resources\Config\gamestate_keybinds.ini">
@@ -257,6 +263,18 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="..\External\Resources\Config\supported_keys.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\spawner_stage2.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\spawner_stage3.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\spawner_stage4.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\External\Resources\Config\spawner_stage1.ini">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "TileMap.h"
 
 TileMap::TileMap(uint16_t width, uint16_t height) :
-	m_width(width), m_height(height)
+	m_width(width), m_height(height), m_loaded(false)
 {
 	// the upper left corner coordinates of the map
 	m_upperLeftCorner.x = 80;

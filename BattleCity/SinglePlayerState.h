@@ -3,6 +3,7 @@
 #include "State.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "Spawner.h"
 
 enum class GameStatus
 {
@@ -26,9 +27,10 @@ public:
 	void InitializeFonts();
 	void InitializeBackground();
 	void InitializeMap();
-	void InitializeBase();
+	void InitializeSpawner();
 
 	void LoadMap(uint8_t stage);
+	void LoadSpawner(uint8_t stage);
 	void InitializeCurrentStage();
 	void ResetPlayerPosition();
 	void CheckForGameOver();
@@ -36,6 +38,8 @@ public:
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
 	void UpdatePlayer1Fire(const float& dt);
+	void UpdateEnemies(const float& dt);
+	void UpdateSpawner(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
 	void Update(const float& dt) override;
@@ -47,6 +51,9 @@ public:
 
 private:
 	Player* m_player1;
+	std::vector<Tank*> m_enemies;
+	Spawner* m_spawner;
+
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_transitionScreen;
 	sf::RectangleShape m_gameOverScreen;
@@ -62,4 +69,5 @@ private:
 	uint16_t m_mapHeight;
 	uint16_t m_mapWidth;
 	std::vector<std::string> m_mapStages;
+	std::vector<std::string> m_spawnStages;
 };

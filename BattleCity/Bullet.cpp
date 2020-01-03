@@ -27,17 +27,17 @@ void Bullet::SetSpeed()
 	{
 	case BulletType::Slow:
 	{
-		m_movementSpeed = 50.f;
+		m_movementSpeed = 75.f;
 		break;
 	}
 	case BulletType::Normal:
 	{
-		m_movementSpeed = 75.f;
+		m_movementSpeed = 100.f;
 		break;
 	}
 	case BulletType::Fast:
 	{
-		m_movementSpeed = 100.f;
+		m_movementSpeed = 125.f;
 		break;
 	}
 	default:

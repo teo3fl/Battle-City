@@ -91,4 +91,11 @@ void Entity::StopVelocityY()
 		m_movementComponent->StopVelocityY();
 }
 
+void Entity::Render(sf::RenderTarget* target)
+{
+	target->draw(m_sprite);
+
+	m_hitbox->Render(target);
+}
+
 

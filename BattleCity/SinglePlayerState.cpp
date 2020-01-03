@@ -10,18 +10,23 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializePlayer1();
 	InitializeMap();
 	InitializeFonts();
-	InitializeVariables();
+	InitializeVariables(); 
+	InitializeSpawner();
 }
 
 SinglePlayerState::~SinglePlayerState()
 {
 	delete m_player1;
+	for (Tank* tank : m_enemies)
+		delete tank;
 }
 
 void SinglePlayerState::InitializeVariables()
 {
 	m_gameStatus = GameStatus::NextStage;
 	m_stageNumber = 1;
+
+	m_enemies.resize(20);
 
 	m_text.setFillColor(sf::Color::Black);
 	m_text.setFont(m_font);
@@ -224,9 +229,40 @@ void SinglePlayerState::InitializeMap()
 	m_mapStages[3] = "../External/Resources/Config/map_stage4.ini";
 }
 
-void SinglePlayerState::InitializeBase()
+void SinglePlayerState::InitializeSpawner()
 {
+	m_spawner = new Spawner(m_enemies.size(), 10);
 
+	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
+	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
+	m_spawner->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
+	m_spawner->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");
+
+	m_spawner->AddTexture(m_textures["ARMOR_TANK_UP"], "ARMOR_TANK_UP");
+	m_spawner->AddTexture(m_textures["ARMOR_TANK_DOWN"], "ARMOR_TANK_DOWN");
+	m_spawner->AddTexture(m_textures["ARMOR_TANK_LEFT"], "ARMOR_TANK_LEFT");
+	m_spawner->AddTexture(m_textures["ARMOR_TANK_RIGHT"], "ARMOR_TANK_RIGHT");
+
+	m_spawner->AddTexture(m_textures["BASIC_TANK_UP"], "BASIC_TANK_UP");
+	m_spawner->AddTexture(m_textures["BASIC_TANK_DOWN"], "BASIC_TANK_DOWN");
+	m_spawner->AddTexture(m_textures["BASIC_TANK_LEFT"], "BASIC_TANK_LEFT");
+	m_spawner->AddTexture(m_textures["BASIC_TANK_RIGHT"], "BASIC_TANK_RIGHT");
+
+	m_spawner->AddTexture(m_textures["FAST_TANK_UP"], "FAST_TANK_UP");
+	m_spawner->AddTexture(m_textures["FAST_TANK_DOWN"], "FAST_TANK_DOWN");
+	m_spawner->AddTexture(m_textures["FAST_TANK_LEFT"], "FAST_TANK_LEFT");
+	m_spawner->AddTexture(m_textures["FAST_TANK_RIGHT"], "FAST_TANK_RIGHT");
+
+	m_spawner->AddTexture(m_textures["POWER_TANK_UP"], "POWER_TANK_UP");
+	m_spawner->AddTexture(m_textures["POWER_TANK_DOWN"], "POWER_TANK_DOWN");
+	m_spawner->AddTexture(m_textures["POWER_TANK_LEFT"], "POWER_TANK_LEFT");
+	m_spawner->AddTexture(m_textures["POWER_TANK_RIGHT"], "POWER_TANK_RIGHT");
+
+	m_spawnStages.resize(4);
+	m_spawnStages[0] = "../External/Resources/Config/spawner_stage1.ini";
+	m_spawnStages[1] = "../External/Resources/Config/spawner_stage2.ini";
+	m_spawnStages[2] = "../External/Resources/Config/spawner_stage3.ini";
+	m_spawnStages[3] = "../External/Resources/Config/spawner_stage4.ini";
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -238,13 +274,20 @@ void SinglePlayerState::LoadMap(uint8_t stage)
 	m_map->LoadFromFile(m_mapStages[stage-1]);
 }
 
+void SinglePlayerState::LoadSpawner(uint8_t stage)
+{
+	m_spawner->LoadFromFile(m_spawnStages[stage - 1]);
+}
+
 void SinglePlayerState::InitializeCurrentStage()
 {
 	m_gameStatus = GameStatus::CurrentStage;
 	LoadMap(m_stageNumber);
+	LoadSpawner(m_stageNumber);
 	++m_stageNumber;
 	UpdateStageBackground();
 	ResetPlayerPosition();
+	m_enemies.push_back(m_spawner->SpawnNext());
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -260,6 +303,7 @@ void SinglePlayerState::CheckForGameOver()
 
 void SinglePlayerState::UpdateInput(const float& dt)
 {
+	CheckForQuit();
 	UpdatePlayer1Movement(dt);
 }
 
@@ -297,6 +341,16 @@ void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
 	{
 		m_player1->Fire();
 	}
+}
+
+void SinglePlayerState::UpdateEnemies(const float& dt)
+{
+}
+
+void SinglePlayerState::UpdateSpawner(const float& dt)
+{
+	if (m_spawner->Update(dt))
+		m_enemies.push_back(m_spawner->SpawnNext());
 }
 
 void SinglePlayerState::UpdateMap(const float& dt)

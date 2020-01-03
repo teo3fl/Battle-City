@@ -7,6 +7,7 @@
 #include <sstream>
 #include <map>
 #include <cstdint>
+#include <queue>
 
 // SFML
 #include "SFMl/System.hpp"

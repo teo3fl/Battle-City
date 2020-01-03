@@ -156,6 +156,7 @@
     <ClCompile Include="PowerTank.cpp" />
     <ClCompile Include="PowerUp.cpp" />
     <ClCompile Include="Shovel.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -196,6 +197,7 @@
     <ClInclude Include="PowerTank.h" />
     <ClInclude Include="PowerUp.h" />
     <ClInclude Include="Shovel.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
@@ -216,6 +218,10 @@
     <None Include="..\External\Resources\Config\map_stage2.ini" />
     <None Include="..\External\Resources\Config\map_stage3.ini" />
     <None Include="..\External\Resources\Config\map_stage4.ini" />
+    <None Include="..\External\Resources\Config\spawner_stage1.ini" />
+    <None Include="..\External\Resources\Config\spawner_stage2.ini" />
+    <None Include="..\External\Resources\Config\spawner_stage3.ini" />
+    <None Include="..\External\Resources\Config\spawner_stage4.ini" />
     <None Include="..\External\Resources\Config\supported_keys.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
