@@ -9,6 +9,7 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 	m_bulletSpeed = 100.f;
 	m_offensivePower = 0;
 	m_bulletType = BulletType::Normal;
+
 	m_facingDirection = "UP";
 
 	SetPosition(x, y);
@@ -31,11 +32,5 @@ const uint16_t Player::GetLives()
 const uint32_t Player::GetScore()
 {
 	return m_score;
-}
-
-void Player::Update(const float& dt)
-{
-	m_movementComponent->Update(dt);
-	m_hitbox->Update();
 }
 

@@ -27,7 +27,7 @@ class Entity{
 		virtual void StopVelocityX();
 		virtual void StopVelocityY();
 
-		virtual void Update(const float& dt) = 0;
+		virtual void Update(const float& dt);
 		virtual void Render(sf::RenderTarget* target = nullptr);
 protected:
 	sf::Sprite m_sprite;

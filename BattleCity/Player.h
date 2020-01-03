@@ -7,8 +7,6 @@ class Player : public Tank
 public:
 	Player(const std::string& name, float x, float y);
 
-	virtual void Update(const float& dt) override;
-
 	const std::string GetName();
 	const uint16_t GetLives();
 	const uint32_t GetScore();	

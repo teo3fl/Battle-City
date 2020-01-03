@@ -34,10 +34,6 @@ Bullet* Tank::GetBullet() const
 	return nullptr;
 }
 
-void Tank::Update(const float& dt)
-{
-}
-
 void Tank::SetFacingDirection(const std::string& direction)
 {
 	m_facingDirection = direction;

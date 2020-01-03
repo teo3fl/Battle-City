@@ -11,7 +11,6 @@ public :
 	virtual uint8_t GetHealth() const;
 	virtual float GetMovement() const; // returns the movement speed of the tank;
 	virtual Bullet* GetBullet() const; 
-	virtual void Update(const float& dt) override;
 
 	void SetFacingDirection(const std::string& direction);
 

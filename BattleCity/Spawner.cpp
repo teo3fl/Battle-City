@@ -23,15 +23,11 @@ void Spawner::LoadFromFile(const std::string& fileName)
 
 	if (in.is_open())
 	{
-		for (uint16_t x = 0; x < m_numberOfEnemies; x++)
 
-		{
-			int number;
-			int enemyType;
+		int number;
+		int enemyType;
 
-
-			in >> number >> enemyType;
-
+		while (in >> number >> enemyType)
 			switch (enemyType)
 			{
 			case 0:
@@ -64,7 +60,7 @@ void Spawner::LoadFromFile(const std::string& fileName)
 				break;
 			}
 			}
-		}
+
 	}
 	else
 	{
@@ -102,7 +98,7 @@ Tank* Spawner::SpawnNext()
 
 	sf::Vector2f currentSpawningPoint = m_spawnPoints[GetCurrentSpawningPoint()];
 	tank->SetPosition(currentSpawningPoint.x, currentSpawningPoint.y);
-
+	tank->SetTexture("DOWN");
 	return tank;
 }
 

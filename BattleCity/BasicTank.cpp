@@ -8,4 +8,9 @@ BasicTank::BasicTank() : Tank()
 	m_health = 1;
 	m_bulletSpeed = 50.f;
 	m_bulletType = BulletType::Slow;
+
+	m_facingDirection = "DOWN";
+
+	CreateHitbox(m_sprite, 53, 53);
+	CreateMovementComponent(m_movementSpeed, 500.f, 300.f);
 }
