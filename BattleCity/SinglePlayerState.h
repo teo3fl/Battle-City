@@ -72,7 +72,8 @@ protected:
 
 	GameStatus m_gameStatus;
 
-	uint8_t m_stageNumber;
+	uint8_t m_currentStageNumber;
+	uint8_t m_stages;
 
 	sf::Font m_font;
 	sf::Text m_stageScreenText;

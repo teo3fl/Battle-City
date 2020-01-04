@@ -9,6 +9,7 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 	m_bulletSpeed = 100.f;
 	m_offensivePower = 0;
 	m_bulletType = BulletType::Normal;
+	m_score = 0;
 
 	m_facingDirection = "UP";
 
@@ -17,6 +18,11 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 
 	CreateHitbox(m_sprite, 53, 53);
 	CreateMovementComponent(m_movementSpeed,500.f,300.f);
+}
+
+void Player::IncreaseScore(uint8_t points)
+{
+	m_score += points;
 }
 
 const std::string Player::GetName()

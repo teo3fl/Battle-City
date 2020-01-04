@@ -25,8 +25,9 @@ SinglePlayerState::~SinglePlayerState()
 void SinglePlayerState::InitializeVariables()
 {
 	m_gameStatus = GameStatus::NextStage;
-	m_stageNumber = 1;
+	m_currentStageNumber = 1;
 	m_numberOfEnemies = 20;
+	m_stages = 4;
 	m_enemies.reserve(m_numberOfEnemies);
 
 	m_stageScreenText.setFillColor(sf::Color::Black);
@@ -38,7 +39,7 @@ void SinglePlayerState::InitializeVariables()
 	m_stageNumberText.setFont(m_font);
 	m_stageNumberText.setCharacterSize(50);
 	m_stageNumberText.setOutlineColor(sf::Color::White);
-	m_stageNumberText.setOutlineThickness(3.f);
+	m_stageNumberText.setOutlineThickness(1.f);
 	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 
 	UpdateStageBackground();
@@ -332,7 +333,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(m_numberOfEnemies, 10);
+	m_spawner = new Spawner(m_numberOfEnemies, 15);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -375,19 +376,25 @@ void SinglePlayerState::InitializeEnemyLives()
 
 	m_enemyLives.resize(m_numberOfEnemies);
 
-	for (uint8_t x = 0; x < m_numberOfEnemies; ++x)
+	for (uint8_t row = 0, x = 0; x < m_numberOfEnemies; ++x, ++row)
 	{
+		uint16_t coordX = borderX;
+		uint16_t coordY = borderY + row * (size + 5);
+
 		m_enemyLives[x] = sf::RectangleShape(
 			sf::Vector2f(size, size)
 		);
-		uint16_t coordX = borderX + x * (size + 5);
-		uint16_t coordY = borderX + x * (size + 5);
-
-		if (x % 2)
-			coordX += size + 5;
 		m_enemyLives[x].setTexture(&m_textures["ENEMY_LIFE"]);
 		m_enemyLives[x].setPosition(
 			sf::Vector2f(coordX, coordY)
+		);
+
+		m_enemyLives[++x] = sf::RectangleShape(
+			sf::Vector2f(size, size)
+		);
+		m_enemyLives[x].setTexture(&m_textures["ENEMY_LIFE"]);
+		m_enemyLives[x].setPosition(
+			sf::Vector2f(coordX + size + 5, coordY)
 		);
 
 	}
@@ -411,10 +418,11 @@ void SinglePlayerState::LoadSpawner(uint8_t stage)
 
 void SinglePlayerState::InitializeCurrentStage()
 {
-	LoadMap(m_stageNumber);
-	LoadSpawner(m_stageNumber);
+	LoadMap(m_currentStageNumber);
+	LoadSpawner(m_currentStageNumber);
+	InitializeEnemyLives();
 
-	m_stageNumberText.setString(std::to_string(m_stageNumber));
+	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
 
 	UpdateStageBackground();
 
@@ -424,8 +432,9 @@ void SinglePlayerState::InitializeCurrentStage()
 
 	ResetPlayerPosition();
 
-	++m_stageNumber;
+	++m_currentStageNumber;
 	m_gameStatus = GameStatus::CurrentStage;
+
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -444,8 +453,6 @@ void SinglePlayerState::CheckForNextStage()
 	if (m_spawner->IsEmpty() && m_enemies.empty())
 	{
 		m_gameStatus = GameStatus::NextStage;
-		if (m_stageNumber == 4)
-			m_quit = true;
 	}
 }
 
@@ -561,7 +568,7 @@ void SinglePlayerState::UpdateMap(const float& dt)
 void SinglePlayerState::UpdateStageBackground()
 {
 	std::stringstream ss;
-	ss << "Stage " << std::to_string(m_stageNumber);
+	ss << "Stage " << std::to_string(m_currentStageNumber);
 
 	m_stageScreenText.setString(ss.str());
 
@@ -589,6 +596,7 @@ void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
 					else
 					{
 						m_enemies.erase(m_enemies.begin()+i);
+						m_player1->IncreaseScore(tank->GetPoints());
 						delete tank;
 						UpdateEnemyLives();
 					}
@@ -600,13 +608,13 @@ void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
 
 void SinglePlayerState::UpdateEnemyLives()
 {
-	
+	m_enemyLives.erase(m_enemyLives.begin() + m_enemyLives.size() - 1);
 }
 
 void SinglePlayerState::RenderBackground(sf::RenderTarget* target)
 {
-	/*target->draw(m_background);
-	target->draw(m_stageNumberText);*/
+	target->draw(m_background);
+	target->draw(m_stageNumberText);
 
 	for (auto& rectangle : m_enemyLives)
 		target->draw(rectangle);
@@ -669,13 +677,16 @@ void SinglePlayerState::Update(const float& dt)
 
 void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
 {
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
-	{
-		target->draw(m_transitionScreen);
-		target->draw(m_stageScreenText);
-	}
+	if (m_currentStageNumber <= m_stages)
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
+		{
+			target->draw(m_transitionScreen);
+			target->draw(m_stageScreenText);
+		}
+		else
+			InitializeCurrentStage();
 	else
-		InitializeCurrentStage();
+		m_quit = true;
 }
 
 void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)

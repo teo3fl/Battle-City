@@ -7,6 +7,7 @@ class Player : public Tank
 public:
 	Player(const std::string& name, float x, float y);
 
+	void IncreaseScore(uint8_t points);
 	const std::string GetName();
 	const uint16_t GetLives();
 	const uint32_t GetScore();	
