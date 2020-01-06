@@ -578,11 +578,11 @@ void SinglePlayerState::UpdateStageBackground()
 	);
 }
 
-void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
+void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& dt)
 {
-	if (m_player1 && !m_enemies.empty())
+	if (player && !m_enemies.empty())
 	{
-		Bullet* bullet = m_player1->GetBullet();
+		Bullet* bullet = player->GetBullet();
 		if (bullet)
 			for (uint8_t i = 0; i<m_enemies.size(); ++i)
 			{
@@ -596,11 +596,11 @@ void SinglePlayerState::UpdateTankBulletCollision(const float& dt)
 					else
 					{
 						m_enemies.erase(m_enemies.begin()+i);
-						m_player1->IncreaseScore(tank->GetPoints());
+						player->IncreaseScore(tank->GetPoints());
 						delete tank;
 						UpdateEnemyLives();
 					}
-					m_player1->DestroyBullet();
+					player->DestroyBullet();
 				}
 			}
 	}
@@ -669,7 +669,7 @@ void SinglePlayerState::Update(const float& dt)
 
 		if (m_map->IsLoaded())
 			CheckForGameOver();
-		UpdateTankBulletCollision(dt);
+		UpdateTankBulletCollision(m_player1, dt);
 		UpdateSpawner(dt);
 		CheckForNextStage();
 	}

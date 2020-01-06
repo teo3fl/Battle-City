@@ -48,7 +48,7 @@ protected:
 	void UpdateSpawner(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateStageBackground();
-	void UpdateTankBulletCollision(const float& dt);
+	void UpdateTankBulletCollision(Player* player, const float& dt);
 	void UpdateEnemyLives();
 
 	void RenderBackground(sf::RenderTarget* target);
