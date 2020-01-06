@@ -11,6 +11,7 @@ public :
 	virtual uint8_t GetHealth() const;
 	virtual float GetMovement() const; // returns the movement speed of the tank;
 	virtual Bullet* GetBullet() const; 
+	virtual std::string GetType() const;
 
 	void SetFacingDirection(const std::string& direction);
 	void DecreaseHealth(uint8_t value);
@@ -18,6 +19,7 @@ public :
 
 	void Fire();
 protected:
+	std::string m_type;
 	uint16_t m_points;
 	uint8_t m_health;
 

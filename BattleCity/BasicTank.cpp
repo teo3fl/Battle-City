@@ -3,6 +3,7 @@
 
 BasicTank::BasicTank() : Tank()
 {
+	m_type = "BasicTank";
 	m_movementSpeed = 50.f; 
 	m_points = 100;
 	m_health = 1;

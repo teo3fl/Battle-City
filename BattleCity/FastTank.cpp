@@ -3,6 +3,7 @@
 
 FastTank::FastTank() : Tank()
 {
+	m_type = "FastTank";
 	m_movementSpeed = 100.f; 
 	m_points = 200;
 	m_health = 1;

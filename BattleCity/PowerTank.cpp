@@ -3,6 +3,7 @@
 
 PowerTank::PowerTank() : Tank()
 {
+	m_type = "PowerTank";
 	m_movementSpeed = 75.f;
 	m_points = 300;
 	m_health = 1;

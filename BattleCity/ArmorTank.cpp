@@ -3,6 +3,7 @@
 
 ArmorTank::ArmorTank() : Tank()
 {
+	m_type = "ArmorTank";
 	m_movementSpeed = 75.f;
 	m_points = 400;
 	m_health = 4;
