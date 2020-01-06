@@ -57,7 +57,7 @@ protected:
 	void RenderBullet(sf::RenderTarget* target, Tank* tank);
 	virtual void RenderPlayers(sf::RenderTarget* target = nullptr);
 	void RenderEnemies(sf::RenderTarget* target = nullptr);
-	void RenderNextStateScreen(sf::RenderTarget* target = nullptr);
+	void RenderNextStageScreen(sf::RenderTarget* target = nullptr);
 	void RenderCurrentStage(sf::RenderTarget* target = nullptr);
 	void RenderScoreScreen(sf::RenderTarget* target = nullptr);
 	void RenderGameOverScreen(sf::RenderTarget* target = nullptr);

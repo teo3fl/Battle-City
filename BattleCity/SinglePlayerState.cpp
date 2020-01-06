@@ -343,7 +343,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(m_numberOfEnemies, 15);
+	m_spawner = new Spawner(m_numberOfEnemies, 6);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -470,7 +470,7 @@ void SinglePlayerState::CheckForNextStage()
 {
 	if (m_spawner->IsEmpty() && m_enemies.empty())
 	{
-		m_gameStatus = GameStatus::NextStage;
+		m_gameStatus = GameStatus::ScoreScreen;
 	}
 }
 
@@ -694,10 +694,10 @@ void SinglePlayerState::Update(const float& dt)
 	}
 }
 
-void SinglePlayerState::RenderNextStateScreen(sf::RenderTarget* target)
+void SinglePlayerState::RenderNextStageScreen(sf::RenderTarget* target)
 {
 	if (m_currentStageNumber <= m_stages)
-		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
+		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))) || !GetKeytime())
 		{
 			target->draw(m_transitionScreen);
 			target->draw(m_stageScreenText);
@@ -722,12 +722,13 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 
 void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 {
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))) || !GetKeytime())
 	{
 		target->draw(m_scoreScreen);
 	}
 	else
 		m_gameStatus = GameStatus::NextStage;
+
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
@@ -747,7 +748,7 @@ void SinglePlayerState::Render(sf::RenderTarget* target)
 	{
 	case GameStatus::NextStage:
 	{
-		RenderNextStateScreen(m_window);
+		RenderNextStageScreen(m_window);
 		break;
 	}
 
