@@ -83,11 +83,13 @@ protected:
 	uint8_t m_stages;
 
 	sf::Font m_font;
+
 	sf::Text m_stageScreenText;
+
 	sf::Text m_stageNumberText;
 	sf::Text m_scoreText;
 	sf::Text m_pointsPerTankType;
-	sf::Text m_numberOfTanks;
+	sf::Text m_numberOfTanksDestroied;
 
 	TileMap* m_map;
 	uint16_t m_mapHeight;

@@ -424,16 +424,17 @@ void SinglePlayerState::InitializeText()
 	m_scoreText.setFont(m_font);
 	m_scoreText.setCharacterSize(30);
 	m_scoreText.setOutlineThickness(1.f);
+	m_scoreText.setPosition(sf::Vector2f(100, 200));
 
 	m_pointsPerTankType.setFillColor(sf::Color::White);
 	m_pointsPerTankType.setFont(m_font);
 	m_pointsPerTankType.setCharacterSize(40);
 	m_pointsPerTankType.setOutlineThickness(1.f);
 
-	m_numberOfTanks.setFillColor(sf::Color::White);
-	m_numberOfTanks.setFont(m_font);
-	m_numberOfTanks.setCharacterSize(40);
-	m_numberOfTanks.setOutlineThickness(1.f);
+	m_numberOfTanksDestroied.setFillColor(sf::Color::White);
+	m_numberOfTanksDestroied.setFont(m_font);
+	m_numberOfTanksDestroied.setCharacterSize(40);
+	m_numberOfTanksDestroied.setOutlineThickness(1.f);
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -618,10 +619,34 @@ void SinglePlayerState::UpdateNextStageBackground()
 
 void SinglePlayerState::UpdateScoreBackground()
 {
+	// stage number
 	m_stageNumberText.setCharacterSize(50);
 	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 
+	// score
 	m_scoreText.setString(std::to_string(m_player1->GetScore()));
+
+	// points
+	std::stringstream ss;
+
+	ss<<
+		std::to_string(100*m_enemiesDestroied["BasicTank"]) << std::endl <<
+		std::to_string(200*m_enemiesDestroied["FastTank"]) << std::endl <<
+		std::to_string(300*m_enemiesDestroied["PowerTank"]) << std::endl <<
+		std::to_string(400*m_enemiesDestroied["ArmorTank"]) << std::endl;
+
+	m_pointsPerTankType.setString(ss.str());
+
+	// number of tanks
+	ss.str(std::string());
+
+	ss <<
+		std::to_string(m_enemiesDestroied["BasicTank"]) << std::endl <<
+		std::to_string(m_enemiesDestroied["FastTank"]) << std::endl <<
+		std::to_string(m_enemiesDestroied["PowerTank"]) << std::endl <<
+		std::to_string(m_enemiesDestroied["ArmorTank"]) << std::endl;
+
+	m_numberOfTanksDestroied.setString(ss.str());
 }
 
 void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& dt)
@@ -752,7 +777,9 @@ void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 	{
 		target->draw(m_scoreScreen);
 		target->draw(m_stageNumberText);
-
+		target->draw(m_scoreText);
+		target->draw(m_pointsPerTankType);
+		target->draw(m_numberOfTanksDestroied);
 	}
 	else
 	{
