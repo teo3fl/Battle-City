@@ -34,6 +34,11 @@ Bullet* Tank::GetBullet() const
 	return nullptr;
 }
 
+std::string Tank::GetType() const
+{
+	return m_type;
+}
+
 void Tank::SetFacingDirection(const std::string& direction)
 {
 	m_facingDirection = direction;
