@@ -152,6 +152,13 @@ void SinglePlayerState::InitializeTextures()
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GAME_OVER_TEXTURE";
 	}
 
+	// score screen texture
+
+	if (!m_textures["SCORE"].loadFromFile("../External/Resources/Textures/score.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_SCORE_TEXTURE";
+	}
+
 	// base texture
 
 	if (!m_textures["BASE"].loadFromFile("../External/Resources/Textures/eagle.png"))
@@ -307,6 +314,9 @@ void SinglePlayerState::InitializeBackground()
 
 	m_transitionScreen.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_transitionScreen.setFillColor(sf::Color(225, 225, 225, 200));
+
+	m_scoreScreen.setSize(sf::Vector2f(1100.f, 1000.f));
+	m_scoreScreen.setTexture(&m_textures["SCORE"]);
 
 	m_gameOverScreen.setSize(sf::Vector2f(1100.f, 1000.f));
 	m_gameOverScreen.setTexture(&m_textures["GAME_OVER"]);
