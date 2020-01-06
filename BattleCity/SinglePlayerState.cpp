@@ -429,6 +429,7 @@ void SinglePlayerState::InitializeCurrentStage()
 	LoadMap(m_currentStageNumber);
 	LoadSpawner(m_currentStageNumber);
 	InitializeEnemyLives();
+	InitializeScoreMap();
 
 	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
 
@@ -442,7 +443,6 @@ void SinglePlayerState::InitializeCurrentStage()
 
 	++m_currentStageNumber;
 	m_gameStatus = GameStatus::CurrentStage;
-
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -605,7 +605,7 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 					{
 						m_enemies.erase(m_enemies.begin()+i);
 						player->IncreaseScore(tank->GetPoints());
-
+						++m_enemiesDestroied[tank->GetType()];
 						delete tank;
 						UpdateEnemyLives();
 					}
@@ -712,7 +712,12 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 
 void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 {
-
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))))
+	{
+		target->draw(m_scoreScreen);
+	}
+	else
+		m_gameStatus = GameStatus::NextStage;
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
@@ -745,6 +750,11 @@ void SinglePlayerState::Render(sf::RenderTarget* target)
 	case GameStatus::CurrentStage:
 	{
 		RenderCurrentStage(m_window);
+		break;
+	}
+	case GameStatus::ScoreScreen:
+	{
+		RenderScoreScreen(m_window);
 		break;
 	}
 	}

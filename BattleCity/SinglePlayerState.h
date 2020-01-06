@@ -72,6 +72,7 @@ protected:
 
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_transitionScreen;
+	sf::RectangleShape m_scoreScreen;
 	sf::RectangleShape m_gameOverScreen;
 
 	GameStatus m_gameStatus;
