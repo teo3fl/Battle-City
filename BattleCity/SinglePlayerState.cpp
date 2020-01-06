@@ -30,19 +30,9 @@ void SinglePlayerState::InitializeVariables()
 	m_stages = 4;
 	m_enemies.reserve(m_numberOfEnemies);
 
-	m_stageScreenText.setFillColor(sf::Color::Black);
-	m_stageScreenText.setFont(m_font);
-	m_stageScreenText.setCharacterSize(200);
-	m_stageScreenText.setOutlineThickness(4.f);
+	InitializeText();
 
-	m_stageNumberText.setFillColor(sf::Color::White);
-	m_stageNumberText.setFont(m_font);
-	m_stageNumberText.setCharacterSize(50);
-	m_stageNumberText.setOutlineColor(sf::Color::White);
-	m_stageNumberText.setOutlineThickness(1.f);
-	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
-
-	UpdateStageBackground();
+	UpdateNextStageBackground();
 }
 
 void SinglePlayerState::InitializeKeybinds()
@@ -418,6 +408,34 @@ void SinglePlayerState::InitializeScoreMap()
 	m_enemiesDestroied["PowerTank"] = 0;
 }
 
+void SinglePlayerState::InitializeText()
+{
+	m_stageScreenText.setFillColor(sf::Color::Black);
+	m_stageScreenText.setFont(m_font);
+	m_stageScreenText.setCharacterSize(200);
+	m_stageScreenText.setOutlineThickness(4.f);
+
+	m_stageNumberText.setFillColor(sf::Color::White);
+	m_stageNumberText.setFont(m_font);
+	m_stageNumberText.setOutlineColor(sf::Color::White);
+	m_stageNumberText.setOutlineThickness(1.f);
+
+	m_scoreText.setFillColor(sf::Color::White);
+	m_scoreText.setFont(m_font);
+	m_scoreText.setCharacterSize(30);
+	m_scoreText.setOutlineThickness(1.f);
+
+	m_pointsPerTankType.setFillColor(sf::Color::White);
+	m_pointsPerTankType.setFont(m_font);
+	m_pointsPerTankType.setCharacterSize(40);
+	m_pointsPerTankType.setOutlineThickness(1.f);
+
+	m_numberOfTanks.setFillColor(sf::Color::White);
+	m_numberOfTanks.setFont(m_font);
+	m_numberOfTanks.setCharacterSize(40);
+	m_numberOfTanks.setOutlineThickness(1.f);
+}
+
 void SinglePlayerState::LoadMap(uint8_t stage)
 {
 	if (m_map)
@@ -441,9 +459,11 @@ void SinglePlayerState::InitializeCurrentStage()
 	InitializeEnemyLives();
 	InitializeScoreMap();
 
+	m_stageNumberText.setCharacterSize(50);
+	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
 
-	UpdateStageBackground();
+	UpdateNextStageBackground();
 
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
@@ -583,7 +603,7 @@ void SinglePlayerState::UpdateMap(const float& dt)
 	}
 }
 
-void SinglePlayerState::UpdateStageBackground()
+void SinglePlayerState::UpdateNextStageBackground()
 {
 	std::stringstream ss;
 	ss << "Stage " << std::to_string(m_currentStageNumber);
@@ -594,6 +614,14 @@ void SinglePlayerState::UpdateStageBackground()
 		m_transitionScreen.getGlobalBounds().width / 2.f - m_stageScreenText.getGlobalBounds().width / 2.f,
 		m_transitionScreen.getGlobalBounds().height / 2.f - m_stageScreenText.getGlobalBounds().height / 2.f
 	);
+}
+
+void SinglePlayerState::UpdateScoreBackground()
+{
+	m_stageNumberText.setCharacterSize(50);
+	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
+
+	m_scoreText.setString(std::to_string(m_player1->GetScore()));
 }
 
 void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& dt)
@@ -672,8 +700,6 @@ void SinglePlayerState::Update(const float& dt)
 {
 	UpdateKeytime(dt);
 	UpdateInput(dt);
-	if (m_gameStatus == GameStatus::NextStage)
-		UpdateStageBackground();
 
 	if (m_gameStatus == GameStatus::CurrentStage)
 	{
@@ -725,10 +751,14 @@ void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("CONTINUE"))) || !GetKeytime())
 	{
 		target->draw(m_scoreScreen);
+		target->draw(m_stageNumberText);
+
 	}
 	else
+	{
 		m_gameStatus = GameStatus::NextStage;
-
+		UpdateNextStageBackground();
+	}
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)

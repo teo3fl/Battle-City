@@ -34,6 +34,7 @@ protected:
 	void InitializeSpawner();
 	void InitializeEnemyLives();
 	void InitializeScoreMap();
+	void InitializeText();
 
 	void InitializeCurrentStage();
 	void LoadMap(uint8_t stage);
@@ -49,7 +50,8 @@ protected:
 	void UpdateEnemies(const float& dt);
 	void UpdateSpawner(const float& dt);
 	void UpdateMap(const float& dt);
-	void UpdateStageBackground();
+	void UpdateNextStageBackground();
+	void UpdateScoreBackground();
 	void UpdateTankBulletCollision(Player* player, const float& dt);
 	void UpdateEnemyLives();
 
@@ -83,6 +85,9 @@ protected:
 	sf::Font m_font;
 	sf::Text m_stageScreenText;
 	sf::Text m_stageNumberText;
+	sf::Text m_scoreText;
+	sf::Text m_pointsPerTankType;
+	sf::Text m_numberOfTanks;
 
 	TileMap* m_map;
 	uint16_t m_mapHeight;
