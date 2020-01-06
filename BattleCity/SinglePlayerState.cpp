@@ -422,18 +422,18 @@ void SinglePlayerState::InitializeText()
 
 	m_scoreText.setFillColor(sf::Color::White);
 	m_scoreText.setFont(m_font);
-	m_scoreText.setCharacterSize(30);
+	m_scoreText.setCharacterSize(70);
 	m_scoreText.setOutlineThickness(1.f);
 	m_scoreText.setPosition(sf::Vector2f(100, 200));
 
 	m_pointsPerTankType.setFillColor(sf::Color::White);
 	m_pointsPerTankType.setFont(m_font);
-	m_pointsPerTankType.setCharacterSize(40);
+	m_pointsPerTankType.setCharacterSize(45);
 	m_pointsPerTankType.setOutlineThickness(1.f);
 
 	m_numberOfTanksDestroied.setFillColor(sf::Color::White);
 	m_numberOfTanksDestroied.setFont(m_font);
-	m_numberOfTanksDestroied.setCharacterSize(40);
+	m_numberOfTanksDestroied.setCharacterSize(45);
 	m_numberOfTanksDestroied.setOutlineThickness(1.f);
 }
 
@@ -492,6 +492,7 @@ void SinglePlayerState::CheckForNextStage()
 	if (m_spawner->IsEmpty() && m_enemies.empty())
 	{
 		m_gameStatus = GameStatus::ScoreScreen;
+		UpdateScoreBackground();
 	}
 }
 
@@ -620,33 +621,36 @@ void SinglePlayerState::UpdateNextStageBackground()
 void SinglePlayerState::UpdateScoreBackground()
 {
 	// stage number
-	m_stageNumberText.setCharacterSize(50);
-	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
+	m_stageNumberText.setCharacterSize(60);
+	m_stageNumberText.setPosition(sf::Vector2f(590.f, 115.f));
 
 	// score
 	m_scoreText.setString(std::to_string(m_player1->GetScore()));
+	m_scoreText.setPosition(sf::Vector2f(100.f, 300.f));
 
 	// points
 	std::stringstream ss;
 
 	ss<<
-		std::to_string(100*m_enemiesDestroied["BasicTank"]) << std::endl <<
-		std::to_string(200*m_enemiesDestroied["FastTank"]) << std::endl <<
-		std::to_string(300*m_enemiesDestroied["PowerTank"]) << std::endl <<
-		std::to_string(400*m_enemiesDestroied["ArmorTank"]) << std::endl;
+		std::to_string(100*m_enemiesDestroied["BasicTank"]) << std::endl << std::endl<<
+		std::to_string(200 * m_enemiesDestroied["FastTank"]) << std::endl << std::endl<<
+		std::to_string(300 * m_enemiesDestroied["PowerTank"]) << std::endl << std::endl<<
+		std::to_string(400 * m_enemiesDestroied["ArmorTank"]) << std::endl << std::endl;
 
 	m_pointsPerTankType.setString(ss.str());
+	m_pointsPerTankType.setPosition(sf::Vector2f(200.f, 405.f));
 
 	// number of tanks
 	ss.str(std::string());
 
 	ss <<
-		std::to_string(m_enemiesDestroied["BasicTank"]) << std::endl <<
-		std::to_string(m_enemiesDestroied["FastTank"]) << std::endl <<
-		std::to_string(m_enemiesDestroied["PowerTank"]) << std::endl <<
-		std::to_string(m_enemiesDestroied["ArmorTank"]) << std::endl;
+		std::to_string(m_enemiesDestroied["BasicTank"]) << std::endl << std::endl <<
+		std::to_string(m_enemiesDestroied["FastTank"]) << std::endl << std::endl <<
+		std::to_string(m_enemiesDestroied["PowerTank"]) << std::endl << std::endl <<
+		std::to_string(m_enemiesDestroied["ArmorTank"]) << std::endl << std::endl;
 
 	m_numberOfTanksDestroied.setString(ss.str());
+	m_numberOfTanksDestroied.setPosition(sf::Vector2f(550.f, 405.f));
 }
 
 void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& dt)
