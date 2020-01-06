@@ -9,6 +9,7 @@ enum class GameStatus
 {
 	NextStage = 0,
 	CurrentStage,
+	ScoreScreen,
 	GameOver	
 };
 
@@ -32,6 +33,7 @@ protected:
 	void InitializeMap();
 	void InitializeSpawner();
 	void InitializeEnemyLives();
+	void InitializeScoreMap();
 
 	void InitializeCurrentStage();
 	void LoadMap(uint8_t stage);
@@ -57,6 +59,7 @@ protected:
 	void RenderEnemies(sf::RenderTarget* target = nullptr);
 	void RenderNextStateScreen(sf::RenderTarget* target = nullptr);
 	void RenderCurrentStage(sf::RenderTarget* target = nullptr);
+	void RenderScoreScreen(sf::RenderTarget* target = nullptr);
 	void RenderGameOverScreen(sf::RenderTarget* target = nullptr);
 
 protected:
@@ -65,6 +68,7 @@ protected:
 	uint8_t m_numberOfEnemies;
 	Spawner* m_spawner;
 	std::vector<sf::RectangleShape> m_enemyLives;
+	std::map<std::string, uint8_t> m_enemiesDestroied;
 
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_transitionScreen;

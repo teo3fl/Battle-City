@@ -400,6 +400,14 @@ void SinglePlayerState::InitializeEnemyLives()
 	}
 }
 
+void SinglePlayerState::InitializeScoreMap()
+{
+	m_enemiesDestroied["ArmorTank"] = 0;
+	m_enemiesDestroied["BasicTank"] = 0;
+	m_enemiesDestroied["FastTank"] = 0;
+	m_enemiesDestroied["PowerTank"] = 0;
+}
+
 void SinglePlayerState::LoadMap(uint8_t stage)
 {
 	if (m_map)
@@ -597,6 +605,7 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 					{
 						m_enemies.erase(m_enemies.begin()+i);
 						player->IncreaseScore(tank->GetPoints());
+
 						delete tank;
 						UpdateEnemyLives();
 					}
@@ -699,6 +708,11 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 	RenderEnemies(target);
 
 	m_map->RenderTilesAbove(target);
+}
+
+void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
+{
+
 }
 
 void SinglePlayerState::RenderGameOverScreen(sf::RenderTarget* target)
