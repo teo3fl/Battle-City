@@ -213,6 +213,7 @@
   <ItemGroup>
     <None Include="..\External\Resources\Config\gamestate_keybinds.ini" />
     <None Include="..\External\Resources\Config\graphics.ini" />
+    <None Include="..\External\Resources\Config\high_score.ini" />
     <None Include="..\External\Resources\Config\mainmenustate_keybinds.ini" />
     <None Include="..\External\Resources\Config\map_stage1.ini" />
     <None Include="..\External\Resources\Config\map_stage2.ini" />

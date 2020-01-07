@@ -277,5 +277,8 @@
     <None Include="..\External\Resources\Config\spawner_stage1.ini">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\External\Resources\Config\high_score.ini">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

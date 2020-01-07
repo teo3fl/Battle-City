@@ -16,7 +16,9 @@ public:
 	void InitializeButtons();
 	void InitializeKeybinds() override;
 	void InitializeFont();
+	void InitializeText();
 
+	void UpdateScore();
 	void UpdateInput(const float& dt) override;
 	void UpdateMousePosition();
 	void UpdateButtons();
@@ -36,4 +38,6 @@ private:
 
 	sf::Vector2i m_mousePosScreen;
 	sf::Vector2i m_mousePosWindow;
+
+	bool m_updateScore;
 };

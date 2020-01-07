@@ -7,7 +7,6 @@ State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys
 	m_supportedKeys = supportedKeys;
 	m_quit = false;
 
-
 	m_keytime = 0.f;
 	m_keytimeMax = 20.f;
 }
@@ -23,6 +22,18 @@ void State::CheckForQuit()
 	{
 		m_quit = true;
 	}
+}
+
+void State::LoadHighScore()
+{
+	std::ifstream score("../External/Resources/Config/high_score.ini");
+
+	if (score.is_open())
+		score >> m_highScore;
+	else
+		m_highScore = 0;
+
+	m_highScoreText.setString(std::to_string(m_highScore));
 }
 
 void State::UpdateKeytime(const float& dt)

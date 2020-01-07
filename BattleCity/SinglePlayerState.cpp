@@ -13,6 +13,7 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializeVariables(); 
 	InitializeSpawner();
 	InitializeEnemyLives();
+	LoadHighScore();
 }
 
 SinglePlayerState::~SinglePlayerState()
@@ -426,6 +427,12 @@ void SinglePlayerState::InitializeText()
 	m_scoreText.setOutlineThickness(2.f);
 	m_scoreText.setPosition(sf::Vector2f(100.f, 300.f));
 
+	m_highScoreText.setFillColor(sf::Color::White);
+	m_highScoreText.setFont(m_font);
+	m_highScoreText.setCharacterSize(65);
+	m_highScoreText.setOutlineThickness(2.f);
+	m_highScoreText.setPosition(sf::Vector2f(590.f, 26.f));
+
 	m_pointsPerTankType.setFillColor(sf::Color::White);
 	m_pointsPerTankType.setFont(m_font);
 	m_pointsPerTankType.setCharacterSize(48);
@@ -627,7 +634,15 @@ void SinglePlayerState::UpdateScoreBackground()
 	m_stageNumberText.setPosition(sf::Vector2f(590.f, 115.f));
 
 	// score
-	m_scoreText.setString(std::to_string(m_player1->GetScore()));
+	uint32_t score = m_player1->GetScore();
+	m_scoreText.setString(std::to_string(score));
+	if (score > m_highScore)
+	{
+		std::ofstream out("../External/Resources/Config/high_score.ini");
+		out << score;
+		m_highScore = score;
+		m_highScoreText.setString(std::to_string(score));
+	}
 
 	// points
 	std::stringstream ss;
@@ -782,6 +797,7 @@ void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 		target->draw(m_scoreScreen);
 		target->draw(m_stageNumberText);
 		target->draw(m_scoreText);
+		target->draw(m_highScoreText);
 		target->draw(m_pointsPerTankType);
 		target->draw(m_numberOfTanksDestroied);
 	}

@@ -13,6 +13,7 @@ public:
 
 	virtual void CheckForQuit();
 
+	void LoadHighScore();
 	virtual void UpdateKeytime(const float& dt);
 	virtual void UpdateInput(const float& dt) = 0;
 	virtual void Update(const float& dt) = 0;
@@ -29,5 +30,8 @@ protected:
 
 	//Resources
 	std::map<std::string, sf::Texture> m_textures;
+
+	sf::Text m_highScoreText;
+	uint32_t m_highScore;
 
 };

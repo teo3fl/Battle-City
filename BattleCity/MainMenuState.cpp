@@ -8,6 +8,9 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	InitializeBackground();
 	InitializeFont();
 	InitializeButtons();
+	InitializeText();
+
+	m_updateScore = false;
 }
 
 MainMenuState::~MainMenuState()
@@ -47,6 +50,17 @@ void MainMenuState::InitializeFont()
 	}
 }
 
+void MainMenuState::InitializeText()
+{
+	m_highScoreText.setFillColor(sf::Color::White);
+	m_highScoreText.setFont(m_font);
+	m_highScoreText.setCharacterSize(50);
+	m_highScoreText.setOutlineThickness(2.f);
+	m_highScoreText.setPosition(sf::Vector2f(420.f, 70.f));
+
+	LoadHighScore();
+}
+
 void MainMenuState::InitializeBackground()
 {
 	m_background.setSize(sf::Vector2f(1100.f, 1000.f));
@@ -78,6 +92,15 @@ void MainMenuState::InitializeButtons()
 		sf::Color::White, sf::Color::Black);
 }
 
+void MainMenuState::UpdateScore()
+{
+	if (m_updateScore)
+	{
+		LoadHighScore();
+		m_updateScore = false;
+	}
+}
+
 void MainMenuState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
@@ -99,11 +122,13 @@ void MainMenuState::UpdateButtons()
 	if (m_buttons["SINGLE_PLAYER"]->isPressed())
 	{
 		m_states->push(new SinglePlayerState(m_window, m_supportedKeys));
+		m_updateScore = true;
 	}
 
 	if (m_buttons["MULTIPLAYER"]->isPressed())
 	{
 		//m_states->push(new MultyplayerState(m_window, m_supportedKeys));
+		m_updateScore = true;
 	}
 
 	if (m_buttons["KEYBINDS"]->isPressed())
@@ -120,6 +145,7 @@ void MainMenuState::UpdateButtons()
 
 void MainMenuState::Update(const float& dt)
 {
+	UpdateScore();
 	UpdateMousePosition();
 	UpdateInput(dt);
 	UpdateButtons();
@@ -139,6 +165,7 @@ void MainMenuState::Render(sf::RenderTarget* target)
 		target = m_window;
 
 	target->draw(m_background);
+	target->draw(m_highScoreText);
 
 	RenderButtons(*target);
 }
