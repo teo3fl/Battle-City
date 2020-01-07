@@ -168,6 +168,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityY();
+						tank->StopVelocityX();
 						tank->Push(sf::Vector2f(0.f,-1.f),dt);
 					}
 
@@ -179,6 +180,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityY();
+						tank->StopVelocityX();
 						tank->Push(sf::Vector2f(0.f, 1.f), dt);
 					}
 
@@ -190,6 +192,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityX();
+						tank->StopVelocityY();
 						tank->Push(sf::Vector2f(-1.f, 0.f), dt);
 					}
 
@@ -201,6 +204,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityX();
+						tank->StopVelocityY();
 						tank->Push(sf::Vector2f(1.f, 0.f), dt);
 					}
 				}
