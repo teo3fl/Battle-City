@@ -333,7 +333,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(m_numberOfEnemies, 6);
+	m_spawner = new Spawner(m_numberOfEnemies, 1);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -590,7 +590,7 @@ void SinglePlayerState::UpdateEnemies(const float& dt)
 
 void SinglePlayerState::UpdateSpawner(const float& dt)
 {
-	if (m_spawner->Update(dt))
+	if (m_spawner->Update(dt) && !m_spawner->IsEmpty())
 		m_enemies.push_back(m_spawner->SpawnNext());
 }
 
