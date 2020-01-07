@@ -9,7 +9,7 @@ State::State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys
 
 
 	m_keytime = 0.f;
-	m_keytimeMax = 10.f;
+	m_keytimeMax = 20.f;
 }
 
 State::~State()
