@@ -12,6 +12,7 @@ public:
 	void StopVelocity();
 	void StopVelocityX();
 	void StopVelocityY();
+	void Push(sf::Vector2f direction, const float& dt);
 
 	void Move(const float x, const float y, const float& dt);
 	void Update(const float& dt);

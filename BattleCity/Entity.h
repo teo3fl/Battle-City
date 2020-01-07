@@ -26,6 +26,7 @@ class Entity{
 		//virtual void StopVelocity();
 		virtual void StopVelocityX();
 		virtual void StopVelocityY();
+		void Push(sf::Vector2f direction, const float& dt);
 
 		virtual void Update(const float& dt);
 		virtual void Render(sf::RenderTarget* target = nullptr);

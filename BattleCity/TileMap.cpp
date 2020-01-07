@@ -168,7 +168,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityY();
-						tank->SetPosition(entityBounds.left, wallBounds.top - entityBounds.height);
+						tank->Push(sf::Vector2f(0.f,-1.f),dt);
 					}
 
 					//Top collision
@@ -179,7 +179,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityY();
-						tank->SetPosition(entityBounds.left, wallBounds.top + wallBounds.height);
+						tank->Push(sf::Vector2f(0.f, 1.f), dt);
 					}
 
 					//Right collision
@@ -190,7 +190,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityX();
-						tank->SetPosition(wallBounds.left - entityBounds.width, entityBounds.top);
+						tank->Push(sf::Vector2f(-1.f, 0.f), dt);
 					}
 
 					//Left collision
@@ -201,7 +201,7 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 						)
 					{
 						tank->StopVelocityX();
-						tank->SetPosition(wallBounds.left + wallBounds.width, entityBounds.top);
+						tank->Push(sf::Vector2f(1.f, 0.f), dt);
 					}
 				}
 			}
