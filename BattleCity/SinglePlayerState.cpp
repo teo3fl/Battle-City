@@ -677,6 +677,7 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 						UpdateEnemyLives();
 					}
 					player->DestroyBullet();
+					return;
 				}
 			}
 	}
