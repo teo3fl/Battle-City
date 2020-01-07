@@ -90,6 +90,7 @@ protected:
 	sf::Text m_scoreText;
 	sf::Text m_pointsPerTankType;
 	sf::Text m_numberOfTanksDestroied;
+	sf::Text m_totalTanksDestroied;
 
 	TileMap* m_map;
 	uint16_t m_mapHeight;

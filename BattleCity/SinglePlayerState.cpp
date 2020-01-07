@@ -444,6 +444,12 @@ void SinglePlayerState::InitializeText()
 	m_numberOfTanksDestroied.setCharacterSize(48);
 	m_numberOfTanksDestroied.setOutlineThickness(2.f);
 	m_numberOfTanksDestroied.setPosition(sf::Vector2f(520.f, 408.f));
+
+	m_totalTanksDestroied.setFillColor(sf::Color::White);
+	m_totalTanksDestroied.setFont(m_font);
+	m_totalTanksDestroied.setCharacterSize(40);
+	m_totalTanksDestroied.setOutlineThickness(2.f);
+	m_totalTanksDestroied.setPosition(sf::Vector2f(520.f, 820.f));
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -665,6 +671,19 @@ void SinglePlayerState::UpdateScoreBackground()
 		std::to_string(m_enemiesDestroied["ArmorTank"]) << std::endl << std::endl;
 
 	m_numberOfTanksDestroied.setString(ss.str());
+
+	// total
+	ss.str(std::string());
+
+	uint8_t total = 
+		m_enemiesDestroied["BasicTank"] + 
+		m_enemiesDestroied["FastTank"] + 
+		m_enemiesDestroied["PowerTank"] + 
+		m_enemiesDestroied["ArmorTank"];
+
+	ss << std::to_string(total);
+
+	m_totalTanksDestroied.setString(ss.str());
 }
 
 void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& dt)
@@ -800,6 +819,7 @@ void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)
 		target->draw(m_highScoreText);
 		target->draw(m_pointsPerTankType);
 		target->draw(m_numberOfTanksDestroied);
+		target->draw(m_totalTanksDestroied);
 	}
 	else
 	{
