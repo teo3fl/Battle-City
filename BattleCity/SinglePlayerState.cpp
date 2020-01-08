@@ -80,6 +80,26 @@ void SinglePlayerState::InitializeTextures()
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_D";
 	}
 
+	if (!m_textures["PLAYER1_RIGHT_PROTECTED"].loadFromFile("../External/Resources/Textures/tank1R_PROTECTED.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_R_PROTECTED";
+	}
+
+	if (!m_textures["PLAYER1_LEFT_PROTECTED"].loadFromFile("../External/Resources/Textures/tank1L_PROTECTED.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_L_PROTECTED";
+	}
+
+	if (!m_textures["PLAYER1_UP_PROTECTED"].loadFromFile("../External/Resources/Textures/tank1U_PROTECTED.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_U_PROTECTED";
+	}
+
+	if (!m_textures["PLAYER1_DOWN_PROTECTED"].loadFromFile("../External/Resources/Textures/tank1D_PROTECTED.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_PLAYER1_TEXTURE_D_PROTECTED";
+	}
+
 	
 	// player2 textures
 
@@ -281,6 +301,11 @@ void SinglePlayerState::InitializePlayer1()
 	m_player1->AddTexture(m_textures["PLAYER1_LEFT"], "LEFT");
 	m_player1->AddTexture(m_textures["PLAYER1_UP"], "UP");
 	m_player1->AddTexture(m_textures["PLAYER1_DOWN"], "DOWN");
+
+	m_player1->AddTexture(m_textures["PLAYER1_RIGHT_PROTECTED"], "RIGHT_PROTECTED");
+	m_player1->AddTexture(m_textures["PLAYER1_LEFT_PROTECTED"], "LEFT_PROTECTED");
+	m_player1->AddTexture(m_textures["PLAYER1_UP_PROTECTED"], "UP_PROTECTED");
+	m_player1->AddTexture(m_textures["PLAYER1_DOWN_PROTECTED"], "DOWN_PROTECTED");
 
 	m_player1->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
 	m_player1->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");

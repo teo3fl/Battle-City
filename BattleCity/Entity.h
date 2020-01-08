@@ -13,7 +13,7 @@ class Entity{
 		void AddTexture(const sf::Texture& texture, const std::string& textureName);
 		void SetTexture(const sf::Texture& texture);
 
-		void SetTexture(const std::string& texture);
+		virtual void SetTexture(const std::string& texture);
 		virtual void SetPosition(const float x, const float y);
 		void CreateHitbox(sf::Sprite& sprite, float width, float height);
 		void CreateMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
@@ -22,7 +22,7 @@ class Entity{
 		const sf::FloatRect GetGlobalBounds() const;
 		virtual const sf::FloatRect GetNextPositionBounds(const float& dt) const;
 
-		virtual void Move(const float& dt,const float dir_x, const float dir_y);
+		virtual void Move(const float& dt,const float dirX, const float dirY);
 		//virtual void StopVelocity();
 		virtual void StopVelocityX();
 		virtual void StopVelocityY();

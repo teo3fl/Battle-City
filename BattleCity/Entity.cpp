@@ -72,10 +72,10 @@ const sf::FloatRect Entity::GetNextPositionBounds(const float& dt) const
 	return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
 }
 
-void Entity::Move(const float& dt, const float dir_x, const float dir_y)
+void Entity::Move(const float& dt, const float dirX, const float dirY)
 {
 	if (m_movementComponent)
-		m_movementComponent->Move(dir_x, dir_y, dt); //Sets velocity
+		m_movementComponent->Move(dirX, dirY, dt); //Sets velocity
 
 }
 
