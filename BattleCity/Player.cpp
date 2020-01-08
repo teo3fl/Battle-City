@@ -20,7 +20,7 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 	CreateMovementComponent(m_movementSpeed,500.f,300.f);
 }
 
-void Player::IncreaseScore(uint8_t points)
+void Player::IncreaseScore(uint16_t points)
 {
 	m_score += points;
 }

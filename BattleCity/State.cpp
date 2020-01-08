@@ -16,6 +16,25 @@ State::~State()
 
 }
 
+void State::SetText(sf::Text& text, const sf::Font& font, const sf::Color& fillColor, uint16_t size, const sf::Vector2f& position, float thickness)
+{
+	text.setFillColor(fillColor);
+	text.setFont(font);
+	text.setCharacterSize(size);
+	text.setPosition(position);
+	text.setOutlineThickness(thickness);
+	text.setOutlineColor(fillColor);
+}
+
+void State::SetText(sf::Text& text, const sf::Font& font, const sf::Color& fillColor, uint16_t size, float thickness)
+{
+	text.setFillColor(fillColor);
+	text.setFont(font);
+	text.setCharacterSize(size);
+	text.setOutlineThickness(thickness);
+	text.setOutlineColor(fillColor);
+}
+
 void State::CheckForQuit()
 {
 	if (sf::Keyboard::isKeyPressed((sf::Keyboard::Escape)) && GetKeytime())

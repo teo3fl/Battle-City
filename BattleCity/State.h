@@ -7,6 +7,8 @@ public:
 	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys);
 	virtual ~State();
 	virtual void InitializeKeybinds() = 0;
+	void SetText(sf::Text& text, const sf::Font& font, const sf::Color& fillColor, uint16_t size, const sf::Vector2f& position, float thickness = 0);
+	void SetText(sf::Text& text, const sf::Font& font, const sf::Color& fillColor, uint16_t size, float thickness = 0);
 
 	const bool& GetQuit() const;
 	const bool GetKeytime();
@@ -32,6 +34,6 @@ protected:
 	std::map<std::string, sf::Texture> m_textures;
 
 	sf::Text m_highScoreText;
-	uint32_t m_highScore;
+	uint64_t m_highScore;
 
 };

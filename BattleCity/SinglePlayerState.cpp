@@ -411,45 +411,14 @@ void SinglePlayerState::InitializeScoreMap()
 
 void SinglePlayerState::InitializeText()
 {
-	m_stageScreenText.setFillColor(sf::Color::Black);
-	m_stageScreenText.setFont(m_font);
-	m_stageScreenText.setCharacterSize(200);
-	m_stageScreenText.setOutlineThickness(4.f);
+	SetText(m_stageScreenText, m_font, sf::Color::Black, 200, 4.f);
+	SetText(m_stageNumberText, m_font, sf::Color::White, 0, 1.f);
 
-	m_stageNumberText.setFillColor(sf::Color::White);
-	m_stageNumberText.setFont(m_font);
-	m_stageNumberText.setOutlineColor(sf::Color::White);
-	m_stageNumberText.setOutlineThickness(1.f);
-
-	m_scoreText.setFillColor(sf::Color::White);
-	m_scoreText.setFont(m_font);
-	m_scoreText.setCharacterSize(70);
-	m_scoreText.setOutlineThickness(2.f);
-	m_scoreText.setPosition(sf::Vector2f(100.f, 300.f));
-
-	m_highScoreText.setFillColor(sf::Color::White);
-	m_highScoreText.setFont(m_font);
-	m_highScoreText.setCharacterSize(65);
-	m_highScoreText.setOutlineThickness(2.f);
-	m_highScoreText.setPosition(sf::Vector2f(590.f, 26.f));
-
-	m_pointsPerTankType.setFillColor(sf::Color::White);
-	m_pointsPerTankType.setFont(m_font);
-	m_pointsPerTankType.setCharacterSize(48);
-	m_pointsPerTankType.setOutlineThickness(2.f);
-	m_pointsPerTankType.setPosition(sf::Vector2f(210.f, 408.f));
-
-	m_numberOfTanksDestroied.setFillColor(sf::Color::White);
-	m_numberOfTanksDestroied.setFont(m_font);
-	m_numberOfTanksDestroied.setCharacterSize(48);
-	m_numberOfTanksDestroied.setOutlineThickness(2.f);
-	m_numberOfTanksDestroied.setPosition(sf::Vector2f(520.f, 408.f));
-
-	m_totalTanksDestroied.setFillColor(sf::Color::White);
-	m_totalTanksDestroied.setFont(m_font);
-	m_totalTanksDestroied.setCharacterSize(40);
-	m_totalTanksDestroied.setOutlineThickness(2.f);
-	m_totalTanksDestroied.setPosition(sf::Vector2f(520.f, 820.f));
+	SetText(m_scoreText, m_font, sf::Color::White, 70, sf::Vector2f(100.f, 300.f), 2.f);
+	SetText(m_highScoreText, m_font, sf::Color::White, 65, sf::Vector2f(590.f, 26.f), 2.f);
+	SetText(m_pointsPerTankType, m_font, sf::Color::White, 48, sf::Vector2f(210.f, 408.f), 2.f);
+	SetText(m_numberOfTanksDestroied, m_font, sf::Color::White, 48, sf::Vector2f(520.f, 408.f), 2.f);
+	SetText(m_totalTanksDestroied, m_font, sf::Color::White, 40, sf::Vector2f(520.f, 820.f), 2.f);
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -704,7 +673,8 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 					else
 					{
 						m_enemies.erase(m_enemies.begin()+i);
-						player->IncreaseScore(tank->GetPoints());
+						uint16_t score = tank->GetPoints();
+						m_player1->IncreaseScore(score);
 						++m_enemiesDestroied[tank->GetType()];
 						delete tank;
 						UpdateEnemyLives();
