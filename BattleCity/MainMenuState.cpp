@@ -52,11 +52,7 @@ void MainMenuState::InitializeFont()
 
 void MainMenuState::InitializeText()
 {
-	m_highScoreText.setFillColor(sf::Color::White);
-	m_highScoreText.setFont(m_font);
-	m_highScoreText.setCharacterSize(50);
-	m_highScoreText.setOutlineThickness(2.f);
-	m_highScoreText.setPosition(sf::Vector2f(420.f, 70.f));
+	SetText(m_highScoreText, m_font, sf::Color::White, 50, sf::Vector2f(420.f, 70.f), 1.f);
 
 	LoadHighScore();
 }

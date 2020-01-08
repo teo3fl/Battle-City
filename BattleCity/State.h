@@ -34,6 +34,6 @@ protected:
 	std::map<std::string, sf::Texture> m_textures;
 
 	sf::Text m_highScoreText;
-	uint64_t m_highScore;
+	uint32_t m_highScore;
 
 };

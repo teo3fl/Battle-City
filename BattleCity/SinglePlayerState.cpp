@@ -412,13 +412,13 @@ void SinglePlayerState::InitializeScoreMap()
 void SinglePlayerState::InitializeText()
 {
 	SetText(m_stageScreenText, m_font, sf::Color::Black, 200, 4.f);
-	SetText(m_stageNumberText, m_font, sf::Color::White, 0, 1.f);
+	SetText(m_stageNumberText, m_font, sf::Color::White, 60, sf::Vector2f(1000.f, 810.f), 1.f);
 
-	SetText(m_scoreText, m_font, sf::Color::White, 70, sf::Vector2f(100.f, 300.f), 2.f);
+	SetText(m_scoreText, m_font, sf::Color::White, 70, sf::Vector2f(100.f, 300.f), 1.f);
 	SetText(m_highScoreText, m_font, sf::Color::White, 65, sf::Vector2f(590.f, 26.f), 2.f);
-	SetText(m_pointsPerTankType, m_font, sf::Color::White, 48, sf::Vector2f(210.f, 408.f), 2.f);
-	SetText(m_numberOfTanksDestroied, m_font, sf::Color::White, 48, sf::Vector2f(520.f, 408.f), 2.f);
-	SetText(m_totalTanksDestroied, m_font, sf::Color::White, 40, sf::Vector2f(520.f, 820.f), 2.f);
+	SetText(m_pointsPerTankType, m_font, sf::Color::White, 48, sf::Vector2f(210.f, 408.f), 1.f);
+	SetText(m_numberOfTanksDestroied, m_font, sf::Color::White, 48, sf::Vector2f(520.f, 408.f), 1.f);
+	SetText(m_totalTanksDestroied, m_font, sf::Color::White, 40, sf::Vector2f(520.f, 820.f), 1.f);
 }
 
 void SinglePlayerState::LoadMap(uint8_t stage)
@@ -444,8 +444,6 @@ void SinglePlayerState::InitializeCurrentStage()
 	InitializeEnemyLives();
 	InitializeScoreMap();
 
-	m_stageNumberText.setCharacterSize(50);
-	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
 
 	UpdateNextStageBackground();
@@ -605,7 +603,6 @@ void SinglePlayerState::UpdateNextStageBackground()
 void SinglePlayerState::UpdateScoreBackground()
 {
 	// stage number
-	m_stageNumberText.setCharacterSize(60);
 	m_stageNumberText.setPosition(sf::Vector2f(590.f, 115.f));
 
 	// score
