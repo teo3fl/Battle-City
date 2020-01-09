@@ -18,13 +18,20 @@ void TankSpawner::LoadFromFile(const std::string& fileName)
 		int number;
 		int enemyType;
 
+		uint16_t index = 0;
+
 		while (in >> number >> enemyType)
 			for (uint8_t i = 0; i < number; ++i)
+			{
 				m_objects.push(CreateTank(enemyType));
+				if (index == 3 || index == 10 || index == 17)
+					m_objects.front()->SetDropPowerUp();
+				++index;
+			}
 	}
 	else
 	{
-		throw "ERROR::SPAWNER::COULD NOT LOAD FROM FILE::FILENAME: " + fileName;
+		throw "ERROR::TANK_SPAWNER::COULD NOT LOAD FROM FILE::FILENAME: " + fileName;
 	}
 
 	in.close();

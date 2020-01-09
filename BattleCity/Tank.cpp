@@ -4,6 +4,7 @@
 Tank::Tank()
 {
 	m_bullet = nullptr;
+	m_dropPowerUp = false;
 }
 
 Tank::~Tank()
@@ -37,6 +38,16 @@ Bullet* Tank::GetBullet() const
 std::string Tank::GetType() const
 {
 	return m_type;
+}
+
+bool Tank::DropPowerUp()
+{
+	return m_dropPowerUp;
+}
+
+void Tank::SetDropPowerUp()
+{
+	m_dropPowerUp = true;
 }
 
 void Tank::SetFacingDirection(const std::string& direction)
