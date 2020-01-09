@@ -437,7 +437,7 @@ void SinglePlayerState::InitializeScoreMap()
 void SinglePlayerState::InitializeText()
 {
 	SetText(m_stageScreenText, m_font, sf::Color::Black, 200, 4.f);
-	SetText(m_stageNumberText, m_font, sf::Color::White, 60, sf::Vector2f(1000.f, 810.f), 1.f);
+	SetText(m_stageNumberText, m_font, sf::Color::White, 60, 1.f);
 
 	SetText(m_scoreText, m_font, sf::Color::White, 70, sf::Vector2f(100.f, 300.f), 1.f);
 	SetText(m_highScoreText, m_font, sf::Color::White, 65, sf::Vector2f(590.f, 26.f), 2.f);
@@ -470,6 +470,7 @@ void SinglePlayerState::InitializeCurrentStage()
 	InitializeScoreMap();
 
 	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
+	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 
 	UpdateNextStageBackground();
 

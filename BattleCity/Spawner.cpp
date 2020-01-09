@@ -28,39 +28,8 @@ void Spawner::LoadFromFile(const std::string& fileName)
 		int enemyType;
 
 		while (in >> number >> enemyType)
-			switch (enemyType)
-			{
-			case 0:
-			{
-				for (uint8_t i = 0; i < number; ++i)
-					m_enemies.push(CreateArmorTank());
-				break;
-			}
-			case 1:
-			{
-				for (uint8_t i = 0; i < number; ++i)
-					m_enemies.push(CreateBasicTank());
-				break;
-			}
-			case 2:
-			{
-				for (uint8_t i = 0; i < number; ++i)
-					m_enemies.push(CreateFastTank());
-				break;
-			}
-			case 3:
-			{
-				for (uint8_t i = 0; i < number; ++i)
-					m_enemies.push(CreatePowerTank());
-				break;
-			}
-			default:
-			{
-				throw "ERROR::SPAWNER::INVALID_ENEMY_TYPE";
-				break;
-			}
-			}
-
+			for (uint8_t i = 0; i < number; ++i)
+				m_enemies.push(CreateTank(enemyType));
 	}
 	else
 	{
@@ -113,65 +82,45 @@ bool Spawner::Update(const float& dt)
 	return false;
 }
 
-Tank* Spawner::CreateArmorTank()
+Tank* Spawner::CreateTank(uint8_t type)
 {
-	ArmorTank* tank = new ArmorTank();
+	std::string tankType;
+	Tank* tank;
 
-	tank->AddTexture(m_textures["ARMOR_TANK_UP"], "UP");
-	tank->AddTexture(m_textures["ARMOR_TANK_DOWN"], "DOWN");
-	tank->AddTexture(m_textures["ARMOR_TANK_LEFT"], "LEFT");
-	tank->AddTexture(m_textures["ARMOR_TANK_RIGHT"], "RIGHT");
+	switch (type)
+	{
+	case 0:
+	{
+		tank = new ArmorTank();
+		tankType = "ARMOR_TANK";
+		break;
+	}
+	case 1:
+	{
+		tank = new BasicTank();
+		tankType = "BASIC_TANK";
+		break;
+	}
+	case 2:
+	{
+		tank = new FastTank();
+		tankType = "FAST_TANK";
+		break;
+	}
+	case 3:
+	{
+		tank = new PowerTank();
+		tankType = "POWER_TANK";
+		break;
+	}
+	default:
+		throw "SPAWNER::INVALID_ENEMY_TYPE";
+	}
 
-	tank->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
-	tank->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
-	tank->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
-	tank->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");
-
-	return tank;
-}
-
-Tank* Spawner::CreateBasicTank()
-{
-	BasicTank* tank = new BasicTank();
-
-	tank->AddTexture(m_textures["BASIC_TANK_UP"], "UP");
-	tank->AddTexture(m_textures["BASIC_TANK_DOWN"], "DOWN");
-	tank->AddTexture(m_textures["BASIC_TANK_LEFT"], "LEFT");
-	tank->AddTexture(m_textures["BASIC_TANK_RIGHT"], "RIGHT");
-
-	tank->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
-	tank->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
-	tank->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
-	tank->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");
-
-	return tank;
-}
-
-Tank* Spawner::CreateFastTank()
-{
-	FastTank* tank = new FastTank();
-
-	tank->AddTexture(m_textures["FAST_TANK_UP"], "UP");
-	tank->AddTexture(m_textures["FAST_TANK_DOWN"], "DOWN");
-	tank->AddTexture(m_textures["FAST_TANK_LEFT"], "LEFT");
-	tank->AddTexture(m_textures["FAST_TANK_RIGHT"], "RIGHT");
-
-	tank->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
-	tank->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
-	tank->AddTexture(m_textures["BULLET_LEFT"], "BULLET_LEFT");
-	tank->AddTexture(m_textures["BULLET_RIGHT"], "BULLET_RIGHT");
-
-	return tank;
-}
-
-Tank* Spawner::CreatePowerTank()
-{
-	PowerTank* tank = new PowerTank();
-
-	tank->AddTexture(m_textures["POWER_TANK_UP"], "UP");
-	tank->AddTexture(m_textures["POWER_TANK_DOWN"], "DOWN");
-	tank->AddTexture(m_textures["POWER_TANK_LEFT"], "LEFT");
-	tank->AddTexture(m_textures["POWER_TANK_RIGHT"], "RIGHT");
+	tank->AddTexture(m_textures[tankType+"_UP"], "UP");
+	tank->AddTexture(m_textures[tankType+"_DOWN"], "DOWN");
+	tank->AddTexture(m_textures[tankType+"_LEFT"], "LEFT");
+	tank->AddTexture(m_textures[tankType+"_RIGHT"], "RIGHT");
 
 	tank->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	tank->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");

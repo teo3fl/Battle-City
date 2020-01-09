@@ -21,10 +21,7 @@ public:
 	bool Update(const float& dt);
 
 private:
-	Tank* CreateArmorTank();
-	Tank* CreateBasicTank();
-	Tank* CreateFastTank();
-	Tank* CreatePowerTank();
+	Tank* CreateTank(uint8_t type);
 
 	uint8_t GetCurrentSpawningPoint();
 
