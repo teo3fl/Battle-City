@@ -11,7 +11,8 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializeMap();
 	InitializeFonts();
 	InitializeVariables(); 
-	InitializeSpawner();
+	InitializeTankSpawner(); 
+	InitializePowerUpSpawner();
 	InitializeEnemyLives();
 	LoadHighScore();
 }
@@ -28,8 +29,10 @@ void SinglePlayerState::InitializeVariables()
 	m_gameStatus = GameStatus::NextStage;
 	m_currentStageNumber = 1;
 	m_numberOfEnemies = 20;
+	m_numberOfPowerUps = 3;
 	m_stages = 4;
 	m_enemies.reserve(m_numberOfEnemies);
+	m_powerUps.reserve(m_numberOfPowerUps);
 
 	InitializeText();
 
@@ -357,7 +360,7 @@ void SinglePlayerState::InitializeMap()
 	m_mapStages[3] = "../External/Resources/Config/map_stage4.ini";
 }
 
-void SinglePlayerState::InitializeSpawner()
+void SinglePlayerState::InitializeTankSpawner()
 {
 	m_spawner = new TankSpawner(m_numberOfEnemies, 1);
 
@@ -707,6 +710,10 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 				}
 			}
 	}
+}
+
+void SinglePlayerState::UpdatePowerUpCollision(Player* player)
+{
 }
 
 void SinglePlayerState::UpdateEnemyLives()

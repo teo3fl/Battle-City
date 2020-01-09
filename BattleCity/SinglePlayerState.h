@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "TankSpawner.h"
+#include "PowerUpSpawner.h"
 
 enum class GameStatus
 {
@@ -31,7 +32,8 @@ protected:
 	void InitializeFonts();
 	void InitializeBackground();
 	void InitializeMap();
-	void InitializeSpawner();
+	void InitializeTankSpawner();
+	void InitializePowerUpSpawner();
 	void InitializeEnemyLives();
 	void InitializeScoreMap();
 	void InitializeText();
@@ -53,6 +55,7 @@ protected:
 	void UpdateNextStageBackground();
 	void UpdateScoreBackground();
 	void UpdateTankBulletCollision(Player* player, const float& dt);
+	void UpdatePowerUpCollision(Player* player);
 	void UpdateEnemyLives();
 
 	void RenderBackground(sf::RenderTarget* target);
@@ -97,4 +100,11 @@ protected:
 	uint16_t m_mapWidth;
 	std::vector<std::string> m_mapStages;
 	std::vector<std::string> m_spawnStages;
+
+	// power-ups
+
+	std::vector<PowerUp*> m_powerUps;
+	uint8_t m_numberOfPowerUps;
+
+	bool m_timerPowerUp; // temporarily freezes time, stopping all enemy tanks' movement
 };
