@@ -8,6 +8,8 @@
 #include <map>
 #include <cstdint>
 #include <queue>
+#include <ctime>
+#include <array>
 
 // SFML
 #include "SFMl/System.hpp"

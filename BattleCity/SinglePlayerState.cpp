@@ -22,6 +22,9 @@ SinglePlayerState::~SinglePlayerState()
 	delete m_player1;
 	for (Tank* tank : m_enemies)
 		delete tank;
+
+	for (PowerUp* powerUp : m_powerUps)
+		delete powerUp;
 }
 
 void SinglePlayerState::InitializeVariables()
@@ -154,9 +157,43 @@ void SinglePlayerState::InitializeTextures()
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TREES_TEXTURE";
 	}
 
+	// game background
+
 	if (!m_textures["BACKGROUND"].loadFromFile("../External/Resources/Textures/gameBackground.png"))
 	{
-		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TREES_GAME_BACKGROUND";
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GAME_BACKGROUND";
+	}
+
+	// power-ups textures
+
+	if (!m_textures["GRENADE"].loadFromFile("../External/Resources/Textures/bomb.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_GRENADE_TEXTURE";
+	}
+
+	if (!m_textures["HELMET"].loadFromFile("../External/Resources/Textures/helmet.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_HELMET_TEXTURE";
+	}
+
+	if (!m_textures["SHOVEL"].loadFromFile("../External/Resources/Textures/shovel.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_SHOVEL_TEXTURE";
+	}
+
+	if (!m_textures["STAR"].loadFromFile("../External/Resources/Textures/star.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_STAR_TEXTURE";
+	}
+
+	if (!m_textures["TANK"].loadFromFile("../External/Resources/Textures/tank.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TANK_TEXTURE";
+	}
+
+	if (!m_textures["TIMER"].loadFromFile("../External/Resources/Textures/timer.png"))
+	{
+		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TIMER_TEXTURE";
 	}
 
 	// game over screen texture
@@ -394,6 +431,18 @@ void SinglePlayerState::InitializeTankSpawner()
 	m_spawnStages[1] = "../External/Resources/Config/spawner_stage2.ini";
 	m_spawnStages[2] = "../External/Resources/Config/spawner_stage3.ini";
 	m_spawnStages[3] = "../External/Resources/Config/spawner_stage4.ini";
+}
+
+void SinglePlayerState::InitializePowerUpSpawner()
+{
+	m_powerUpSpawner = new PowerUpSpawner(3);
+
+	m_powerUpSpawner->AddTexture(m_textures["GRENADE"], "GRENADE");
+	m_powerUpSpawner->AddTexture(m_textures["SHOVEL"], "SHOVEL");
+	m_powerUpSpawner->AddTexture(m_textures["HELMET"], "HELMET");
+	m_powerUpSpawner->AddTexture(m_textures["STAR"], "STAR");
+	m_powerUpSpawner->AddTexture(m_textures["TANK"], "TANK");
+	m_powerUpSpawner->AddTexture(m_textures["TIMER"], "TIMER");
 }
 
 void SinglePlayerState::InitializeEnemyLives()
@@ -702,6 +751,8 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 						uint16_t score = tank->GetPoints();
 						m_player1->IncreaseScore(score);
 						++m_enemiesDestroied[tank->GetType()];
+						if (tank->DropPowerUp())
+							m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
 						delete tank;
 						UpdateEnemyLives();
 					}

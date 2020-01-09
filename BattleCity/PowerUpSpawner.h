@@ -10,7 +10,7 @@ public:
 	void GeneratePowerUps();
 
 private:
-	PowerUp* CreatePowerUp(uint8_t type);
+	PowerUp* CreatePowerUp(uint8_t powerUpType, uint8_t spawnLocation);
 	virtual uint8_t GetCurrentSpawningPoint() override;
 	void SetSpawnPoints() override;
 };

@@ -103,6 +103,7 @@ protected:
 
 	// power-ups
 
+	PowerUpSpawner* m_powerUpSpawner;
 	std::vector<PowerUp*> m_powerUps;
 	uint8_t m_numberOfPowerUps;
 

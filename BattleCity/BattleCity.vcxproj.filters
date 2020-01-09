@@ -78,25 +78,7 @@
     <ClCompile Include="MainMenuState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
-    <ClCompile Include="Grenade.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
-    <ClCompile Include="Helmet.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
     <ClCompile Include="PowerUp.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
-    <ClCompile Include="Shovel.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
-    <ClCompile Include="Star.cpp">
-      <Filter>Power-Ups</Filter>
-    </ClCompile>
-    <ClCompile Include="TankP.cpp">
       <Filter>Power-Ups</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
@@ -134,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="Spawner.cpp">
       <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="TankSpawner.cpp">
+      <Filter>Tanks</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpSpawner.cpp">
+      <Filter>Power-Ups</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicTile.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,25 +173,7 @@
     <ClInclude Include="Button.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="TankP.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
-    <ClInclude Include="Grenade.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
-    <ClInclude Include="Helmet.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
     <ClInclude Include="PowerUp.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
-    <ClInclude Include="Shovel.h">
-      <Filter>Power-Ups</Filter>
-    </ClInclude>
-    <ClInclude Include="Star.h">
       <Filter>Power-Ups</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
@@ -238,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="Spawner.h">
       <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="TankSpawner.h">
+      <Filter>Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpSpawner.h">
+      <Filter>Power-Ups</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicTile.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
