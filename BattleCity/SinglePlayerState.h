@@ -3,7 +3,7 @@
 #include "State.h"
 #include "TileMap.h"
 #include "Player.h"
-#include "Spawner.h"
+#include "TankSpawner.h"
 
 enum class GameStatus
 {
@@ -68,7 +68,7 @@ protected:
 	Player* m_player1;
 	std::vector<Tank*> m_enemies;
 	uint8_t m_numberOfEnemies;
-	Spawner* m_spawner;
+	TankSpawner* m_spawner;
 	std::vector<sf::RectangleShape> m_enemyLives;
 	std::map<std::string, uint8_t> m_enemiesDestroied;
 

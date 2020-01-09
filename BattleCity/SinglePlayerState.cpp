@@ -359,7 +359,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeSpawner()
 {
-	m_spawner = new Spawner(m_numberOfEnemies, 1);
+	m_spawner = new TankSpawner(m_numberOfEnemies, 1);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
