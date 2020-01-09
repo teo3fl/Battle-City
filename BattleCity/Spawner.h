@@ -1,39 +1,50 @@
 #pragma once
 
-#include "ArmorTank.h"
-#include "BasicTank.h"
-#include "FastTank.h"
-#include "PowerTank.h"
-
+template <class T>
 class Spawner
 {
 public:
-	Spawner(const uint8_t& numberOfEnemies, const float& interval);
-	~Spawner();
+	Spawner(const uint8_t& numberOfObjects) : m_numberOfObjects(numberOfObjects)
+	{
+	}
+	~Spawner()
+	{
+		while (!m_objects.empty())
+		{
+			delete m_objects.front();
+			m_objects.pop();
+		}
+	}
 
-	void LoadFromFile(const std::string& fileName);
-	void AddTexture(const sf::Texture& texture, const std::string& textureName);
+	void AddTexture(const sf::Texture& texture, const std::string& textureName)
+	{
+		m_textures[textureName] = texture;
+	}
 
-	void SetSpawnPoints();
+	bool IsEmpty()
+	{
+		return m_objects.empty();
+	}
 
-	bool IsEmpty();
-	Tank* SpawnNext();
-	bool Update(const float& dt);
+	T* SpawnNext()
+	{
+		T* object = m_objects.front();
+		m_objects.pop();
 
-private:
-	Tank* CreateTank(uint8_t type);
+		sf::Vector2f currentSpawningPoint = m_spawnPoints[GetCurrentSpawningPoint()];
+		object->SetPosition(currentSpawningPoint.x, currentSpawningPoint.y);
+		return object;
+	}
 
-	uint8_t GetCurrentSpawningPoint();
+protected:
+	virtual uint8_t GetCurrentSpawningPoint() = 0;
+	virtual void SetSpawnPoints() = 0;
 
-private:
-	std::queue<Tank*> m_enemies;
-	uint8_t m_numberOfEnemies;
+protected:
+	std::queue<T*> m_objects;
+	uint8_t m_numberOfObjects;
 	std::map<std::string, sf::Texture> m_textures;
 
 	std::vector<sf::Vector2f> m_spawnPoints;
-	uint8_t m_lastSpawningPoint;
-
-	float m_interval;
-	float m_timer;
 };
 
