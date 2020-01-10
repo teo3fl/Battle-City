@@ -6,10 +6,28 @@ PowerUp::PowerUp(sf::Vector2f coordinates, const sf::Texture& texture, PowerUpTy
 {
 	m_height = 60;
 	m_width = 60;
+	m_sprite.scale(2.f, 2.f);
 	CreateHitbox(m_sprite);
+
+	m_timer = 0;
+	m_maxTime = 20;
+	m_points = 500;
 }
 
 PowerUpType PowerUp::GetType()
 {
 	return m_type;
+}
+
+uint16_t PowerUp::GetPoints()
+{
+	return m_points;
+}
+
+bool PowerUp::Update(const float dt)
+{
+	m_timer += dt;
+	if (m_timer >= m_maxTime)
+		return false;
+	return true;
 }
