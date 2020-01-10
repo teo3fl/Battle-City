@@ -25,7 +25,7 @@ void TankSpawner::LoadFromFile(const std::string& fileName)
 			{
 				m_objects.push(CreateTank(enemyType));
 				if (index == 3 || index == 10 || index == 17)
-					m_objects.front()->SetDropPowerUp();
+					m_objects.back()->SetDropPowerUp();
 				++index;
 			}
 	}
