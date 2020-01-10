@@ -24,7 +24,7 @@ public:
 	bool Update(const float dt);
 
 private:
-	PowerUpType m_type : 3;
+	PowerUpType m_type;
 	uint16_t m_points;
 	float m_timer;
 	float m_maxTime;

@@ -516,6 +516,11 @@ void SinglePlayerState::LoadTankSpawner(uint8_t stage)
 
 void SinglePlayerState::LoadPowerUpSpawner()
 {
+	while (!m_powerUps.empty())
+	{
+		delete m_powerUps[0];
+		m_powerUps.erase(m_powerUps.begin());
+	}
 	m_powerUpSpawner->GeneratePowerUps();
 }
 
@@ -562,48 +567,38 @@ void SinglePlayerState::CheckForNextStage()
 	}
 }
 
-//bool SinglePlayerState::CheckForCollision(Tank* tank, Bullet* bullet, const float& dt)
-//{
-//	sf::FloatRect entityBounds = bullet->GetGlobalBounds();
-//	sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
-//	sf::FloatRect tankBounds = tank->GetGlobalBounds();
-//
-//	if (tankBounds.intersects(nextPositionBounds))
-//	{
-//		//Bottom collision
-//		if (entityBounds.top < tankBounds.top
-//			&& entityBounds.top + entityBounds.height < tankBounds.top + tankBounds.height
-//			&& entityBounds.left < tankBounds.left + tankBounds.width
-//			&& entityBounds.left + entityBounds.width > tankBounds.left
-//			)
-//			return true;
-//
-//		//Top collision
-//		else if (entityBounds.top > tankBounds.top
-//			&& entityBounds.top + entityBounds.height > tankBounds.top + tankBounds.height
-//			&& entityBounds.left < tankBounds.left + tankBounds.width
-//			&& entityBounds.left + entityBounds.width > tankBounds.left
-//			)
-//			return true;
-//
-//		//Right collision
-//		if (entityBounds.left < tankBounds.left
-//			&& entityBounds.left + entityBounds.width < tankBounds.left + tankBounds.width
-//			&& entityBounds.top < tankBounds.top + tankBounds.height
-//			&& entityBounds.top + entityBounds.height > tankBounds.top
-//			)
-//			return true;
-//
-//		//Left collision
-//		else if (entityBounds.left > tankBounds.left
-//			&& entityBounds.left + entityBounds.width > tankBounds.left + tankBounds.width
-//			&& entityBounds.top < tankBounds.top + tankBounds.height
-//			&& entityBounds.top + entityBounds.height > tankBounds.top
-//			)
-//			return true;
-//	}
-//	return false;
-//}
+void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
+{
+	switch (powerUp)
+	{
+	case PowerUpType::Grenade:
+	{
+		break;
+	}
+	case PowerUpType::Helmet:
+	{
+		break;
+	}
+	case PowerUpType::Shovel:
+	{
+		break;
+	}
+	case PowerUpType::Star:
+	{
+		break;
+	}
+	case PowerUpType::Tank:
+	{
+		break;
+	}
+	case PowerUpType::Timer:
+	{
+		break;
+	}
+	default:
+		throw "ERROR::SINGLE_PLAYER_STATE::INVALID_POWER_UP_TYPE";
+	}
+}
 
 void SinglePlayerState::UpdateInput(const float& dt)
 {
@@ -758,7 +753,7 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 						m_player1->IncreaseScore(score);
 						++m_enemiesDestroied[tank->GetType()];
 						if (tank->DropPowerUp())
-							m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
+  							m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
 						delete tank;
 						UpdateEnemyLives();
 					}
@@ -776,10 +771,12 @@ void SinglePlayerState::UpdatePowerUpCollision(Player* player, const float& dt)
 		for (uint8_t i = 0; i < m_powerUps.size(); ++i)
 			if (CheckForCollision( m_powerUps[i], player, dt))
 			{
-				// do shit with power-ups
+				m_player1->IncreaseScore(m_powerUps[i]->GetPoints());
+				ActivatePowerUp(m_powerUps[i]->GetType());
+				delete m_powerUps[i];
+				m_powerUps.erase(m_powerUps.begin() + i);
 				return;
 			}
-
 	}
 }
 

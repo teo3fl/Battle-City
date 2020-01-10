@@ -45,6 +45,7 @@ protected:
 	virtual void ResetPlayerPosition();
 	void CheckForGameOver(); 
 	void CheckForNextStage();
+	void ActivatePowerUp(PowerUpType powerUp);
 
 	template <class T, class U>
 	bool CheckForCollision(T* object1, U* object2, const float& dt)
