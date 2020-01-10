@@ -443,9 +443,6 @@ void SinglePlayerState::InitializePowerUpSpawner()
 	m_powerUpSpawner->AddTexture(m_textures["STAR"], "STAR");
 	m_powerUpSpawner->AddTexture(m_textures["TANK"], "TANK");
 	m_powerUpSpawner->AddTexture(m_textures["TIMER"], "TIMER");
-
-
-	m_powerUpSpawner->GeneratePowerUps();
 }
 
 void SinglePlayerState::InitializeEnemyLives()
@@ -510,17 +507,23 @@ void SinglePlayerState::LoadMap(uint8_t stage)
 	m_map->LoadFromFile(m_mapStages[stage-1]);
 }
 
-void SinglePlayerState::LoadSpawner(uint8_t stage)
+void SinglePlayerState::LoadTankSpawner(uint8_t stage)
 {
 	m_spawner->LoadFromFile(m_spawnStages[stage - 1]);
 
 	m_enemies.push_back(m_spawner->SpawnNext());
 }
 
+void SinglePlayerState::LoadPowerUpSpawner()
+{
+	m_powerUpSpawner->GeneratePowerUps();
+}
+
 void SinglePlayerState::InitializeCurrentStage()
 {
 	LoadMap(m_currentStageNumber);
-	LoadSpawner(m_currentStageNumber);
+	LoadTankSpawner(m_currentStageNumber);
+	LoadPowerUpSpawner();
 	InitializeEnemyLives();
 	InitializeScoreMap();
 

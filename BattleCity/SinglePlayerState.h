@@ -40,7 +40,8 @@ protected:
 
 	void InitializeCurrentStage();
 	void LoadMap(uint8_t stage);
-	void LoadSpawner(uint8_t stage);
+	void LoadTankSpawner(uint8_t stage);
+	void LoadPowerUpSpawner();
 	virtual void ResetPlayerPosition();
 	void CheckForGameOver(); 
 	void CheckForNextStage();
