@@ -100,6 +100,7 @@ protected:
 	void UpdatePowerUpCollision(Player* player, const float& dt);
 	void UpdateTankBulletCollision(Player* player, const float& dt);
 	void UpdateEnemyLives();
+	void UpdatePowerUps(const float& dt);
 
 	void RenderBackground(sf::RenderTarget* target);
 	void RenderBullet(sf::RenderTarget* target, Tank* tank);

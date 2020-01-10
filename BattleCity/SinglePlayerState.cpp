@@ -785,6 +785,17 @@ void SinglePlayerState::UpdateEnemyLives()
 	m_enemyLives.erase(m_enemyLives.begin() + m_enemyLives.size() - 1);
 }
 
+void SinglePlayerState::UpdatePowerUps(const float& dt)
+{
+	if (!m_powerUps.empty())
+		for (uint8_t i = 0; i < m_powerUps.size(); ++i)
+			if (!m_powerUps[i]->Update(dt))
+			{
+				m_powerUps.erase(m_powerUps.begin() + i);
+				return;
+			}
+}
+
 void SinglePlayerState::RenderBackground(sf::RenderTarget* target)
 {
 	target->draw(m_background);
@@ -839,6 +850,7 @@ void SinglePlayerState::Update(const float& dt)
 
 	if (m_gameStatus == GameStatus::CurrentStage)
 	{
+		UpdatePowerUps(dt);
 		m_player1->Update(dt);
 		UpdateEnemies(dt);
 		Bullet* bullet = m_player1->GetBullet();
