@@ -53,7 +53,7 @@ void Player::UpdateOffensivePower()
 	case 0:
 	{
 		m_bulletType = BulletType::Normal;
-		m_enableSecondBullet = true;
+		m_enableSecondBullet = false;
 		break;
 	}
 	case 1:
@@ -83,7 +83,7 @@ void Player::Fire()
 	if (!m_bullet)
  		m_bullet = CreateBullet();
 	else
-		if (m_enableSecondBullet && m_secondaryBullet)
+		if (m_enableSecondBullet && !m_secondaryBullet)
 			m_secondaryBullet = CreateBullet();
 }
 
@@ -125,6 +125,22 @@ Bullet* Player::GetSecondaryBullet() const
 	if (m_secondaryBullet)
 		return m_secondaryBullet;
 	return nullptr;
+}
+
+void Player::DestroyBullet(Bullet* bullet)
+{
+	if (m_bullet && m_bullet == bullet)
+	{
+		delete m_bullet;
+		m_bullet = nullptr;
+	}
+	else
+		if (m_secondaryBullet && m_secondaryBullet == bullet)
+		{
+			delete m_secondaryBullet;
+			m_secondaryBullet = nullptr;
+		}
+
 }
 
 bool Player::IsProtected()

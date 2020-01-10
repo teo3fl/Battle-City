@@ -46,6 +46,7 @@ protected:
 	void CheckForGameOver(); 
 	void CheckForNextStage();
 	void ActivatePowerUp(PowerUpType powerUp);
+	void DoTankBulletCollision(Player* player, Bullet* bullet, const float& dt);
 
 	template <class T, class U>
 	bool CheckForCollision(T* object1, U* object2, const float& dt)

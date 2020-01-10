@@ -17,8 +17,8 @@ public :
 	void SetDropPowerUp();
 
 	void SetFacingDirection(const std::string& direction);
-	void DecreaseHealth(uint8_t value);
-	void DestroyBullet();
+	void DecreaseHealth(uint8_t value); 
+	virtual void DestroyBullet(Bullet* bullet);
 
 	virtual void Fire() ;
 

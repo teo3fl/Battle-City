@@ -62,7 +62,7 @@ void Tank::DecreaseHealth(uint8_t value)
 	m_health -= value;
 }
 
-void Tank::DestroyBullet()
+void Tank::DestroyBullet(Bullet* bullet)
 {
 	if (m_bullet)
 	{

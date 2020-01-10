@@ -22,6 +22,7 @@ public:
 	const uint32_t GetScore();
 	bool CanFireSecondaryBullet();
 	Bullet* GetSecondaryBullet() const;
+	void DestroyBullet(Bullet* bullet) override;
 
 	bool IsProtected();
 

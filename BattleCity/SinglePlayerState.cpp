@@ -539,7 +539,7 @@ void SinglePlayerState::InitializeCurrentStage()
 
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
-		m_player1->DestroyBullet();
+		m_player1->DestroyBullet(bullet);
 
 	ResetPlayerPosition();
 
@@ -609,6 +609,34 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 }
 
+void SinglePlayerState::DoTankBulletCollision(Player* player, Bullet* bullet,const float& dt)
+{
+	for (uint8_t i = 0; i < m_enemies.size(); ++i)
+	{
+		Tank* tank = m_enemies[i];
+		if (CheckForCollision(tank, bullet, dt))
+		{
+			uint8_t tankHealth = tank->GetHealth();
+			uint8_t bulletHealth = bullet->GetHealth();
+			if (tankHealth > bulletHealth)
+				tank->DecreaseHealth(bulletHealth);
+			else
+			{
+				m_enemies.erase(m_enemies.begin() + i);
+				uint16_t score = tank->GetPoints();
+				m_player1->IncreaseScore(score);
+				++m_enemiesDestroied[tank->GetType()];
+				if (tank->DropPowerUp())
+					m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
+				delete tank;
+				UpdateEnemyLives();
+			}
+			player->DestroyBullet(bullet);
+			return;
+		}
+	}
+}
+
 void SinglePlayerState::UpdateInput(const float& dt)
 {
 	CheckForQuit();
@@ -645,7 +673,7 @@ void SinglePlayerState::UpdatePlayer1Movement(const float& dt)
 
 void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("FIRE"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(m_keybinds.at("FIRE"))) && GetKeytime())
 	{
 		m_player1->Fire();
 	}
@@ -680,6 +708,9 @@ void SinglePlayerState::UpdateMap(const float& dt)
 	{
 		m_map->UpdateTank(m_player1, dt);
 		Bullet* bullet = m_player1->GetBullet();
+		if (bullet)
+			m_map->UpdateBullet(m_player1, bullet, dt);
+		bullet = m_player1->GetSecondaryBullet();
 		if (bullet)
 			m_map->UpdateBullet(m_player1, bullet, dt);
 	}
@@ -756,30 +787,10 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 	{
 		Bullet* bullet = player->GetBullet();
 		if (bullet)
-			for (uint8_t i = 0; i<m_enemies.size(); ++i)
-			{
-				Tank* tank = m_enemies[i];
-				if (CheckForCollision(tank, bullet, dt))
-				{
-					uint8_t tankHealth = tank->GetHealth();
-					uint8_t bulletHealth = bullet->GetHealth();
-					if (tankHealth > bulletHealth)
-						tank->DecreaseHealth(bulletHealth);
-					else
-					{
-						m_enemies.erase(m_enemies.begin()+i);
-						uint16_t score = tank->GetPoints();
-						m_player1->IncreaseScore(score);
-						++m_enemiesDestroied[tank->GetType()];
-						if (tank->DropPowerUp())
-  							m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
-						delete tank;
-						UpdateEnemyLives();
-					}
-					player->DestroyBullet();
-					return;
-				}
-			}
+			DoTankBulletCollision(player, bullet, dt);
+		bullet = player->GetSecondaryBullet();
+		if (bullet)
+			DoTankBulletCollision(player, bullet, dt);
 	}
 }
 

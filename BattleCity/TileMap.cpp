@@ -226,25 +226,25 @@ bool TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const floa
 {
 	if (bullet->GetPosition().x < m_upperLeftCorner.x)
 	{
-		tank->DestroyBullet();
+		tank->DestroyBullet(bullet);
 		return false;
 	}
 
 	if (bullet->GetPosition().x + bullet->GetGlobalBounds().width > m_lowerRightCorner.x)
 	{
-		tank->DestroyBullet();
+		tank->DestroyBullet(bullet);
 		return false;
 	}
 
 	if (bullet->GetPosition().y < m_upperLeftCorner.y)
 	{
-		tank->DestroyBullet();
+		tank->DestroyBullet(bullet);
 		return false;
 	}
 
 	if (bullet->GetPosition().y + bullet->GetGlobalBounds().height > m_lowerRightCorner.y)
 	{
-		tank->DestroyBullet();
+		tank->DestroyBullet(bullet);
 		return false;
 	}
 	return true;
@@ -277,7 +277,7 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
 						}
-						tank->DestroyBullet();
+						tank->DestroyBullet(bullet);
 						return;
 					}
 
@@ -293,7 +293,7 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
 						}
-						tank->DestroyBullet();
+						tank->DestroyBullet(bullet);
 						return;
 					}
 
@@ -309,7 +309,7 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
 						}
-						tank->DestroyBullet();
+						tank->DestroyBullet(bullet);
 						return;
 					}
 
@@ -325,7 +325,7 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
 						}
-						tank->DestroyBullet();
+						tank->DestroyBullet(bullet);
 						return;
 					}
 				}
