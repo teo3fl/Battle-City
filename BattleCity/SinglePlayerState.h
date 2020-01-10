@@ -44,23 +44,67 @@ protected:
 	virtual void ResetPlayerPosition();
 	void CheckForGameOver(); 
 	void CheckForNextStage();
-	bool CheckForCollision(Tank* tank, Bullet* bullet, const float& dt);
+
+	template <class T, class U>
+	bool CheckForCollision(T* object1, U* object2, const float& dt)
+	{
+		sf::FloatRect obj2Bounds = object2->GetGlobalBounds();
+		sf::FloatRect nextPositionBounds = object2->GetNextPositionBounds(dt);
+		sf::FloatRect obj1Bounds = object1->GetGlobalBounds();
+
+		if (obj1Bounds.intersects(nextPositionBounds))
+		{
+			//Bottom collision
+			if (obj2Bounds.top < obj1Bounds.top
+				&& obj2Bounds.top + obj2Bounds.height < obj1Bounds.top + obj1Bounds.height
+				&& obj2Bounds.left < obj1Bounds.left + obj1Bounds.width
+				&& obj2Bounds.left + obj2Bounds.width > obj1Bounds.left
+				)
+				return true;
+
+			//Top collision
+			else if (obj2Bounds.top > obj1Bounds.top
+				&& obj2Bounds.top + obj2Bounds.height > obj1Bounds.top + obj1Bounds.height
+				&& obj2Bounds.left < obj1Bounds.left + obj1Bounds.width
+				&& obj2Bounds.left + obj2Bounds.width > obj1Bounds.left
+				)
+				return true;
+
+			//Right collision
+			if (obj2Bounds.left < obj1Bounds.left
+				&& obj2Bounds.left + obj2Bounds.width < obj1Bounds.left + obj1Bounds.width
+				&& obj2Bounds.top < obj1Bounds.top + obj1Bounds.height
+				&& obj2Bounds.top + obj2Bounds.height > obj1Bounds.top
+				)
+				return true;
+
+			//Left collision
+			else if (obj2Bounds.left > obj1Bounds.left
+				&& obj2Bounds.left + obj2Bounds.width > obj1Bounds.left + obj1Bounds.width
+				&& obj2Bounds.top < obj1Bounds.top + obj1Bounds.height
+				&& obj2Bounds.top + obj2Bounds.height > obj1Bounds.top
+				)
+				return true;
+		}
+		return false;
+	}
 		
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
 	void UpdatePlayer1Fire(const float& dt);
 	void UpdateEnemies(const float& dt);
-	void UpdateSpawner(const float& dt);
+	void UpdateTankSpawner(const float& dt);
 	void UpdateMap(const float& dt);
 	void UpdateNextStageBackground();
 	void UpdateScoreBackground();
+	void UpdatePowerUpCollision(Player* player, const float& dt);
 	void UpdateTankBulletCollision(Player* player, const float& dt);
-	void UpdatePowerUpCollision(Player* player);
 	void UpdateEnemyLives();
 
 	void RenderBackground(sf::RenderTarget* target);
 	void RenderBullet(sf::RenderTarget* target, Tank* tank);
 	virtual void RenderPlayers(sf::RenderTarget* target = nullptr);
+	void RenderPowerUps(sf::RenderTarget* target = nullptr);
 	void RenderEnemies(sf::RenderTarget* target = nullptr);
 	void RenderNextStageScreen(sf::RenderTarget* target = nullptr);
 	void RenderCurrentStage(sf::RenderTarget* target = nullptr);

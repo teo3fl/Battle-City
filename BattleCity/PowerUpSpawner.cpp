@@ -5,7 +5,6 @@ PowerUpSpawner::PowerUpSpawner(const uint8_t& numberOfPowerUps)
 	: Spawner(numberOfPowerUps)
 {
 	SetSpawnPoints();
-	GeneratePowerUps();
 }
 
 void PowerUpSpawner::GeneratePowerUps()
@@ -65,6 +64,7 @@ PowerUp* PowerUpSpawner::CreatePowerUp(uint8_t powerUpType, uint8_t spawnLocatio
 	}
 
 	powerUp = new PowerUp(m_spawnPoints[spawnLocation], m_textures[texture], type);
+	return powerUp;
 }
 
 uint8_t PowerUpSpawner::GetCurrentSpawningPoint()

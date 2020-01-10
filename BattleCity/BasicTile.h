@@ -7,12 +7,12 @@ class BasicTile
 public:
 	BasicTile(int x, int y, const sf::Texture& texture);
 
-	virtual void SetTexture(const sf::Texture& texture);
-	virtual void SetPosition(int x, int y);
-	virtual void CreateHitbox(sf::Sprite& sprite);
+	void SetTexture(const sf::Texture& texture);
+	void SetPosition(int x, int y);
+	void CreateHitbox(sf::Sprite& sprite);
 
-	virtual const sf::FloatRect GetGlobalBounds() const;
-	virtual const bool Intersects(const sf::FloatRect bounds) const;
+	const sf::FloatRect GetGlobalBounds() const;
+	const bool Intersects(const sf::FloatRect bounds) const;
 
 	void Render(sf::RenderTarget* target);
 

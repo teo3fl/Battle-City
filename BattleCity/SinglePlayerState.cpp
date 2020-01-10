@@ -191,7 +191,7 @@ void SinglePlayerState::InitializeTextures()
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TANK_TEXTURE";
 	}
 
-	if (!m_textures["TIMER"].loadFromFile("../External/Resources/Textures/timer.png"))
+	if (!m_textures["TIMER"].loadFromFile("../External/Resources/Textures/clock.png"))
 	{
 		throw "ERROR::SINGLE_PLAYER_STATE::COULD_NOT_LOAD_TIMER_TEXTURE";
 	}
@@ -443,6 +443,9 @@ void SinglePlayerState::InitializePowerUpSpawner()
 	m_powerUpSpawner->AddTexture(m_textures["STAR"], "STAR");
 	m_powerUpSpawner->AddTexture(m_textures["TANK"], "TANK");
 	m_powerUpSpawner->AddTexture(m_textures["TIMER"], "TIMER");
+
+
+	m_powerUpSpawner->GeneratePowerUps();
 }
 
 void SinglePlayerState::InitializeEnemyLives()
@@ -556,48 +559,48 @@ void SinglePlayerState::CheckForNextStage()
 	}
 }
 
-bool SinglePlayerState::CheckForCollision(Tank* tank, Bullet* bullet, const float& dt)
-{
-	sf::FloatRect entityBounds = bullet->GetGlobalBounds();
-	sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
-	sf::FloatRect tankBounds = tank->GetGlobalBounds();
-
-	if (tankBounds.intersects(nextPositionBounds))
-	{
-		//Bottom collision
-		if (entityBounds.top < tankBounds.top
-			&& entityBounds.top + entityBounds.height < tankBounds.top + tankBounds.height
-			&& entityBounds.left < tankBounds.left + tankBounds.width
-			&& entityBounds.left + entityBounds.width > tankBounds.left
-			)
-			return true;
-
-		//Top collision
-		else if (entityBounds.top > tankBounds.top
-			&& entityBounds.top + entityBounds.height > tankBounds.top + tankBounds.height
-			&& entityBounds.left < tankBounds.left + tankBounds.width
-			&& entityBounds.left + entityBounds.width > tankBounds.left
-			)
-			return true;
-
-		//Right collision
-		if (entityBounds.left < tankBounds.left
-			&& entityBounds.left + entityBounds.width < tankBounds.left + tankBounds.width
-			&& entityBounds.top < tankBounds.top + tankBounds.height
-			&& entityBounds.top + entityBounds.height > tankBounds.top
-			)
-			return true;
-
-		//Left collision
-		else if (entityBounds.left > tankBounds.left
-			&& entityBounds.left + entityBounds.width > tankBounds.left + tankBounds.width
-			&& entityBounds.top < tankBounds.top + tankBounds.height
-			&& entityBounds.top + entityBounds.height > tankBounds.top
-			)
-			return true;
-	}
-	return false;
-}
+//bool SinglePlayerState::CheckForCollision(Tank* tank, Bullet* bullet, const float& dt)
+//{
+//	sf::FloatRect entityBounds = bullet->GetGlobalBounds();
+//	sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
+//	sf::FloatRect tankBounds = tank->GetGlobalBounds();
+//
+//	if (tankBounds.intersects(nextPositionBounds))
+//	{
+//		//Bottom collision
+//		if (entityBounds.top < tankBounds.top
+//			&& entityBounds.top + entityBounds.height < tankBounds.top + tankBounds.height
+//			&& entityBounds.left < tankBounds.left + tankBounds.width
+//			&& entityBounds.left + entityBounds.width > tankBounds.left
+//			)
+//			return true;
+//
+//		//Top collision
+//		else if (entityBounds.top > tankBounds.top
+//			&& entityBounds.top + entityBounds.height > tankBounds.top + tankBounds.height
+//			&& entityBounds.left < tankBounds.left + tankBounds.width
+//			&& entityBounds.left + entityBounds.width > tankBounds.left
+//			)
+//			return true;
+//
+//		//Right collision
+//		if (entityBounds.left < tankBounds.left
+//			&& entityBounds.left + entityBounds.width < tankBounds.left + tankBounds.width
+//			&& entityBounds.top < tankBounds.top + tankBounds.height
+//			&& entityBounds.top + entityBounds.height > tankBounds.top
+//			)
+//			return true;
+//
+//		//Left collision
+//		else if (entityBounds.left > tankBounds.left
+//			&& entityBounds.left + entityBounds.width > tankBounds.left + tankBounds.width
+//			&& entityBounds.top < tankBounds.top + tankBounds.height
+//			&& entityBounds.top + entityBounds.height > tankBounds.top
+//			)
+//			return true;
+//	}
+//	return false;
+//}
 
 void SinglePlayerState::UpdateInput(const float& dt)
 {
@@ -648,7 +651,7 @@ void SinglePlayerState::UpdateEnemies(const float& dt)
 			tank->Update(dt);
 }
 
-void SinglePlayerState::UpdateSpawner(const float& dt)
+void SinglePlayerState::UpdateTankSpawner(const float& dt)
 {
 	if (m_spawner->Update(dt) && !m_spawner->IsEmpty())
 		m_enemies.push_back(m_spawner->SpawnNext());
@@ -763,8 +766,18 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 	}
 }
 
-void SinglePlayerState::UpdatePowerUpCollision(Player* player)
+void SinglePlayerState::UpdatePowerUpCollision(Player* player, const float& dt)
 {
+	if (!m_powerUps.empty())
+	{
+		for (uint8_t i = 0; i < m_powerUps.size(); ++i)
+			if (CheckForCollision( m_powerUps[i], player, dt))
+			{
+				// do shit with power-ups
+				return;
+			}
+
+	}
 }
 
 void SinglePlayerState::UpdateEnemyLives()
@@ -800,6 +813,15 @@ void SinglePlayerState::RenderPlayers(sf::RenderTarget* target)
 	m_player1->Render(target);
 }
 
+void SinglePlayerState::RenderPowerUps(sf::RenderTarget* target)
+{
+	if (!m_powerUps.empty())
+		for (PowerUp* powerUp : m_powerUps)
+		{
+			powerUp ->Render(target);
+		}
+}
+
 void SinglePlayerState::RenderEnemies(sf::RenderTarget* target)
 {
 	if (!m_enemies.empty())
@@ -829,7 +851,8 @@ void SinglePlayerState::Update(const float& dt)
 		if (m_map->IsLoaded())
 			CheckForGameOver();
 		UpdateTankBulletCollision(m_player1, dt);
-		UpdateSpawner(dt);
+		UpdatePowerUpCollision(m_player1, dt);
+		UpdateTankSpawner(dt);
 		CheckForNextStage();
 	}
 }
@@ -858,6 +881,7 @@ void SinglePlayerState::RenderCurrentStage(sf::RenderTarget* target)
 	RenderEnemies(target);
 
 	m_map->RenderTilesAbove(target);
+	RenderPowerUps(target);
 }
 
 void SinglePlayerState::RenderScoreScreen(sf::RenderTarget* target)

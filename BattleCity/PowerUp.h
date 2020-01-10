@@ -17,7 +17,6 @@ class PowerUp : public BasicTile
 
 public:
 	PowerUp(sf::Vector2f coordinates, const sf::Texture& texture, PowerUpType type);
-
 	PowerUpType GetType();
 
 private:

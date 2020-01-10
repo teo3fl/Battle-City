@@ -31,8 +31,6 @@ public:
 		T* object = m_objects.front();
 		m_objects.pop();
 
-		sf::Vector2f currentSpawningPoint = m_spawnPoints[GetCurrentSpawningPoint()];
-		object->SetPosition(currentSpawningPoint.x, currentSpawningPoint.y);
 		return object;
 	}
 

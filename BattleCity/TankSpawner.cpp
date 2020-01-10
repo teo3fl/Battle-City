@@ -106,6 +106,8 @@ Tank* TankSpawner::CreateTank(uint8_t type)
 
 	tank->SetTexture("DOWN");
 
+	sf::Vector2f location = m_spawnPoints[GetCurrentSpawningPoint()];
+	tank->SetPosition(location.x, location.y);
 	return tank;
 
 }
