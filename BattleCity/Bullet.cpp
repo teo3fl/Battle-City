@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Bullet.h"
 
-Bullet::Bullet(float x, float y, sf::Vector2f direction, const sf::Texture& texture, BulletType type, BulletSource source)
-	: m_type(type), m_source(source), m_direction(direction)
+Bullet::Bullet(float x, float y, uint8_t health,sf::Vector2f direction, const sf::Texture& texture, BulletType type, BulletSource source)
+	: m_type(type), m_source(source), m_direction(direction),m_health(health)
 {
 	m_sprite.setScale(0.4f, 0.4f);
 	SetSpeed();
@@ -27,17 +27,17 @@ void Bullet::SetSpeed()
 	{
 	case BulletType::Slow:
 	{
-		m_movementSpeed = 75.f;
+		m_movementSpeed = 180.f;
 		break;
 	}
 	case BulletType::Normal:
 	{
-		m_movementSpeed = 100.f;
+		m_movementSpeed = 230.f;
 		break;
 	}
 	case BulletType::Fast:
 	{
-		m_movementSpeed = 125.f;
+		m_movementSpeed = 310.f;
 		break;
 	}
 	default:

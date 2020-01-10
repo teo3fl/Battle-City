@@ -5,6 +5,7 @@ Tank::Tank()
 {
 	m_bullet = nullptr;
 	m_dropPowerUp = false;
+	m_bulletHealth = 1;
 }
 
 Tank::~Tank()
@@ -73,26 +74,29 @@ void Tank::DestroyBullet()
 void Tank::Fire()
 {
 	if (!m_bullet)
-	{
-		sf::Vector2f tankPosition = GetPosition();
-		sf::FloatRect tankDimensions = GetGlobalBounds();
-		float bulletX = tankPosition.x + tankDimensions.width / 2.f;
-		float bulletY = tankPosition.y + tankDimensions.height / 2.f;
+		m_bullet = CreateBullet();
+}
 
-		std::stringstream ss;
-		ss << "BULLET_" << m_facingDirection;
+Bullet* Tank::CreateBullet()
+{
+	sf::Vector2f tankPosition = GetPosition();
+	sf::FloatRect tankDimensions = GetGlobalBounds();
+	float bulletX = tankPosition.x + tankDimensions.width / 2.f;
+	float bulletY = tankPosition.y + tankDimensions.height / 2.f;
 
-		sf::Vector2f dir(0.f, 0.f);
+	std::stringstream ss;
+	ss << "BULLET_" << m_facingDirection;
 
-		if (m_facingDirection == "UP")
-			dir.y = -1.f;
-		if (m_facingDirection == "DOWN")
-			dir.y = 1.f;
-		if (m_facingDirection == "LEFT")
-			dir.x = -1.f;
-		if (m_facingDirection == "RIGHT")
-			dir.x = 1.f;
+	sf::Vector2f dir(0.f, 0.f);
 
-		m_bullet = new Bullet(bulletX, bulletY, dir, m_textures[ss.str()], m_bulletType, BulletSource::Enemy);
-	}
+	if (m_facingDirection == "UP")
+		dir.y = -1.f;
+	if (m_facingDirection == "DOWN")
+		dir.y = 1.f;
+	if (m_facingDirection == "LEFT")
+		dir.x = -1.f;
+	if (m_facingDirection == "RIGHT")
+		dir.x = 1.f;
+
+	return new Bullet(bulletX, bulletY, m_bulletHealth, dir, m_textures[ss.str()], m_bulletType, BulletSource::Enemy);
 }

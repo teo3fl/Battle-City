@@ -4,10 +4,9 @@
 BasicTank::BasicTank() : Tank()
 {
 	m_type = "BasicTank";
-	m_movementSpeed = 50.f; 
+	m_movementSpeed = 75.f; 
 	m_points = 100;
 	m_health = 1;
-	m_bulletSpeed = 50.f;
 	m_bulletType = BulletType::Slow;
 
 	m_facingDirection = "DOWN";

@@ -22,6 +22,7 @@ public:
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
 	bool GetBaseStatus();
 	bool IsLoaded();
+	void ActivateShovelPowerUp();
 
 	void UpdateTankBorderCollision(Tank* tank, const float& dt);
 	void UpdateTankTileCollision(Tank* tank, const float& dt);
@@ -45,5 +46,9 @@ private:
 
 	sf::Vector2i m_baseCoordinates;
 	bool m_loaded;
+
+	// power-ups
+
+	bool m_shovelPowerUp;
 };
 

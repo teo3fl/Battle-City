@@ -3,16 +3,16 @@
 
 Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 {
-	m_movementSpeed = 100.f; 
 	m_health = 1;
 	m_lives = 3;
-	m_bulletSpeed = 100.f;
 	m_offensivePower = 0;
-	m_bulletType = BulletType::Normal;
+	UpdateOffensivePower();
+	m_secondaryBullet = NULL;
 	m_score = 0;
 	m_protected = true;
 	m_protectedTime = 0;
-	m_maxProtectedTime = 5;
+	m_maxProtectedTime = 10;
+	m_movementSpeed = 90.f;
 
 	m_facingDirection = "UP";
 
@@ -26,6 +26,65 @@ Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 void Player::IncreaseScore(uint16_t points)
 {
 	m_score += points;
+}
+
+void Player::IncreaseOffensivePower()
+{
+	if (m_offensivePower < 4)
+	{
+		++m_offensivePower;
+		UpdateOffensivePower();
+	}
+}
+
+void Player::ResetOffensivePower()
+{
+	if (m_offensivePower)
+	{
+		m_offensivePower = 0;
+		UpdateOffensivePower();
+	}
+}
+
+void Player::UpdateOffensivePower()
+{
+	switch (m_offensivePower)
+	{
+	case 0:
+	{
+		m_bulletType = BulletType::Normal;
+		m_enableSecondBullet = true;
+		break;
+	}
+	case 1:
+	{
+		m_bulletType = BulletType::Fast;
+		break;
+	}
+	case 2:
+	{
+		++m_lives;
+		break;
+	}
+	case 3:
+	{
+		m_enableSecondBullet = true;
+		break;
+	}
+	case 4:
+	{
+		m_bulletHealth = 2;
+	}
+	}
+}
+
+void Player::Fire()
+{
+	if (!m_bullet)
+ 		m_bullet = CreateBullet();
+	else
+		if (m_enableSecondBullet && m_secondaryBullet)
+			m_secondaryBullet = CreateBullet();
 }
 
 void Player::SetProtected()
@@ -54,6 +113,18 @@ const uint16_t Player::GetLives()
 const uint32_t Player::GetScore()
 {
 	return m_score;
+}
+
+bool Player::CanFireSecondaryBullet()
+{
+	return m_enableSecondBullet;
+}
+
+Bullet* Player::GetSecondaryBullet() const
+{
+	if (m_secondaryBullet)
+		return m_secondaryBullet;
+	return nullptr;
 }
 
 bool Player::IsProtected()

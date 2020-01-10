@@ -573,18 +573,26 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	{
 	case PowerUpType::Grenade:
 	{
+		while (!m_enemies.empty())
+		{
+			delete m_enemies.front();
+			m_enemies.erase(m_enemies.begin());
+		}
 		break;
 	}
 	case PowerUpType::Helmet:
 	{
+		m_player1->SetProtected();
 		break;
 	}
 	case PowerUpType::Shovel:
 	{
+		m_map->ActivateShovelPowerUp();
 		break;
 	}
 	case PowerUpType::Star:
 	{
+		m_player1->IncreaseOffensivePower();
 		break;
 	}
 	case PowerUpType::Tank:
@@ -593,6 +601,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Timer:
 	{
+		m_timerPowerUp = true;
 		break;
 	}
 	default:
@@ -640,6 +649,16 @@ void SinglePlayerState::UpdatePlayer1Fire(const float& dt)
 	{
 		m_player1->Fire();
 	}
+ }
+
+void SinglePlayerState::UpdatePlayer1Bullets(const float& dt)
+{
+	Bullet* bullet = m_player1->GetBullet();
+	if (bullet)
+		bullet->Update(dt);
+	bullet = m_player1->GetSecondaryBullet();
+	if (bullet)
+		bullet->Update(dt);
 }
 
 void SinglePlayerState::UpdateEnemies(const float& dt)
@@ -820,6 +839,9 @@ void SinglePlayerState::RenderPlayers(sf::RenderTarget* target)
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
 		bullet->Render(target);
+	bullet = m_player1->GetSecondaryBullet();
+	if (bullet)
+		bullet->Render(target);
 
 	m_player1->Render(target);
 }
@@ -853,9 +875,7 @@ void SinglePlayerState::Update(const float& dt)
 		UpdatePowerUps(dt);
 		m_player1->Update(dt);
 		UpdateEnemies(dt);
-		Bullet* bullet = m_player1->GetBullet();
-		if (bullet)
-			bullet->Update(dt);
+		UpdatePlayer1Bullets(dt);
 
 		UpdatePlayer1Fire(dt);
 		UpdateMap(dt);

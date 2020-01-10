@@ -123,6 +123,11 @@ bool TileMap::IsLoaded()
 	return m_loaded;
 }
 
+void TileMap::ActivateShovelPowerUp()
+{
+
+}
+
 void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt)
 {
 	if (tank->GetPosition().x < m_upperLeftCorner.x)

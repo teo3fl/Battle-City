@@ -20,14 +20,18 @@ public :
 	void DecreaseHealth(uint8_t value);
 	void DestroyBullet();
 
-	void Fire();
+	virtual void Fire() ;
+
+protected:
+	Bullet* CreateBullet();
+
 protected:
 	std::string m_type;
 	uint16_t m_points;
 	uint8_t m_health;
 	bool m_dropPowerUp;
 
-	float m_bulletSpeed;
+	uint8_t m_bulletHealth : 2;
 	BulletType m_bulletType;
 	Bullet* m_bullet;
 

@@ -94,6 +94,7 @@ protected:
 	void UpdateInput(const float& dt) override;
 	void UpdatePlayer1Movement(const float& dt);
 	void UpdatePlayer1Fire(const float& dt);
+	void UpdatePlayer1Bullets(const float& dt);
 	void UpdateEnemies(const float& dt);
 	void UpdateTankSpawner(const float& dt);
 	void UpdateMap(const float& dt);
