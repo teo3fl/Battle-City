@@ -7,8 +7,8 @@ Hitbox::Hitbox(sf::Sprite& sprite, float width, float height) :
 	m_hitbox.setPosition(m_sprite.getPosition().x , m_sprite.getPosition().y);
 	m_hitbox.setSize(sf::Vector2f(width, height));
 	m_hitbox.setFillColor(sf::Color::Transparent);
-	m_hitbox.setOutlineThickness(1.f);
-	m_hitbox.setOutlineColor(sf::Color::Green);
+	/*m_hitbox.setOutlineThickness(1.f);
+	m_hitbox.setOutlineColor(sf::Color::Green);*/
 }
 
 Hitbox::~Hitbox()
