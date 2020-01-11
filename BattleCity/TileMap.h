@@ -23,10 +23,13 @@ public:
 	bool GetBaseStatus();
 	bool IsLoaded();
 	void ActivateShovelPowerUp();
+	void FortifyBaseWalls();
+	void RevertBaseWalls();
 
 	void UpdateTankBorderCollision(Tank* tank, const float& dt);
 	void UpdateTankTileCollision(Tank* tank, const float& dt);
 	void UpdateTank (Tank* tank, const float& dt);
+	void UpdateShovelPowerUp(const float& dt);
 
 	bool UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt);
 	void UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt);
@@ -50,5 +53,7 @@ private:
 	// power-ups
 
 	bool m_shovelPowerUp;
+	float m_shovelTime;
+	float m_shovelTimeMax;
 };
 

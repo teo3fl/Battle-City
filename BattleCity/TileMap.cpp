@@ -15,6 +15,10 @@ TileMap::TileMap(uint16_t width, uint16_t height) :
 	m_map.resize(m_height);
 	for (int x = 0; x < m_height; x++)
 		m_map[x].resize(m_width);
+
+	m_shovelPowerUp = false;
+	m_shovelTime = 0;
+	m_shovelTimeMax = 20;
 }
 
 TileMap::~TileMap()
@@ -34,7 +38,8 @@ void TileMap::LoadFromFile(const std::string& fileName)
 {
 	std::ifstream in (fileName);
 
-	uint16_t border = m_upperLeftCorner.x;
+	uint16_t borderX = m_upperLeftCorner.x;
+	uint16_t borderY = m_upperLeftCorner.y;
 
 	if (in.is_open())
 	{
@@ -57,32 +62,32 @@ void TileMap::LoadFromFile(const std::string& fileName)
 
 				case 1:
 				{
-					m_map[x][y] = new Brick(x * tileSize + border, y * tileSize + border, m_textures["BRICK"]);
+					m_map[x][y] = new Brick(x * tileSize + borderX, y * tileSize + borderY, m_textures["BRICK"]);
 					break;
 				}
 				case 2:
 				{
-					m_map[x][y] = new Steel(x * tileSize + border, y * tileSize + border, m_textures["STEEL"]);
+					m_map[x][y] = new Steel(x * tileSize + borderX, y * tileSize + borderY, m_textures["STEEL"]);
 					break;
 				}
 				case 3:
 				{
-					m_map[x][y] = new Water(x * tileSize + border, y * tileSize + border, m_textures["WATER"]);
+					m_map[x][y] = new Water(x * tileSize + borderX, y * tileSize + borderY, m_textures["WATER"]);
 					break;
 				}
 				case 4:
 				{
-					m_map[x][y] = new Ice(x * tileSize + border, y * tileSize + border, m_textures["ICE"]);
+					m_map[x][y] = new Ice(x * tileSize + borderX, y * tileSize + borderY, m_textures["ICE"]);
 					break;
 				}
 				case 5:
 				{
-					m_map[x][y] = new Trees(x * tileSize + border, y * tileSize + border, m_textures["TREES"]);
+					m_map[x][y] = new Trees(x * tileSize + borderX, y * tileSize + borderY, m_textures["TREES"]);
 					break;
 				}
 				case 6:
 				{
-					m_map[x][y] = new Base(x * tileSize + border, y * tileSize + border, m_textures["BASE"]);
+					m_map[x][y] = new Base(x * tileSize + borderX, y * tileSize + borderY, m_textures["BASE"]);
 					m_baseCoordinates.x = x;
 					m_baseCoordinates.y = y;
 					break;
@@ -125,7 +130,102 @@ bool TileMap::IsLoaded()
 
 void TileMap::ActivateShovelPowerUp()
 {
+	m_shovelPowerUp = true;
+	FortifyBaseWalls();
+}
 
+void TileMap::FortifyBaseWalls()
+{	
+	std::array<sf::Vector2i, 8> coordinates =
+	{ 
+		sf::Vector2i(22,46),
+		sf::Vector2i(24,46), 
+		sf::Vector2i(26,46), 
+		sf::Vector2i(28,46), 
+		sf::Vector2i(22,48), 
+		sf::Vector2i(22,50), 
+		sf::Vector2i(28,48), 
+		sf::Vector2i(28,50)
+	};
+
+	for (uint8_t i = 0; i < coordinates.size(); ++i)
+	{
+		int row = coordinates[i].x;
+		int column = coordinates[i].y;
+
+		// one Steel tile = 4 Brick tiles in 2x2 squares
+
+		if (m_map[row][column] && m_map[row][column]->GetType() == "Brick") // upper left
+		{
+			delete m_map[row][column];
+			m_map[row][column] = nullptr;
+		}
+		if (m_map[row][column + 1] && m_map[row][column+1]->GetType() == "Brick") // upper right
+		{
+			delete m_map[row][column+1];
+			m_map[row][column+1] = nullptr;
+		}
+
+		if (m_map[row + 1][column] && m_map[row+1][column]->GetType() == "Brick") // lower left
+		{
+			delete m_map[row+1][column];
+			m_map[row+1][column] = nullptr;
+		}
+
+		if (m_map[row + 1][column + 1] && m_map[row+1][column+1]->GetType() == "Brick") // lower right
+		{
+			delete m_map[row+1][column+1];
+			m_map[row+1][column+1] = nullptr;
+		}
+
+		uint8_t tileSize = 16;
+		uint16_t borderX = m_upperLeftCorner.x;
+		uint16_t borderY = m_upperLeftCorner.y;
+
+		m_map[row][column] = new Steel(row * tileSize + borderX, column * tileSize + borderY, m_textures["STEEL"]);
+	}
+}
+
+void TileMap::RevertBaseWalls()
+{
+	std::array<sf::Vector2i, 8> coordinates =
+	{
+		sf::Vector2i(22,46),
+		sf::Vector2i(24,46),
+		sf::Vector2i(26,46),
+		sf::Vector2i(28,46),
+		sf::Vector2i(22,48),
+		sf::Vector2i(22,50),
+		sf::Vector2i(28,48),
+		sf::Vector2i(28,50)
+	};
+
+	uint8_t tileSize = 16;
+	uint16_t borderX = m_upperLeftCorner.x;
+	uint16_t borderY = m_upperLeftCorner.y;
+
+	for (uint8_t i = 0; i < coordinates.size(); ++i)
+	{
+		int row = coordinates[i].x;
+		int column = coordinates[i].y;
+
+		delete m_map[row][column];
+
+		// one Steel tile = 4 Brick tiles in 2x2 squares
+
+		// upper left
+		m_map[row][column] = new Brick(row * tileSize + borderX, column * tileSize + borderY, m_textures["BRICK"]);
+
+
+		// upper right
+		m_map[row][column + 1] = new Brick(row * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
+
+		// lower left
+		m_map[row + 1][column] = new Brick((row + 1) * tileSize + borderX, column * tileSize + borderY, m_textures["BRICK"]);
+
+		// lower right
+		m_map[row + 1][column + 1] = new Brick((row + 1) * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
+	}
 }
 
 void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt)
@@ -220,6 +320,20 @@ void TileMap::UpdateTank(Tank* tank, const float& dt)
 {
 	UpdateTankBorderCollision(tank, dt);
 	UpdateTankTileCollision(tank, dt);
+}
+
+void TileMap::UpdateShovelPowerUp(const float& dt)
+{
+	if (m_shovelPowerUp)
+	{
+		m_shovelTime += dt;
+		if (m_shovelTime >= m_shovelTimeMax)
+		{
+			m_shovelPowerUp = false;
+			m_shovelTime = 0;
+			RevertBaseWalls();
+		}
+	}
 }
 
 bool TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt)

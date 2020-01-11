@@ -730,6 +730,7 @@ void SinglePlayerState::UpdateMap(const float& dt)
 		if (bullet)
 			m_map->UpdateBullet(m_player1, bullet, dt);
 	}
+	m_map->UpdateShovelPowerUp(dt);
 }
 
 void SinglePlayerState::UpdateNextStageBackground()
