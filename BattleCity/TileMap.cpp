@@ -272,12 +272,28 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						&& bulletBounds.left + bulletBounds.width > wallBounds.left
 						)
 					{
-						if (tileHealth <= bulletHealth)
+						switch (tileHealth - bulletHealth)
+						{
+						case 0:
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
+							tank->DestroyBullet(bullet);
+							break;
 						}
-						tank->DestroyBullet(bullet);
+						case 1:
+						{
+							tank->DestroyBullet(bullet);
+							break;
+						}
+						case -1:
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+							bullet->DecreaseHealth(tileHealth);
+							break;
+						}
+						}
 						return;
 					}
 
@@ -288,12 +304,28 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						&& bulletBounds.left + bulletBounds.width > wallBounds.left
 						)
 					{
-						if (tileHealth <= bulletHealth)
+						switch (tileHealth - bulletHealth)
+						{
+						case 0:
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
+							tank->DestroyBullet(bullet);
+							break;
 						}
-						tank->DestroyBullet(bullet);
+						case 1:
+						{
+							tank->DestroyBullet(bullet);
+							break;
+						}
+						case -1:
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+							bullet->DecreaseHealth(tileHealth);
+							break;
+						}
+						}
 						return;
 					}
 
@@ -304,12 +336,28 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						&& bulletBounds.top + bulletBounds.height > wallBounds.top
 						)
 					{
-						if (tileHealth <= bulletHealth)
+						switch (tileHealth - bulletHealth)
+						{
+						case 0:
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
+							tank->DestroyBullet(bullet);
+							break;
 						}
-						tank->DestroyBullet(bullet);
+						case 1:
+						{
+							tank->DestroyBullet(bullet);
+							break;
+						}
+						case -1:
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+							bullet->DecreaseHealth(tileHealth);
+							break;
+						}
+						}
 						return;
 					}
 
@@ -320,12 +368,28 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						&& bulletBounds.top + bulletBounds.height > wallBounds.top
 						)
 					{
-						if (tileHealth <= bulletHealth)
+						switch (tileHealth - bulletHealth)
+						{
+						case 0:
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
+							tank->DestroyBullet(bullet);
+							break;
 						}
-						tank->DestroyBullet(bullet);
+						case 1:
+						{
+							tank->DestroyBullet(bullet);
+							break;
+						}
+						case -1:
+						{
+							delete m_map[x][y];
+							m_map[x][y] = nullptr;
+							bullet->DecreaseHealth(tileHealth);
+							break;
+						}
+						}
 						return;
 					}
 				}

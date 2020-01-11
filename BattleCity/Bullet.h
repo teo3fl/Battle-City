@@ -25,6 +25,7 @@ public:
 
 	BulletSource GetSource();
 	uint8_t GetHealth();
+	void DecreaseHealth(uint8_t value);
 
 	void Update(const float& dt) override;
 

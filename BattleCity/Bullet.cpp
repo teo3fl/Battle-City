@@ -13,7 +13,6 @@ Bullet::Bullet(float x, float y, uint8_t health,sf::Vector2f direction, const sf
 		m_sprite.getGlobalBounds().height
 	);
 	CreateMovementComponent(m_movementSpeed, 900.f, 0.f);
-	m_health = 1;
 }
 
 Bullet::~Bullet()
@@ -55,6 +54,11 @@ BulletSource Bullet::GetSource()
 uint8_t Bullet::GetHealth()
 {
 	return m_health;
+}
+
+void Bullet::DecreaseHealth(uint8_t value)
+{
+	m_health-=value;
 }
 
 void Bullet::Update(const float& dt)

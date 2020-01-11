@@ -619,9 +619,13 @@ void SinglePlayerState::DoTankBulletCollision(Player* player, Bullet* bullet,con
 			uint8_t tankHealth = tank->GetHealth();
 			uint8_t bulletHealth = bullet->GetHealth();
 			if (tankHealth > bulletHealth)
+			{
 				tank->DecreaseHealth(bulletHealth);
+				player->DestroyBullet(bullet);
+			}
 			else
 			{
+				bullet->DecreaseHealth(tankHealth);
 				m_enemies.erase(m_enemies.begin() + i);
 				uint16_t score = tank->GetPoints();
 				m_player1->IncreaseScore(score);
@@ -631,7 +635,6 @@ void SinglePlayerState::DoTankBulletCollision(Player* player, Bullet* bullet,con
 				delete tank;
 				UpdateEnemyLives();
 			}
-			player->DestroyBullet(bullet);
 			return;
 		}
 	}

@@ -30,7 +30,7 @@ void Player::IncreaseScore(uint16_t points)
 
 void Player::IncreaseOffensivePower()
 {
-	if (m_offensivePower < 4)
+	if (m_offensivePower < 3)
 	{
 		++m_offensivePower;
 		UpdateOffensivePower();
@@ -63,15 +63,10 @@ void Player::UpdateOffensivePower()
 	}
 	case 2:
 	{
-		++m_lives;
-		break;
-	}
-	case 3:
-	{
 		m_enableSecondBullet = true;
 		break;
 	}
-	case 4:
+	case 3:
 	{
 		m_bulletHealth = 2;
 	}
