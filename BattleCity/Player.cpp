@@ -4,14 +4,14 @@
 Player::Player(const std::string& name, float x, float y) : Tank(), m_name(name)
 {
 	m_health = 1;
-	m_lives = 3;
+	m_lives = 1;
 	m_offensivePower = 0;
 	UpdateOffensivePower();
 	m_secondaryBullet = NULL;
 	m_score = 0;
-	m_protected = true;
+	m_protected = false;
 	m_protectedTime = 0;
-	m_maxProtectedTime = 10;
+	m_maxProtectedTime = 5;
 	m_movementSpeed = 90.f;
 
 	m_facingDirection = "UP";
@@ -87,9 +87,10 @@ void Player::Fire()
 			m_secondaryBullet = CreateBullet();
 }
 
-void Player::SetProtected()
+void Player::SetProtected(uint8_t time)
 {
 	m_protected = true;
+	m_maxProtectedTime = time;
 }
 
 void Player::SetTexture(const std::string& texture)

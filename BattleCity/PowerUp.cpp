@@ -10,7 +10,7 @@ PowerUp::PowerUp(sf::Vector2f coordinates, const sf::Texture& texture, PowerUpTy
 	CreateHitbox(m_sprite);
 
 	m_timer = 0;
-	m_maxTime = 20;
+	m_maxTime = 30;
 	m_points = 500;
 }
 

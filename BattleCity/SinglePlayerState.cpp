@@ -488,6 +488,8 @@ void SinglePlayerState::InitializeScoreMap()
 
 void SinglePlayerState::InitializeText()
 {
+	SetText(m_player1Lives, m_font, sf::Color::White,50, sf::Vector2f(1020.f, 600.f),1.f);
+
 	SetText(m_stageScreenText, m_font, sf::Color::Black, 200, 4.f);
 	SetText(m_stageNumberText, m_font, sf::Color::White, 60, 1.f);
 
@@ -532,6 +534,7 @@ void SinglePlayerState::InitializeCurrentStage()
 	InitializeEnemyLives();
 	InitializeScoreMap();
 
+	m_player1Lives.setString(std::to_string(m_player1->GetLives()));
 	m_stageNumberText.setString(std::to_string(m_currentStageNumber));
 	m_stageNumberText.setPosition(sf::Vector2f(1000.f, 810.f));
 
@@ -540,8 +543,13 @@ void SinglePlayerState::InitializeCurrentStage()
 	Bullet* bullet = m_player1->GetBullet();
 	if (bullet)
 		m_player1->DestroyBullet(bullet);
+	bullet = m_player1->GetSecondaryBullet();
+	if (bullet)
+		m_player1->DestroyBullet(bullet);
+
 
 	ResetPlayerPosition();
+	m_player1->SetProtected(5);
 
 	++m_currentStageNumber;
 	m_gameStatus = GameStatus::CurrentStage;
@@ -582,7 +590,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Helmet:
 	{
-		m_player1->SetProtected();
+		m_player1->SetProtected(15);
 		break;
 	}
 	case PowerUpType::Shovel:
@@ -598,6 +606,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	case PowerUpType::Tank:
 	{
 		m_player1->GiveExtraLife();
+		m_player1Lives.setString(std::to_string(m_player1->GetLives()));
 		break;
 	}
 	case PowerUpType::Timer:
@@ -834,6 +843,7 @@ void SinglePlayerState::RenderBackground(sf::RenderTarget* target)
 {
 	target->draw(m_background);
 	target->draw(m_stageNumberText);
+	target->draw(m_player1Lives);
 
 	for (auto& rectangle : m_enemyLives)
 		target->draw(rectangle);

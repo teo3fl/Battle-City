@@ -15,7 +15,7 @@ public:
 
 	void Fire() override;
 
-	void SetProtected();
+	void SetProtected(uint8_t time);
 	void SetTexture(const std::string& texture) override;
 
 	const std::string GetName();

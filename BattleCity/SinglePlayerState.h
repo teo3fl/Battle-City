@@ -118,6 +118,7 @@ protected:
 
 protected:
 	Player* m_player1;
+	sf::Text m_player1Lives;
 	std::vector<Tank*> m_enemies;
 	uint8_t m_numberOfEnemies;
 	TankSpawner* m_spawner;
