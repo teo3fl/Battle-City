@@ -598,7 +598,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Shovel:
 	{
-		m_map->ActivateShovelPowerUp(); // must implement function in TileMap
+		m_map->ActivateShovelPowerUp(); 
 		break;
 	}
 	case PowerUpType::Star:

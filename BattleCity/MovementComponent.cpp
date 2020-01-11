@@ -53,6 +53,11 @@ void MovementComponent::Push(sf::Vector2f direction, const float& dt)
 	m_velocity.y += m_acceleration * direction.y * dt;
 }
 
+void MovementComponent::SetDeceleration(uint16_t value)
+{
+	m_deceleration = value;
+}
+
 void MovementComponent::Move(const float dir_x, const float dir_y, const float& dt)
 {
 	/* Accelerating a sprite until it reaches the max velocity. */

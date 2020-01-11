@@ -98,6 +98,11 @@ void Entity::Push(sf::Vector2f direction, const float& dt)
 	m_movementComponent->Push(direction, dt);
 }
 
+void Entity::SetDeceleration(uint16_t deceleration)
+{
+	m_movementComponent->SetDeceleration(deceleration);
+}
+
 void Entity::Update(const float& dt)
 {
 	m_movementComponent->Update(dt);

@@ -263,55 +263,63 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 				sf::FloatRect nextPositionBounds = tank->GetNextPositionBounds(dt);
 				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
-				if (m_map[x][y]->GetTankCollision() &&  wallBounds.intersects(nextPositionBounds))
+				if (wallBounds.intersects(nextPositionBounds))
 				{
-					//Bottom collision
-					if (entityBounds.top < wallBounds.top
-						&& entityBounds.top + entityBounds.height < wallBounds.top + wallBounds.height
-						&& entityBounds.left < wallBounds.left + wallBounds.width
-						&& entityBounds.left + entityBounds.width > wallBounds.left
-						)
+					if (m_map[x][y]->GetTankCollision())
 					{
-						tank->StopVelocityY();
-						tank->StopVelocityX();
-						tank->Push(sf::Vector2f(0.f,-1.f),dt);
-					}
+						//Bottom collision
+						if (entityBounds.top < wallBounds.top
+							&& entityBounds.top + entityBounds.height < wallBounds.top + wallBounds.height
+							&& entityBounds.left < wallBounds.left + wallBounds.width
+							&& entityBounds.left + entityBounds.width > wallBounds.left
+							)
+						{
+							tank->StopVelocityY();
+							tank->StopVelocityX();
+							tank->Push(sf::Vector2f(0.f, -1.f), dt);
+						}
 
-					//Top collision
-					else if (entityBounds.top > wallBounds.top
-						&& entityBounds.top + entityBounds.height > wallBounds.top + wallBounds.height
-						&& entityBounds.left < wallBounds.left + wallBounds.width
-						&& entityBounds.left + entityBounds.width > wallBounds.left
-						)
-					{
-						tank->StopVelocityY();
-						tank->StopVelocityX();
-						tank->Push(sf::Vector2f(0.f, 1.f), dt);
-					}
+						//Top collision
+						else if (entityBounds.top > wallBounds.top
+							&& entityBounds.top + entityBounds.height > wallBounds.top + wallBounds.height
+							&& entityBounds.left < wallBounds.left + wallBounds.width
+							&& entityBounds.left + entityBounds.width > wallBounds.left
+							)
+						{
+							tank->StopVelocityY();
+							tank->StopVelocityX();
+							tank->Push(sf::Vector2f(0.f, 1.f), dt);
+						}
 
-					//Right collision
-					if (entityBounds.left < wallBounds.left
-						&& entityBounds.left + entityBounds.width < wallBounds.left + wallBounds.width
-						&& entityBounds.top < wallBounds.top + wallBounds.height
-						&& entityBounds.top + entityBounds.height > wallBounds.top
-						)
-					{
-						tank->StopVelocityX();
-						tank->StopVelocityY();
-						tank->Push(sf::Vector2f(-1.f, 0.f), dt);
-					}
+						//Right collision
+						if (entityBounds.left < wallBounds.left
+							&& entityBounds.left + entityBounds.width < wallBounds.left + wallBounds.width
+							&& entityBounds.top < wallBounds.top + wallBounds.height
+							&& entityBounds.top + entityBounds.height > wallBounds.top
+							)
+						{
+							tank->StopVelocityX();
+							tank->StopVelocityY();
+							tank->Push(sf::Vector2f(-1.f, 0.f), dt);
+						}
 
-					//Left collision
-					else if (entityBounds.left > wallBounds.left
-						&& entityBounds.left + entityBounds.width > wallBounds.left + wallBounds.width
-						&& entityBounds.top < wallBounds.top + wallBounds.height
-						&& entityBounds.top + entityBounds.height > wallBounds.top
-						)
-					{
-						tank->StopVelocityX();
-						tank->StopVelocityY();
-						tank->Push(sf::Vector2f(1.f, 0.f), dt);
+						//Left collision
+						else if (entityBounds.left > wallBounds.left
+							&& entityBounds.left + entityBounds.width > wallBounds.left + wallBounds.width
+							&& entityBounds.top < wallBounds.top + wallBounds.height
+							&& entityBounds.top + entityBounds.height > wallBounds.top
+							)
+						{
+							tank->StopVelocityX();
+							tank->StopVelocityY();
+							tank->Push(sf::Vector2f(1.f, 0.f), dt);
+						}
 					}
+					if (m_map[x][y]->GetType() == "Ice")
+						tank->SetDeceleration(100.f);
+
+					else
+						tank->SetDeceleration(300.f);
 				}
 			}
 }

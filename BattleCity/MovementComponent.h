@@ -13,6 +13,7 @@ public:
 	void StopVelocityX();
 	void StopVelocityY();
 	void Push(sf::Vector2f direction, const float& dt);
+	void SetDeceleration(uint16_t value);
 
 	void Move(const float x, const float y, const float& dt);
 	void Update(const float& dt);
