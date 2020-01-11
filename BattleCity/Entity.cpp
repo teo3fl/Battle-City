@@ -36,6 +36,8 @@ void Entity::SetTexture(const std::string& texture)
 void Entity::SetPosition(const float x, const float y)
 {
 	m_sprite.setPosition(x, y);
+	if (m_hitbox)
+		m_hitbox->Update();
 }
 
 void Entity::CreateHitbox(sf::Sprite& sprite, float width, float height)

@@ -34,6 +34,9 @@ void SinglePlayerState::InitializeVariables()
 	m_numberOfEnemies = 20;
 	m_numberOfPowerUps = 3;
 	m_stages = 4;
+	m_timerPowerUp = false;
+	m_timerMaxValue = 10;
+	m_timerValue = 0;
 	m_enemies.reserve(m_numberOfEnemies);
 	m_powerUps.reserve(m_numberOfPowerUps);
 
@@ -611,7 +614,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Timer:
 	{
-		m_timerPowerUp = true; // must add funtionality
+		m_timerPowerUp = true;
 		break;
 	}
 	default:
@@ -828,7 +831,7 @@ void SinglePlayerState::UpdateEnemyLives()
 	m_enemyLives.erase(m_enemyLives.begin() + m_enemyLives.size() - 1);
 }
 
-void SinglePlayerState::UpdatePowerUps(const float& dt)
+void SinglePlayerState::UpdatePowerUpsAppearance(const float& dt)
 {
 	if (!m_powerUps.empty())
 		for (uint8_t i = 0; i < m_powerUps.size(); ++i)
@@ -837,6 +840,19 @@ void SinglePlayerState::UpdatePowerUps(const float& dt)
 				m_powerUps.erase(m_powerUps.begin() + i);
 				return;
 			}
+}
+
+void SinglePlayerState::UpdateTimerPowerUp(const float& dt)
+{
+	if (m_timerPowerUp)
+	{
+		m_timerValue += dt;
+		if (m_timerValue >= m_timerMaxValue)
+		{
+			m_timerPowerUp = false;
+			m_timerValue = 0;
+		}
+	}
 }
 
 void SinglePlayerState::RenderBackground(sf::RenderTarget* target)
@@ -897,9 +913,13 @@ void SinglePlayerState::Update(const float& dt)
 
 	if (m_gameStatus == GameStatus::CurrentStage)
 	{
-		UpdatePowerUps(dt);
+		UpdatePowerUpsAppearance(dt);
 		m_player1->Update(dt);
-		UpdateEnemies(dt);
+
+		UpdateTimerPowerUp(dt);
+		if (!m_timerPowerUp)
+			UpdateEnemies(dt);
+
 		UpdatePlayer1Bullets(dt);
 
 		UpdatePlayer1Fire(dt);
