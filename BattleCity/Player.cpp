@@ -37,6 +37,11 @@ void Player::IncreaseOffensivePower()
 	}
 }
 
+void Player::GiveExtraLife()
+{
+	++m_lives;
+}
+
 void Player::ResetOffensivePower()
 {
 	if (m_offensivePower)

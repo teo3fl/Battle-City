@@ -9,6 +9,7 @@ public:
 
 	void IncreaseScore(uint16_t points);
 	void IncreaseOffensivePower();
+	void GiveExtraLife();
 	void ResetOffensivePower();
 	void UpdateOffensivePower();
 

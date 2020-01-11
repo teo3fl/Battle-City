@@ -587,7 +587,7 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Shovel:
 	{
-		m_map->ActivateShovelPowerUp();
+		m_map->ActivateShovelPowerUp(); // must implement function in TileMap
 		break;
 	}
 	case PowerUpType::Star:
@@ -597,11 +597,12 @@ void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 	}
 	case PowerUpType::Tank:
 	{
+		m_player1->GiveExtraLife();
 		break;
 	}
 	case PowerUpType::Timer:
 	{
-		m_timerPowerUp = true;
+		m_timerPowerUp = true; // must add funtionality
 		break;
 	}
 	default:
