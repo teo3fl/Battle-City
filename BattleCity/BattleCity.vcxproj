@@ -210,9 +210,13 @@
     <None Include="..\External\Resources\Config\high_score.ini" />
     <None Include="..\External\Resources\Config\mainmenustate_keybinds.ini" />
     <None Include="..\External\Resources\Config\map_stage1.ini" />
+    <None Include="..\External\Resources\Config\map_stage1_ai.ini" />
     <None Include="..\External\Resources\Config\map_stage2.ini" />
+    <None Include="..\External\Resources\Config\map_stage2_ai.ini" />
     <None Include="..\External\Resources\Config\map_stage3.ini" />
+    <None Include="..\External\Resources\Config\map_stage3_ai.ini" />
     <None Include="..\External\Resources\Config\map_stage4.ini" />
+    <None Include="..\External\Resources\Config\map_stage4_ai.ini" />
     <None Include="..\External\Resources\Config\spawner_stage1.ini" />
     <None Include="..\External\Resources\Config\spawner_stage2.ini" />
     <None Include="..\External\Resources\Config\spawner_stage3.ini" />
