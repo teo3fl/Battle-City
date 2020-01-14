@@ -7,6 +7,9 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
+#include "SFMl/System.hpp"
+#include "SFMl/Window.hpp"
+#include "SFMl/Graphics.hpp"
+#include "SFMl/Audio.hpp"
 
 #endif //PCH_H
