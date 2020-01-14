@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "CppUnitTest.h"
 #include "Bullet.h"
 
@@ -12,16 +13,13 @@ namespace Tests
 
 		TEST_METHOD(DefaultConstructor)
 		{
-			Bullet *bullet;
+			sf::Texture texture;
+			Bullet bullet(0,0,1,sf::Vector2f(0,1),texture,BulletType::Normal,BulletSource::Enemy);
 
-			if ((BulletSource::Enemy == bullet->GetSource()))
+			if ((BulletSource::Enemy == bullet.GetSource()))
 				Assert::IsTrue;
 			else
-				Assert::IsTrue(BulletSource::Enemy == bullet->GetSource());
-
-			
-
-
+				Assert::IsTrue(BulletSource::Enemy == bullet.GetSource());
 		}
 	};
 

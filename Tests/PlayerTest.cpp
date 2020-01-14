@@ -12,9 +12,9 @@ namespace Tests
 
 		TEST_METHOD(TestMethod3)
 		{
-			Player *player;
-			player->IsProtected();
-			if (player->IsProtected() == 1)
+			Player player("Player",0,0);
+			player.IsProtected();
+			if (player.IsProtected() == 1)
 				Assert::IsTrue;
 			else
 				Assert::IsFalse;
