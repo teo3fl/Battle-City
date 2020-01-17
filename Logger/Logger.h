@@ -1,10 +1,16 @@
 #pragma once
 
-#include <ctime>
-#include <iostream>
-#include <iomanip>
+#ifdef LOGGING_EXPORTS
+     #define LOGGER __declspec(dllexport)
+#else
+     #define LOGGER __declspec(dllexport)
+#endif
 
-class Logger
+#include <chrono>
+#include <iomanip>
+#include <fstream>
+
+class LOGGER Logger
 {
 public:
 	enum class Level
@@ -16,16 +22,19 @@ public:
 	template<class ... Args>
 	static void Log(Level level, Args&& ... params)
 	{
+		std::ofstream outputFile;
+		outputFile.open("../Logger/logger.txt", std::ios::out | std::ios::app);
 		switch (level)
 		{
 		case Level::Info:
-			std::cout << "[Info]";
+			outputFile<< "[Info]";
 			break;
 		}
-		std::time_t crtTime = std::time(nullptr);
-		std::cout << '[' << std::put_time(std::localtime(&crtTime), "%Y-%m-%d %H:%M:%S") << ']';
-		((std::cout << ' ' << std::forward<Args>(params)), ...);
-		std::cout << '\n';
+		/*std::time_t crtTime = std::time(nullptr);
+		outputFile << '[' << std::put_time(std::localtime(&crtTime), "%Y-%m-%d %H:%M:%S") << ']';*/
+		((outputFile << ' ' << std::forward<Args>(params)), ...);
+		outputFile << '\n';
+		outputFile.close();
 	}
 };
 

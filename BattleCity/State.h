@@ -1,5 +1,11 @@
 ﻿#pragma once
 
+#ifdef LOGGING_EXPORTS
+#define LOGGER __declspec(dllimport)
+#else
+#define LOGGER __declspec(dllimport)
+#endif
+
 class State
 {
 
@@ -36,4 +42,5 @@ protected:
 	sf::Text m_highScoreText;
 	uint32_t m_highScore;
 
+	Logger logger;
 };

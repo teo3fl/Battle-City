@@ -17,3 +17,5 @@
 #include "SFMl/Graphics.hpp"
 #include "SFMl/Audio.hpp"
 
+// Logger
+#include "../Logger/Logger.h"

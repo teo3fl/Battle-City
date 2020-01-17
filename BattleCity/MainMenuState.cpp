@@ -4,6 +4,7 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys), m_states(states)
 {
+	logger.Log(Logger::Level::Info, "MAIN_MENU_STATE: Entered MainMenuState.");
 	InitializeKeybinds();
 	InitializeBackground();
 	InitializeFont();
@@ -20,6 +21,8 @@ MainMenuState::~MainMenuState()
 	{
 		delete it->second;
 	}
+
+	logger.Log(Logger::Level::Info, "MAIN_MENU_STATE: Exited MainMenuState.");
 }
 
 void MainMenuState::InitializeKeybinds()
@@ -117,18 +120,21 @@ void MainMenuState::UpdateButtons()
 
 	if (m_buttons["SINGLE_PLAYER"]->isPressed())
 	{
+		logger.Log(Logger::Level::Info, "MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.");
 		m_states->push(new SinglePlayerState(m_window, m_supportedKeys));
 		m_updateScore = true;
 	}
 
 	if (m_buttons["MULTIPLAYER"]->isPressed())
 	{
+		//logger.Log(Logger::Level::Info, "MAIN_MENU_STATE: Pushed MultiplayerState on the state stack.");
 		//m_states->push(new MultyplayerState(m_window, m_supportedKeys));
-		m_updateScore = true;
+		//m_updateScore = true;
 	}
 
 	if (m_buttons["KEYBINDS"]->isPressed())
 	{
+		logger.Log(Logger::Level::Info, "MAIN_MENU_STATE: Pushed KeybindState on the state stack.");
 		m_states->push(new KeybindState(m_window, m_supportedKeys,&m_font,sf::Color::White,30));
 	}
 

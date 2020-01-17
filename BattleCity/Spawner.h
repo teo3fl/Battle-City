@@ -1,5 +1,11 @@
 #pragma once
 
+#ifdef LOGGING_EXPORTS
+#define LOGGER __declspec(dllimport)
+#else
+#define LOGGER __declspec(dllimport)
+#endif
+
 template <class T>
 class Spawner
 {
@@ -31,6 +37,7 @@ public:
 		T* object = m_objects.front();
 		m_objects.pop();
 
+		logger.Log(Logger::Level::Info, "SPAWNER: Spawned object.");
 		return object;
 	}
 
@@ -44,5 +51,7 @@ protected:
 	std::map<std::string, sf::Texture> m_textures;
 
 	std::vector<sf::Vector2f> m_spawnPoints;
+
+	Logger logger;
 };
 

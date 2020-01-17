@@ -1,5 +1,11 @@
 ﻿#pragma once
 
+#ifdef LOGGING_EXPORTS
+#define LOGGER __declspec(dllimport)
+#else
+#define LOGGER __declspec(dllimport)
+#endif
+
 #include "GraphicsSettings.h"
 #include  "MainMenuState.h"
 
@@ -36,4 +42,6 @@ private:
 	std::stack<State*>* m_states;
 
 	std::map<std::string, int> m_supportedKeys;
+
+	Logger logger;
 };

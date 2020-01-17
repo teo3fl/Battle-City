@@ -4,6 +4,7 @@
 SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys)
 	: State(window, supportedKeys)
 {
+	logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Entered SinglePlayerState.");
 	InitializeKeybinds();
 	InitializeTextures();
 	InitializeBackground();
@@ -15,6 +16,8 @@ SinglePlayerState::SinglePlayerState(sf::RenderWindow* window, std::map<std::str
 	InitializePowerUpSpawner();
 	InitializeEnemyLives();
 	LoadHighScore();
+
+	logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Started game.");
 }
 
 SinglePlayerState::~SinglePlayerState()
@@ -25,6 +28,8 @@ SinglePlayerState::~SinglePlayerState()
 
 	for (PowerUp* powerUp : m_powerUps)
 		delete powerUp;
+
+	logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Exited SinglePlayerState.");
 }
 
 void SinglePlayerState::InitializeVariables()
@@ -554,8 +559,11 @@ void SinglePlayerState::InitializeCurrentStage()
 	ResetPlayerPosition();
 	m_player1->SetProtected(5);
 
-	++m_currentStageNumber;
 	m_gameStatus = GameStatus::CurrentStage;
+
+	logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Initialized stage " + std::to_string(m_currentStageNumber) + ".");
+
+	++m_currentStageNumber;
 }
 
 void SinglePlayerState::ResetPlayerPosition()
@@ -566,7 +574,10 @@ void SinglePlayerState::ResetPlayerPosition()
 void SinglePlayerState::CheckForGameOver()
 {
 	if (!m_map->GetBaseStatus())
+	{
 		m_gameStatus = GameStatus::GameOver;
+		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Game over.");
+	}
 }
 
 void SinglePlayerState::CheckForNextStage()
@@ -575,11 +586,15 @@ void SinglePlayerState::CheckForNextStage()
 	{
 		m_gameStatus = GameStatus::ScoreScreen;
 		UpdateScoreBackground();
+
+		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Finished stage.");
 	}
 }
 
 void SinglePlayerState::ActivatePowerUp(PowerUpType powerUp)
 {
+
+	logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Picked up power-up.");
 	switch (powerUp)
 	{
 	case PowerUpType::Grenade:
@@ -646,6 +661,7 @@ void SinglePlayerState::DoTankBulletCollision(Player* player, Bullet* bullet,con
 				if (tank->DropPowerUp())
 					m_powerUps.push_back(m_powerUpSpawner->SpawnNext());
 				delete tank;
+				logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Player destroyed EnemyTank.");
 				UpdateEnemyLives();
 			}
 			return;

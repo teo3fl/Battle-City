@@ -3,6 +3,8 @@
 
 Game::Game()
 {
+	logger.Log(Logger::Level::Info, "GAME: Opened game.");
+
 	InitializeVariables();
 	InitializeGraphics();
 	InitializeWindow();
@@ -66,6 +68,7 @@ void Game::InitializeKeys()
 void Game::InitializeStates()
 {
 	m_states = new std::stack<State*>();
+	logger.Log(Logger::Level::Info, "Game: Pushed MainMenuState on the state stack.");
 	m_states->push(new MainMenuState(m_window, &m_supportedKeys, m_states));
 }
 
@@ -130,5 +133,7 @@ void Game::Run()
 		Update();
 		Render();
 	}
+
+	logger.Log(Logger::Level::Info,"GAME: Closed game.\n\n");
 }
 
