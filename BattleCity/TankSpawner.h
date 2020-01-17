@@ -27,5 +27,8 @@ private:
 
 	float m_interval;
 	float m_timer;
+
+public:
+	std::shared_ptr<AiMap> m_aiMap;
 };
 

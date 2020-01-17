@@ -108,6 +108,7 @@ Tank* TankSpawner::CreateTank(uint8_t type)
 
 	sf::Vector2f location = m_spawnPoints[GetCurrentSpawningPoint()];
 	tank->SetPosition(location.x, location.y);
+	tank->m_aiMap = m_aiMap;
 	return tank;
 
 }

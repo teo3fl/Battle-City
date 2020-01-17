@@ -403,11 +403,18 @@ void SinglePlayerState::InitializeMap()
 	m_mapStages[1] = "../External/Resources/Config/map_stage2.ini";
 	m_mapStages[2] = "../External/Resources/Config/map_stage3.ini";
 	m_mapStages[3] = "../External/Resources/Config/map_stage4.ini";
+
+	m_aiMapStages.resize(4);
+	m_aiMapStages[0] = "../External/Resources/Config/map_stage1_ai.ini";
+	m_aiMapStages[1] = "../External/Resources/Config/map_stage2_ai.ini";
+	m_aiMapStages[2] = "../External/Resources/Config/map_stage3_ai.ini";
+	m_aiMapStages[3] = "../External/Resources/Config/map_stage4_ai.ini";
 }
 
 void SinglePlayerState::InitializeTankSpawner()
 {
 	m_spawner = new TankSpawner(m_numberOfEnemies, 1);
+	m_spawner->m_aiMap = m_map->m_aiMap;
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -482,7 +489,6 @@ void SinglePlayerState::InitializeEnemyLives()
 		m_enemyLives[x].setPosition(
 			sf::Vector2f(coordX + size + 5, coordY)
 		);
-
 	}
 }
 
@@ -514,7 +520,8 @@ void SinglePlayerState::LoadMap(uint8_t stage)
 	{
 		m_map->Clear();
 	}
-	m_map->LoadFromFile(m_mapStages[stage-1]);
+	m_map->LoadFromFile(m_mapStages[stage - 1]);
+	m_map->m_aiMap->LoadFromFile(m_aiMapStages[stage - 1]);
 }
 
 void SinglePlayerState::LoadTankSpawner(uint8_t stage)

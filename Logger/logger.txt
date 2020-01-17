@@ -53,3 +53,126 @@
 [Info] GAME: Closed game.
 
 
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Exited MainMenuState.
+[Info] GAME: Closed game.
+
+
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Exited MainMenuState.
+[Info] GAME: Closed game.
+
+
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] GAME: Opened game.
+[Info] Game: Pushed MainMenuState on the state stack.
+[Info] MAIN_MENU_STATE: Entered MainMenuState.
+[Info] MAIN_MENU_STATE: Pushed SinglePlayerState on the state stack.
+[Info] SINGLE_PLAYER_STATE: Entered SinglePlayerState.
+[Info] SINGLE_PLAYER_STATE: Started game.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Initialized stage 1.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SPAWNER: Spawned object.
+[Info] SINGLE_PLAYER_STATE: Exited SinglePlayerState.
+[Info] MAIN_MENU_STATE: Exited MainMenuState.
+[Info] GAME: Closed game.
+
+

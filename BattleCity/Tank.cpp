@@ -5,6 +5,7 @@ Tank::Tank()
 {
 	m_bullet = nullptr;
 	m_dropPowerUp = false;
+	m_aiMap = nullptr;
 	m_bulletHealth = 1;
 }
 

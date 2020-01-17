@@ -126,6 +126,9 @@
     <ClCompile Include="BasicTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AiMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="BasicTile.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AiMap.h">
+      <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
