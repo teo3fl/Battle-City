@@ -35,6 +35,5 @@ namespace Tests
 			PowerTank powerTank;
 			Assert::IsTrue(powerTank.GetPoints() == 300);
 		}
-
 	};
 }

@@ -18,13 +18,16 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TankTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BulletTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTankTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
