@@ -29,7 +29,7 @@ protected:
 protected:
 	std::string m_type;
 	uint16_t m_points;
-	uint8_t m_health;
+	uint8_t m_health : 1;
 	bool m_dropPowerUp;
 
 	uint8_t m_bulletHealth : 2;

@@ -34,7 +34,6 @@ private:
 	std::string m_name;
 	uint16_t m_lives : 9;
 	uint32_t m_score : 24;
-	uint8_t m_health : 1;
 	uint8_t m_offensivePower : 2;
 
 	bool m_enableSecondBullet;

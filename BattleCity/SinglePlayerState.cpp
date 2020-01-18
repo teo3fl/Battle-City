@@ -993,8 +993,8 @@ void SinglePlayerState::Update(const float& dt)
 			CheckForGameOver();
 		UpdateTankBulletCollision(m_player1, dt);
 		UpdatePlayerBulletCollision(m_player1, dt);
-		//if (m_player1->GetHealth() < 1)              y u no work?
-			//ResetPlayer1Position();
+		if (m_player1->GetHealth() < 1)
+			ResetPlayer1Position();
 
 		UpdatePowerUpCollision(m_player1, dt);
 		UpdateTankSpawner(dt);
