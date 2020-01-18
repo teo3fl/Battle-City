@@ -42,7 +42,7 @@ protected:
 	void LoadMap(uint8_t stage);
 	void LoadTankSpawner(uint8_t stage);
 	void LoadPowerUpSpawner();
-	virtual void ResetPlayerPosition();
+	virtual void ResetPlayer1Position();
 	void CheckForGameOver(); 
 	void CheckForNextStage();
 	void ActivatePowerUp(PowerUpType powerUp);
@@ -96,6 +96,7 @@ protected:
 	void UpdatePlayer1Movement(const float& dt);
 	void UpdatePlayer1Fire(const float& dt);
 	void UpdatePlayer1Bullets(const float& dt);
+	void UpdateEnemyBullets(const float& dt);
 	void UpdateEnemies(const float& dt);
 	void UpdateTankSpawner(const float& dt);
 	void UpdateMap(const float& dt);
@@ -103,6 +104,7 @@ protected:
 	void UpdateScoreBackground();
 	void UpdatePowerUpCollision(Player* player, const float& dt);
 	void UpdateTankBulletCollision(Player* player, const float& dt);
+	void UpdatePlayerBulletCollision(Player* player, const float& dt);
 	void UpdateEnemyLives();
 	void UpdatePowerUpsAppearance(const float& dt);
 	void UpdateTimerPowerUp(const float& dt);

@@ -563,7 +563,7 @@ void SinglePlayerState::InitializeCurrentStage()
 		m_player1->DestroyBullet(bullet);
 
 
-	ResetPlayerPosition();
+	ResetPlayer1Position();
 	m_player1->SetProtected(5);
 
 	m_gameStatus = GameStatus::CurrentStage;
@@ -573,14 +573,14 @@ void SinglePlayerState::InitializeCurrentStage()
 	++m_currentStageNumber;
 }
 
-void SinglePlayerState::ResetPlayerPosition()
+void SinglePlayerState::ResetPlayer1Position()
 {
 	m_player1->SetPosition(340, 855);
 }
 
 void SinglePlayerState::CheckForGameOver()
 {
-	if (!m_map->GetBaseStatus())
+	if (!m_map->GetBaseStatus() || m_player1->GetLives() < 0)
 	{
 		m_gameStatus = GameStatus::GameOver;
 		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Game over.");
@@ -728,11 +728,26 @@ void SinglePlayerState::UpdatePlayer1Bullets(const float& dt)
 		bullet->Update(dt);
 }
 
+void SinglePlayerState::UpdateEnemyBullets(const float& dt)
+{
+	for (Tank* tank : m_enemies)
+	{
+		Bullet* bullet = tank->GetBullet();
+		if (bullet)
+			bullet->Update(dt);
+	}
+}
+
 void SinglePlayerState::UpdateEnemies(const float& dt)
 {
 	if (!m_enemies.empty())
 		for (Tank* tank : m_enemies)
+		{
 			tank->Update(dt);
+			Bullet* bullet = tank->GetBullet();
+			if (bullet)
+				bullet->Update(dt);
+		}
 }
 
 void SinglePlayerState::UpdateTankSpawner(const float& dt)
@@ -745,13 +760,25 @@ void SinglePlayerState::UpdateMap(const float& dt)
 {
 	if (m_map->IsLoaded())
 	{
+		Bullet* bullet;
+
+		// update map for player1
 		m_map->UpdateTank(m_player1, dt);
-		Bullet* bullet = m_player1->GetBullet();
+		bullet = m_player1->GetBullet();
 		if (bullet)
 			m_map->UpdateBullet(m_player1, bullet, dt);
 		bullet = m_player1->GetSecondaryBullet();
 		if (bullet)
 			m_map->UpdateBullet(m_player1, bullet, dt);
+
+		// update map for enemy tanks
+		for (Tank* tank : m_enemies)
+		{
+			m_map->UpdateTank(tank, dt);
+			bullet = tank->GetBullet();
+			if (bullet)
+				m_map->UpdateBullet(tank, bullet, dt);
+		}
 	}
 	m_map->UpdateShovelPowerUp(dt);
 }
@@ -831,6 +858,19 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 		bullet = player->GetSecondaryBullet();
 		if (bullet)
 			DoTankBulletCollision(player, bullet, dt);
+	}
+}
+
+void SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float& dt)
+{
+	for (Tank* tank : m_enemies)
+	{
+		Bullet* bullet = tank->GetBullet();
+		if (bullet && CheckForCollision(player,bullet,dt))
+		{
+			player->DecreaseHealth(bullet->GetHealth());
+			tank->DestroyBullet(bullet);
+		}
 	}
 }
 
@@ -952,6 +992,10 @@ void SinglePlayerState::Update(const float& dt)
 		if (m_map->IsLoaded())
 			CheckForGameOver();
 		UpdateTankBulletCollision(m_player1, dt);
+		UpdatePlayerBulletCollision(m_player1, dt);
+		//if (m_player1->GetHealth() < 1)              y u no work?
+			//ResetPlayer1Position();
+
 		UpdatePowerUpCollision(m_player1, dt);
 		UpdateTankSpawner(dt);
 		CheckForNextStage();
