@@ -13,7 +13,7 @@ TileMap::TileMap(uint16_t width, uint16_t height) :
 	m_lowerRightCorner.y = m_upperLeftCorner.y + 832;
 
 	m_map.resize(m_height);
-	for (int x = 0; x < m_height; x++)
+	for (auto x = 0; x < m_height; x++)
 		m_map[x].resize(m_width);
 
 	m_aiMap = std::move(std::make_shared<AiMap>(AiMap (m_width, m_height)));
@@ -30,8 +30,8 @@ TileMap::~TileMap()
 
 void TileMap::Clear()
 {
-	for (int x = 0; x < m_height; x++)
-		for (int y = 0; y < m_width; y++)
+	for (auto x = 0; x < m_height; x++)
+		for (auto y = 0; y < m_width; y++)
 			if (m_map[x][y])
 				delete m_map[x][y];
 }
@@ -40,12 +40,12 @@ void TileMap::LoadFromFile(const std::string& fileName)
 {
 	std::ifstream in (fileName);
 
-	uint16_t borderX = m_upperLeftCorner.x;
-	uint16_t borderY = m_upperLeftCorner.y;
+	const uint16_t borderX = m_upperLeftCorner.x;
+	const uint16_t borderY = m_upperLeftCorner.y;
 
 	if (in.is_open())
 	{
-		uint8_t tileSize = 16;
+		const uint8_t tileSize = 16;
 		for (uint16_t y = 0; y < m_height; y++)
 		{
 			for (uint16_t x = 0; x < m_width; x++)
@@ -97,7 +97,7 @@ void TileMap::LoadFromFile(const std::string& fileName)
 				default:
 				{
 					throw "ERROR::TILE_MAP::INVALID_TILE_TYPE";
-					break;
+					
 				}
 				}
 			}
@@ -105,7 +105,7 @@ void TileMap::LoadFromFile(const std::string& fileName)
 	}
 	else
 	{
-		throw "ERROR::TILE_MAP::COULD NOT LOAD FROM FILE::FILENAME: " + fileName;
+		throw fileName + "ERROR::TILE_MAP::COULD NOT LOAD FROM FILE::FILENAME: ";
 	}
 
 	in.close();
@@ -125,7 +125,7 @@ bool TileMap::GetBaseStatus()
 	return false;
 }
 
-bool TileMap::IsLoaded()
+bool TileMap::IsLoaded() const
 {
 	return m_loaded;
 }
@@ -150,10 +150,10 @@ void TileMap::FortifyBaseWalls()
 		sf::Vector2i(28,50)
 	};
 
-	for (uint8_t i = 0; i < coordinates.size(); ++i)
+	for (auto& coordinate : coordinates)
 	{
-		int row = coordinates[i].x;
-		int column = coordinates[i].y;
+		const int row = coordinate.x;
+		const int column = coordinate.y;
 
 		// one Steel tile = 4 Brick tiles in 2x2 squares
 
@@ -162,27 +162,27 @@ void TileMap::FortifyBaseWalls()
 			delete m_map[row][column];
 			m_map[row][column] = nullptr;
 		}
-		if (m_map[row][column + 1] && m_map[row][column+1]->GetType() == "Brick") // upper right
+		if (m_map[row][1 + column] && m_map[row][1+column]->GetType() == "Brick") // upper right
 		{
-			delete m_map[row][column+1];
-			m_map[row][column+1] = nullptr;
+			delete m_map[row][1+column];
+			m_map[row][1+column] = nullptr;
 		}
 
-		if (m_map[row + 1][column] && m_map[row+1][column]->GetType() == "Brick") // lower left
+		if (m_map[1 + row][column] && m_map[1+row][column]->GetType() == "Brick") // lower left
 		{
-			delete m_map[row+1][column];
+			delete m_map[1+row][column];
 			m_map[row+1][column] = nullptr;
 		}
 
-		if (m_map[row + 1][column + 1] && m_map[row+1][column+1]->GetType() == "Brick") // lower right
+		if (m_map[1 + row][1 + column] && m_map[1+row][1+column]->GetType() == "Brick") // lower right
 		{
-			delete m_map[row+1][column+1];
-			m_map[row+1][column+1] = nullptr;
+			delete m_map[1+row][1+column];
+			m_map[1+row][1+column] = nullptr;
 		}
 
-		uint8_t tileSize = 16;
-		uint16_t borderX = m_upperLeftCorner.x;
-		uint16_t borderY = m_upperLeftCorner.y;
+		const uint8_t tileSize = 16;
+		const uint16_t borderX = m_upperLeftCorner.x;
+		const uint16_t borderY = m_upperLeftCorner.y;
 
 		m_map[row][column] = new Steel(row * tileSize + borderX, column * tileSize + borderY, m_textures["STEEL"]);
 	}
@@ -202,14 +202,14 @@ void TileMap::RevertBaseWalls()
 		sf::Vector2i(28,50)
 	};
 
-	uint8_t tileSize = 16;
-	uint16_t borderX = m_upperLeftCorner.x;
-	uint16_t borderY = m_upperLeftCorner.y;
+	const uint8_t tileSize = 16;
+	const uint16_t borderX = m_upperLeftCorner.x;
+	const uint16_t borderY = m_upperLeftCorner.y;
 
-	for (uint8_t i = 0; i < coordinates.size(); ++i)
+	for (auto& coordinate : coordinates)
 	{
-		int row = coordinates[i].x;
-		int column = coordinates[i].y;
+		const auto row = coordinate.x;
+		const auto column = coordinate.y;
 
 		delete m_map[row][column];
 
@@ -220,17 +220,17 @@ void TileMap::RevertBaseWalls()
 
 
 		// upper right
-		m_map[row][column + 1] = new Brick(row * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
+		m_map[row][1 + column] = new Brick(row * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
 
 		// lower left
-		m_map[row + 1][column] = new Brick((row + 1) * tileSize + borderX, column * tileSize + borderY, m_textures["BRICK"]);
+		m_map[1 + row][column] = new Brick((row + 1) * tileSize + borderX, column * tileSize + borderY, m_textures["BRICK"]);
 
 		// lower right
-		m_map[row + 1][column + 1] = new Brick((row + 1) * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
+		m_map[1 + row][1 + column] = new Brick((row + 1) * tileSize + borderX, (column + 1) * tileSize + borderY, m_textures["BRICK"]);
 	}
 }
 
-void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt)
+void TileMap::UpdateTankBorderCollision(Tank* tank, const float& dt) const
 {
 	if (tank->GetPosition().x < m_upperLeftCorner.x)
 	{
@@ -260,8 +260,8 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 	for (uint16_t y = 0; y < m_width; ++y)
 		for (uint16_t x = 0; x < m_height; ++x)
 			if (m_map[x][y])
-			{
-				sf::FloatRect entityBounds = tank->GetGlobalBounds();
+			{		
+				const sf::FloatRect entityBounds = tank->GetGlobalBounds();
 				sf::FloatRect nextPositionBounds = tank->GetNextPositionBounds(dt);
 				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
@@ -276,8 +276,8 @@ void TileMap::UpdateTankTileCollision(Tank* tank, const float& dt)
 							&& entityBounds.left + entityBounds.width > wallBounds.left
 							)
 						{
-							tank->StopVelocityY();
 							tank->StopVelocityX();
+							tank->StopVelocityY();
 							tank->Push(sf::Vector2f(0.f, -1.f), dt);
 						}
 
@@ -346,7 +346,7 @@ void TileMap::UpdateShovelPowerUp(const float& dt)
 	}
 }
 
-bool TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt)
+bool TileMap::UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt) const
 {
 	if (bullet->GetPosition().x < m_upperLeftCorner.x)
 	{
@@ -380,7 +380,7 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 		for (uint16_t x = 0; x < m_height; ++x)
 			if (m_map[x][y])
 			{
-				sf::FloatRect bulletBounds = bullet->GetGlobalBounds();
+				const sf::FloatRect bulletBounds = bullet->GetGlobalBounds();
 				sf::FloatRect nextPositionBounds = bullet->GetNextPositionBounds(dt);
 				sf::FloatRect wallBounds = m_map[x][y]->GetGlobalBounds();
 
@@ -419,6 +419,8 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
+						 default :
+							break;
 						}
 						return;
 					}
@@ -453,6 +455,8 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
+						default:
+							break;
 						}
 						return;
 					}
@@ -487,6 +491,8 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
+						default:
+							break;
 						}
 						return;
 					}
@@ -521,6 +527,8 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
+						default:
+							break;
 						}
 						return;
 					}

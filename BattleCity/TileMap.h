@@ -10,28 +10,28 @@
 #include "Bullet.h"
 #include "Tank.h"
 
-class TileMap
+class TileMap final
 {
 public:
 	TileMap(uint16_t width, uint16_t height);
-	~TileMap();
+	virtual ~TileMap();
 
 	void Clear();
 
 	void LoadFromFile(const std::string& fileName);
 	void AddTexture(const std::string& textureName, const sf::Texture& texture);
 	bool GetBaseStatus();
-	bool IsLoaded();
+	bool IsLoaded() const;
 	void ActivateShovelPowerUp();
 	void FortifyBaseWalls();
 	void RevertBaseWalls();
 
-	void UpdateTankBorderCollision(Tank* tank, const float& dt);
+	void UpdateTankBorderCollision(Tank* tank, const float& dt) const;
 	void UpdateTankTileCollision(Tank* tank, const float& dt);
 	void UpdateTank (Tank* tank, const float& dt);
 	void UpdateShovelPowerUp(const float& dt);
 
-	bool UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt);
+	bool UpdateBulletBorderCollision(Tank* tank, Bullet* bullet, const float& dt) const;
 	void UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float& dt);
 	void UpdateBullet(Tank* tank, Bullet* bullet, const float& dt);
 
