@@ -11,18 +11,29 @@ namespace Tests
 	{
 	public:
 
-		TEST_METHOD(DefaultConstructor)
+		TEST_METHOD(Position)
 		{
 			sf::Texture texture;
-			Bullet bullet(0,0,1,sf::Vector2f(0,1),texture,BulletType::Normal,BulletSource::Enemy);
+			Bullet bullet(0, 0, 1, sf::Vector2f(0, 1), texture, BulletType::Normal, BulletSource::Enemy);
+			Assert::IsTrue(bullet.GetPosition() == sf::Vector2f(0,0));
+		}
 
-			if ((BulletSource::Enemy == bullet.GetSource()))
-				Assert::IsTrue;
-			else
-				Assert::IsTrue(BulletSource::Enemy == bullet.GetSource());
+		TEST_METHOD(Health)
+		{
+			sf::Texture texture;
+			Bullet bullet(0, 0, 1, sf::Vector2f(0, 1), texture, BulletType::Normal, BulletSource::Enemy);
+			uint8_t expectedHealth = 1;
+			Assert::IsTrue(bullet.GetHealth() == expectedHealth);
+		}
+		TEST_METHOD(DecreasingHealth)
+		{
+			sf::Texture texture;
+			Bullet bullet(0, 0, 2, sf::Vector2f(0, 1), texture, BulletType::Normal, BulletSource::Enemy);
+			bullet.DecreaseHealth(1);
+			uint8_t expectedHealth = 1;
+			Assert::IsTrue(bullet.GetHealth() == expectedHealth);
 		}
 	};
-
 }
 
 
