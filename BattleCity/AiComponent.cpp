@@ -42,13 +42,13 @@ double AiComponent::CalculateHValue(uint16_t m_currentRow, int16_t m_currentCol,
 }
 
 // A Utility Function to trace the path from the source 
-// to destination 
+// to destination
 
-void tracePath(cell cellDetails[][AiComponent::m_row], Pair dest)
+void AiComponent::tracePath(cell cellDetails[][AiComponent::m_row], Pair dest)
 {
 	printf("\nThe Path is ");
-	int row = dest.first;
-	int col = dest.second;
+	auto row = dest.first;
+	auto col = dest.second;
 
 	std::stack<Pair> Path;
 
@@ -56,8 +56,8 @@ void tracePath(cell cellDetails[][AiComponent::m_row], Pair dest)
 		&& cellDetails[row][col].parent_j == col))
 	{
 		Path.push(std::make_pair(row, col));
-		int temp_row = cellDetails[row][col].parent_i;
-		int temp_col = cellDetails[row][col].parent_j;
+		const auto temp_row = cellDetails[row][col].parent_i;
+		const auto temp_col = cellDetails[row][col].parent_j;
 		row = temp_row;
 		col = temp_col;
 	}
@@ -208,7 +208,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i - 1][j].parent_i = i;
 				cellDetails[i - 1][j].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -259,7 +259,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i + 1][j].parent_i = i;
 				cellDetails[i + 1][j].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -308,7 +308,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i][j + 1].parent_i = i;
 				cellDetails[i][j + 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -360,7 +360,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i][j - 1].parent_i = i;
 				cellDetails[i][j - 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -412,7 +412,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i - 1][j + 1].parent_i = i;
 				cellDetails[i - 1][j + 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -464,7 +464,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i - 1][j - 1].parent_i = i;
 				cellDetails[i - 1][j - 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -514,7 +514,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i + 1][j + 1].parent_i = i;
 				cellDetails[i + 1][j + 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
@@ -566,7 +566,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 				cellDetails[i + 1][j - 1].parent_i = i;
 				cellDetails[i + 1][j - 1].parent_j = j;
 				printf("The destination cell is found\n");
-				tracePath(cellDetails, dest);
+				AiComponent::tracePath(cellDetails, dest);
 				foundDest = true;
 				return;
 			}
