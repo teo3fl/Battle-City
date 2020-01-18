@@ -869,6 +869,7 @@ void SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float&
 		if (bullet && CheckForCollision(player,bullet,dt))
 		{
 			player->DecreaseHealth(bullet->GetHealth());
+			logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Player1 got shot by EnemyTank.");
 			tank->DestroyBullet(bullet);
 		}
 	}
