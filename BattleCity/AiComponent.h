@@ -23,7 +23,7 @@ public:
 	static bool IsValid(const uint16_t& m_currentRow, const uint16_t& m_currentCol);
 	static bool IsUnBlocked(const uint16_t& m_currentRow, const uint16_t& m_currentCol);
 	static bool IsDestination(const uint16_t& m_currentRow, const uint16_t& m_currentCol, Pair dest);
-	double CalculateHValue(uint16_t m_currentRow, int16_t m_currentCol, Pair dest) const;
+	static double CalculateHValue(uint16_t m_currentRow, int16_t m_currentCol, Pair dest);
 	void TracePath(cell cellDetails[][m_row], Pair dest);
 	
 	uint16_t m_currentRow{};

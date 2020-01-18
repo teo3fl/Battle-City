@@ -35,7 +35,7 @@ bool AiComponent::IsUnBlocked(const uint16_t& m_currentRow, const uint16_t& m_cu
 }
 
 
-double AiComponent::CalculateHValue(uint16_t m_currentRow, int16_t m_currentCol, Pair dest) const
+double AiComponent::CalculateHValue(uint16_t m_currentRow, int16_t m_currentCol, Pair dest)
 {
 	return static_cast<double>(sqrt((m_currentRow - dest.first) * (m_currentRow - dest.first)
 		+ (m_currentCol - dest.second) * (m_currentCol - dest.second)));
@@ -317,7 +317,7 @@ void aStarSearch(int grid[][AiComponent::m_col], Pair src, Pair dest)
 			// list or if it is blocked, then ignore it. 
 			// Else do the following 
 			else if (closedList[i][j + 1] == false &&
-				AiComponent::IsUnBlocked(grid, i, j + 1) == true)
+				AiComponent::IsUnBlocked(i, j + 1) == true)
 			{
 				gNew = cellDetails[i][j].g + 1.0;
 				hNew = AiComponent::CalculateHValue(i, j + 1, dest);
