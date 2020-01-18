@@ -129,6 +129,9 @@
     <ClCompile Include="AiMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="AiComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="AiMap.h">
       <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="AiComponent.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

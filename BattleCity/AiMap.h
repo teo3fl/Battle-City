@@ -10,10 +10,11 @@ public:
 
 	void Clear(uint16_t x, uint16_t y);
 
+public:
+	std::vector<std::vector<uint8_t>> m_map;
+
 private:
 	size_t m_width;
 	uint16_t m_height;
-	std::vector<std::vector<uint8_t>> m_map;
-
 };
 
