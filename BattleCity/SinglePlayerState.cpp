@@ -407,7 +407,7 @@ void SinglePlayerState::InitializeMap()
 
 void SinglePlayerState::InitializeTankSpawner()
 {
-	m_spawner = new TankSpawner(m_numberOfEnemies, 1);
+	m_spawner = new TankSpawner(m_numberOfEnemies, 10);
 
 	m_spawner->AddTexture(m_textures["BULLET_UP"], "BULLET_UP");
 	m_spawner->AddTexture(m_textures["BULLET_DOWN"], "BULLET_DOWN");
@@ -556,7 +556,6 @@ void SinglePlayerState::InitializeCurrentStage()
 
 
 	ResetPlayer1Position();
-	m_player1->SetProtected(5);
 
 	m_gameStatus = GameStatus::CurrentStage;
 
@@ -568,14 +567,21 @@ void SinglePlayerState::InitializeCurrentStage()
 void SinglePlayerState::ResetPlayer1Position()
 {
 	m_player1->SetPosition(340, 855);
+	m_player1->SetProtected(5);
 }
 
 void SinglePlayerState::CheckForGameOver()
 {
-	if (!m_map->GetBaseStatus() || m_player1->GetLives() < 0)
+	if (!m_map->GetBaseStatus())
 	{
 		m_gameStatus = GameStatus::GameOver;
-		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Game over.");
+		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Game over - base destroyed.");
+	}
+
+	if(m_player1->GetLives() < 1)
+	{
+		m_gameStatus = GameStatus::GameOver;
+		logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Game over - Player1 destroyed.");
 	}
 }
 
@@ -734,12 +740,7 @@ void SinglePlayerState::UpdateEnemies(const float& dt)
 {
 	if (!m_enemies.empty())
 		for (Tank* tank : m_enemies)
-		{
 			tank->Update(dt);
-			Bullet* bullet = tank->GetBullet();
-			if (bullet)
-				bullet->Update(dt);
-		}
 }
 
 void SinglePlayerState::UpdateTankSpawner(const float& dt)
@@ -853,7 +854,7 @@ void SinglePlayerState::UpdateTankBulletCollision(Player* player, const float& d
 	}
 }
 
-void SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float& dt)
+bool SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float& dt)
 {
 	for (Tank* tank : m_enemies)
 	{
@@ -863,8 +864,10 @@ void SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float&
 			player->DecreaseHealth(bullet->GetHealth());
 			logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Player1 got shot by EnemyTank.");
 			tank->DestroyBullet(bullet);
+			return true;
 		}
 	}
+	return false;
 }
 
 void SinglePlayerState::UpdatePowerUpCollision(Player* player, const float& dt)
@@ -970,24 +973,29 @@ void SinglePlayerState::Update(const float& dt)
 
 	if (m_gameStatus == GameStatus::CurrentStage)
 	{
+		if (m_map->IsLoaded())
+			CheckForGameOver();
+
 		UpdatePowerUpsAppearance(dt);
 		m_player1->Update(dt);
 
 		UpdateTimerPowerUp(dt);
 		if (!m_timerPowerUp)
 			UpdateEnemies(dt);
+		UpdateEnemyBullets(dt);
 
 		UpdatePlayer1Bullets(dt);
 
 		UpdatePlayer1Fire(dt);
 		UpdateMap(dt);
 
-		if (m_map->IsLoaded())
-			CheckForGameOver();
 		UpdateTankBulletCollision(m_player1, dt);
-		UpdatePlayerBulletCollision(m_player1, dt);
-		if (m_player1->GetHealth() < 1)
+		
+		if (UpdatePlayerBulletCollision(m_player1, dt))
+		{
 			ResetPlayer1Position();
+			m_player1Lives.setString(std::to_string(m_player1->GetLives()));
+		}
 
 		UpdatePowerUpCollision(m_player1, dt);
 		UpdateTankSpawner(dt);

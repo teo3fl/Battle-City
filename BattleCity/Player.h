@@ -24,6 +24,7 @@ public:
 	bool CanFireSecondaryBullet();
 	Bullet* GetSecondaryBullet() const;
 	void DestroyBullet(Bullet* bullet) override;
+	virtual void DecreaseHealth(uint8_t value) override;
 
 	bool IsProtected();
 

@@ -6,6 +6,12 @@ Tank::Tank()
 	m_bullet = nullptr;
 	m_dropPowerUp = false;
 	m_bulletHealth = 1;
+
+	m_timer = 0;
+	ChangeMaxTimer();
+
+	dirX = 0;
+	dirY = 1;
 }
 
 Tank::~Tank()
@@ -75,6 +81,77 @@ void Tank::Fire()
 {
 	if (!m_bullet)
 		m_bullet = CreateBullet();
+}
+
+std::pair<int, int> Tank::GenerateMovementDirection()
+{
+	static int option = 0;
+
+	int x = 0;
+	int y = 0;
+
+	switch (option++)
+	{
+	case 0:
+	{
+		x = 1;
+		SetFacingDirection("RIGHT");
+		break;
+	}
+	case 1:
+	{
+		x = -1;
+		SetFacingDirection("LEFT");
+		break;
+	}
+	case 2:
+	{
+		y = 1;
+		SetFacingDirection("DOWN");
+		break;
+	}
+	case 3:
+	{
+		y = -1;
+		SetFacingDirection("UP");
+		break;
+	}
+	}
+
+	return std::make_pair(x, y);
+}
+
+bool Tank::SwitchMovementDirection(const float& dt)
+{
+	m_timer += dt;
+	if (m_timer >= m_maxTimer)
+	{
+		m_timer = 0;
+		ChangeMaxTimer();
+		return true;
+	}
+	return false;
+}
+
+void Tank::ChangeMaxTimer()
+{
+	srand(NULL);
+	m_maxTimer = rand()%5+3;
+}
+
+void Tank::Update(const float& dt)
+{
+	if (SwitchMovementDirection(dt))
+	{
+		std::pair<int,int> pair = std::move(GenerateMovementDirection());
+		dirX = pair.first;
+		dirY = pair.second;
+	}
+	Fire();
+	m_movementComponent->Move(dirX, dirY, dt);
+
+	m_movementComponent->Update(dt);
+	m_hitbox->Update();
 }
 
 Bullet* Tank::CreateBullet()

@@ -104,7 +104,7 @@ protected:
 	void UpdateScoreBackground();
 	void UpdatePowerUpCollision(Player* player, const float& dt);
 	void UpdateTankBulletCollision(Player* player, const float& dt);
-	void UpdatePlayerBulletCollision(Player* player, const float& dt);
+	bool UpdatePlayerBulletCollision(Player* player, const float& dt);
 	void UpdateEnemyLives();
 	void UpdatePowerUpsAppearance(const float& dt);
 	void UpdateTimerPowerUp(const float& dt);

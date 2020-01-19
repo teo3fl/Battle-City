@@ -29,7 +29,7 @@ class Entity{
 		void Push(sf::Vector2f direction, const float& dt);
 		void SetDeceleration(uint16_t deceleration);
 
-		virtual void Update(const float& dt);
+		virtual void Update(const float& dt) = 0;
 		virtual void Render(sf::RenderTarget* target = nullptr);
 protected:
 	sf::Sprite m_sprite;

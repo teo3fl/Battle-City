@@ -103,12 +103,6 @@ void Entity::SetDeceleration(uint16_t deceleration)
 	m_movementComponent->SetDeceleration(deceleration);
 }
 
-void Entity::Update(const float& dt)
-{
-	m_movementComponent->Update(dt);
-	m_hitbox->Update();
-}
-
 void Entity::Render(sf::RenderTarget* target)
 {
 	target->draw(m_sprite);

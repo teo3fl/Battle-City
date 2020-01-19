@@ -17,10 +17,15 @@ public :
 	void SetDropPowerUp();
 
 	void SetFacingDirection(const std::string& direction);
-	void DecreaseHealth(uint8_t value); 
+	virtual void DecreaseHealth(uint8_t value); 
 	virtual void DestroyBullet(Bullet* bullet);
 
-	virtual void Fire() ;
+	virtual void Fire();
+	std::pair<int,int> GenerateMovementDirection();
+	bool SwitchMovementDirection(const float& dt);
+	void ChangeMaxTimer();
+
+	virtual void Update(const float& dt) override;
 
 protected:
 	Bullet* CreateBullet();
@@ -36,5 +41,11 @@ protected:
 	Bullet* m_bullet;
 
 	std::string m_facingDirection;
+
+	float m_timer;
+	float m_maxTimer;
+
+	int dirX;
+	int dirY;
 };
 

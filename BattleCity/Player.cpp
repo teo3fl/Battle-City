@@ -144,6 +144,12 @@ void Player::DestroyBullet(Bullet* bullet)
 
 }
 
+void Player::DecreaseHealth(uint8_t value)
+{
+	if (m_health <= value)
+		--m_lives;
+}
+
 bool Player::IsProtected()
 {
 	return m_protected;
