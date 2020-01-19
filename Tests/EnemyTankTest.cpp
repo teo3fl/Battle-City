@@ -12,11 +12,6 @@ namespace Tests
 	TEST_CLASS(EnemyTankTest)
 	{
 	public:
-		TEST_METHOD(ArmorTankHealth)
-		{
-			ArmorTank armorTank;
-			Assert::IsTrue(armorTank.GetHealth()==4);
-		}
 
 		TEST_METHOD(BasicTankType)
 		{

@@ -55,9 +55,5 @@ private:
 	bool m_shovelPowerUp;
 	float m_shovelTime;
 	float m_shovelTimeMax;
-
-public:
-	// AI map
-	std::shared_ptr<AiMap> m_aiMap;
 };
 

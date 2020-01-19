@@ -135,8 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AiComponent.cpp" />
-    <ClCompile Include="AiMap.cpp" />
     <ClCompile Include="ArmorTank.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="BasicTank.cpp" />
@@ -176,8 +174,6 @@
     <ClCompile Include="Water.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AiComponent.h" />
-    <ClInclude Include="AiMap.h" />
     <ClInclude Include="ArmorTank.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="BasicTank.h" />

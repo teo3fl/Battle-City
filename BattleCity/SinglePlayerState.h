@@ -152,7 +152,6 @@ protected:
 	uint16_t m_mapHeight;
 	uint16_t m_mapWidth;
 	std::vector<std::string> m_mapStages;
-	std::vector<std::string> m_aiMapStages;
 	std::vector<std::string> m_spawnStages;
 
 	// power-ups

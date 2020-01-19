@@ -16,8 +16,6 @@ TileMap::TileMap(uint16_t width, uint16_t height) :
 	for (auto x = 0; x < m_height; x++)
 		m_map[x].resize(m_width);
 
-	m_aiMap = std::move(std::make_shared<AiMap>(AiMap (m_width, m_height)));
-
 	m_shovelPowerUp = false;
 	m_shovelTime = 0;
 	m_shovelTimeMax = 20;
@@ -402,7 +400,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							tank->DestroyBullet(bullet);
 							break;
 						}
@@ -415,7 +412,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
@@ -438,7 +434,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							tank->DestroyBullet(bullet);
 							break;
 						}
@@ -451,7 +446,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
@@ -474,7 +468,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							tank->DestroyBullet(bullet);
 							break;
 						}
@@ -487,7 +480,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}
@@ -510,7 +502,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							tank->DestroyBullet(bullet);
 							break;
 						}
@@ -523,7 +514,6 @@ void TileMap::UpdateBulletTileCollision(Tank* tank, Bullet* bullet, const float&
 						{
 							delete m_map[x][y];
 							m_map[x][y] = nullptr;
-							m_aiMap->Clear(x, y);
 							bullet->DecreaseHealth(tileHealth);
 							break;
 						}

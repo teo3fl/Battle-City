@@ -126,12 +126,6 @@
     <ClCompile Include="BasicTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AiMap.cpp">
-      <Filter>Map</Filter>
-    </ClCompile>
-    <ClCompile Include="AiComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brick.h">
@@ -225,12 +219,6 @@
       <Filter>Power-Ups</Filter>
     </ClInclude>
     <ClInclude Include="BasicTile.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AiMap.h">
-      <Filter>Map</Filter>
-    </ClInclude>
-    <ClInclude Include="AiComponent.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

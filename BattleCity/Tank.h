@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Bullet.h"
-#include "AiMap.h"
 
 class Tank : public Entity
 {
@@ -37,8 +36,5 @@ protected:
 	Bullet* m_bullet;
 
 	std::string m_facingDirection;
-
-public:
-	std::shared_ptr<AiMap> m_aiMap;
 };
 
