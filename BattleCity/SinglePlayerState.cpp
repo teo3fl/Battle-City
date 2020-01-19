@@ -40,7 +40,7 @@ void SinglePlayerState::InitializeVariables()
 	m_numberOfPowerUps = 3;
 	m_stages = 4;
 	m_timerPowerUp = false;
-	m_timerMaxValue = 10;
+	m_timerMaxValue = 5;
 	m_timerValue = 0;
 	m_enemies.reserve(m_numberOfEnemies);
 	m_powerUps.reserve(m_numberOfPowerUps);

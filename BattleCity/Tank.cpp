@@ -90,7 +90,7 @@ std::pair<int, int> Tank::GenerateMovementDirection()
 	int x = 0;
 	int y = 0;
 
-	switch (option++)
+	switch ((option++)%4)
 	{
 	case 0:
 	{
@@ -114,6 +114,11 @@ std::pair<int, int> Tank::GenerateMovementDirection()
 	{
 		y = -1;
 		SetFacingDirection("UP");
+		break;
+	}
+	default:
+	{
+		throw "ERROR::TANK::INVALID_OPTION";
 		break;
 	}
 	}

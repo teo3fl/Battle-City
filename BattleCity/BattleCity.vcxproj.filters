@@ -262,17 +262,5 @@
     <None Include="..\External\Resources\Config\high_score.ini">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\External\Resources\Config\map_stage1_ai.ini">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\External\Resources\Config\map_stage2_ai.ini">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\External\Resources\Config\map_stage3_ai.ini">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\External\Resources\Config\map_stage4_ai.ini">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>
