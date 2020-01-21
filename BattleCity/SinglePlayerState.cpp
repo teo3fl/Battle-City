@@ -859,10 +859,13 @@ bool SinglePlayerState::UpdatePlayerBulletCollision(Player* player, const float&
 	for (Tank* tank : m_enemies)
 	{
 		Bullet* bullet = tank->GetBullet();
-		if (bullet && CheckForCollision(player,bullet,dt))
+		if (bullet && CheckForCollision(player, bullet, dt))
 		{
-			player->DecreaseHealth(bullet->GetHealth());
-			logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Player1 got shot by EnemyTank.");
+			if(!player->IsProtected())
+		{
+				player->DecreaseHealth(bullet->GetHealth());
+				logger.Log(Logger::Level::Info, "SINGLE_PLAYER_STATE: Player1 got shot by EnemyTank.");
+		}
 			tank->DestroyBullet(bullet);
 			return true;
 		}
